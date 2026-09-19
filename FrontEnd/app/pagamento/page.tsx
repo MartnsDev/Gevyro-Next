@@ -80,7 +80,7 @@ function PagamentoInner() {
           <p className="text-[11px] font-bold uppercase tracking-[.14em] text-[#258c53]">Continue usando o Gevyro</p>
           <h1 className="mt-3 max-w-2xl text-3xl font-light leading-tight tracking-[-.04em] sm:text-5xl">Escolha o plano ideal para a <span className="italic text-[#258c53]">sua operação</span></h1>
           <p className="mt-4 max-w-xl text-sm leading-6 text-[#718078]">Seu acesso está aguardando a renovação. Selecione um plano e conclua a assinatura com segurança.</p>
-          {cancelado && <p className="mt-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">Pagamento cancelado. Nenhuma cobrança foi realizada; escolha um plano quando estiver pronto.</p>}
+          {cancelado && <p className="mt-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">O checkout foi interrompido. Consulte sua assinatura para verificar o status de eventual cobrança.</p>}
           {erro && <p role="alert" className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">{erro}</p>}
 
           <div className="mt-7 grid gap-3 sm:mt-9 sm:grid-cols-3 sm:gap-4">
@@ -112,8 +112,9 @@ function PagamentoInner() {
           <button type="button" onClick={assinar} disabled={processando || verificandoSessao || !email} className="flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#78d6a3] text-sm font-bold text-[#173323] hover:bg-[#8be0b1] disabled:cursor-not-allowed disabled:opacity-60">
             {processando ? <><Loader2 size={17} className="animate-spin" /> Abrindo checkout...</> : verificandoSessao ? <><Loader2 size={17} className="animate-spin" /> Verificando sessão...</> : <><CreditCard size={17} /> Assinar agora <ArrowRight size={16} /></>}
           </button>
-          <div className="mt-5 flex items-center justify-center gap-2 text-[11px] text-zinc-400"><ShieldCheck size={14} className="text-[#78d6a3]" /> Pagamento protegido pela Stripe</div>
-          <p className="mt-3 text-center text-[10px] leading-4 text-zinc-400">Assinatura mensal recorrente de R$ {plano.preco}. A primeira cobrança ocorre ao concluir o checkout da Stripe. A renovação continua até o cancelamento, conforme as condições exibidas antes da confirmação.</p>
+          <div className="mt-5 flex items-center justify-center gap-2 text-[11px] text-zinc-400"><ShieldCheck size={14} className="text-[#78d6a3]" /> Pagamento protegido pelo Mercado Pago</div>
+          <p className="mt-3 text-center text-[10px] leading-4 text-zinc-400">Assinatura mensal recorrente de R$ {plano.preco}. O acesso ao plano é liberado após a confirmação do pagamento pelo Mercado Pago. A renovação continua até o cancelamento, conforme as condições exibidas antes da confirmação.</p>
+          <Link href="/pagamento/assinatura" className="mt-4 block text-center text-xs text-[#78d6a3] underline">Consultar ou cancelar minha assinatura</Link>
           <p className="mt-3 text-center text-[10px] leading-4 text-zinc-500">Ao continuar, você concorda com os <Link href="/termos" className="underline hover:text-zinc-300">Termos de Uso</Link>, a <Link href="/privacidade" className="underline hover:text-zinc-300">Política de Privacidade</Link> e as <Link href="/cancelamento-reembolsos" className="underline hover:text-zinc-300">condições de cancelamento</Link>.</p>
         </aside>
       </div>

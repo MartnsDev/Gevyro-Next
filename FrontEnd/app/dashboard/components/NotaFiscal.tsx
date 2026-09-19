@@ -58,12 +58,15 @@ type ItemRascunho = {
   quantidade: number; valorUnitario: number; valorDesconto: number; csosn: string;
 };
 type RascunhoLocal = {
-  versao: 1; salvoEm: number; tipoNota: TipoNota; naturezaOp: string; formaPagamento: string;
+  versao: 2; salvoEm: number; tipoNota: TipoNota; naturezaOp: string; formaPagamento: string;
   clienteDoc: string; clienteNome: string; infoAdicionais: string; itens: ItemRascunho[];
+  nfseCompetencia: string; nfseMunicipioPrestacao: string; nfseCodigoTributacao: string;
+  nfseOpcaoSimples: number; nfseRegimeEspecial: number; nfseTributacaoIssqn: number;
+  nfseRetencaoIssqn: number; nfseAliquotaIssqn: string;
 };
 
 const RASCUNHO_TTL_MS = 2 * 60 * 60 * 1000;
-const chaveRascunho = (empresaId: number) => `gevyro:fiscal:rascunho:v1:${empresaId}`;
+const chaveRascunho = (empresaId: number) => `gevyro:fiscal:rascunho:v2:${empresaId}`;
 const textoSeguro = (valor: unknown, limite: number) => typeof valor === "string" ? valor.slice(0, limite) : "";
 const numeroSeguro = (valor: unknown, padrao = 0) => {
   const numero = Number(valor);
@@ -184,6 +187,14 @@ export default function NotaFiscalPage() {
   const [buscandoCnpj, setBuscandoCnpj] = useState(false);
   const [rascunhoPronto, setRascunhoPronto] = useState(false);
   const [rascunhoSalvoEm, setRascunhoSalvoEm] = useState<number | null>(null);
+  const [nfseCompetencia, setNfseCompetencia] = useState(new Date().toISOString().slice(0, 10));
+  const [nfseMunicipioPrestacao, setNfseMunicipioPrestacao] = useState("");
+  const [nfseCodigoTributacao, setNfseCodigoTributacao] = useState("");
+  const [nfseOpcaoSimples, setNfseOpcaoSimples] = useState(3);
+  const [nfseRegimeEspecial, setNfseRegimeEspecial] = useState(0);
+  const [nfseTributacaoIssqn, setNfseTributacaoIssqn] = useState(1);
+  const [nfseRetencaoIssqn, setNfseRetencaoIssqn] = useState(1);
+  const [nfseAliquotaIssqn, setNfseAliquotaIssqn] = useState("");
 
   const [arquivoCert, setArquivoCert] = useState<File | null>(null);
   const [senhaCert, setSenhaCert] = useState("");
@@ -365,7 +376,7 @@ export default function NotaFiscalPage() {
       if (armazenado) {
         const bruto = JSON.parse(armazenado) as Partial<RascunhoLocal>;
         const agora = Date.now();
-        if (bruto.versao === 1 && typeof bruto.salvoEm === "number" && Number.isFinite(bruto.salvoEm)
+        if (bruto.versao === 2 && typeof bruto.salvoEm === "number" && Number.isFinite(bruto.salvoEm)
           && bruto.salvoEm <= agora && agora - bruto.salvoEm <= RASCUNHO_TTL_MS) {
           const tipo = bruto.tipoNota === "NFCE" ? "NFCE" : "NFE";
           const itensValidos = Array.isArray(bruto.itens) ? bruto.itens.slice(0, 100).map((item, indice) => ({
@@ -379,6 +390,14 @@ export default function NotaFiscalPage() {
           setFormaPagamento(textoSeguro(bruto.formaPagamento, 30) || "PIX");
           setClienteDoc(textoSeguro(bruto.clienteDoc, 18)); setClienteNome(textoSeguro(bruto.clienteNome, 200));
           setInfoAdicionais(textoSeguro(bruto.infoAdicionais, 2000)); setItens(itensValidos);
+          setNfseCompetencia(textoSeguro(bruto.nfseCompetencia, 10) || new Date().toISOString().slice(0, 10));
+          setNfseMunicipioPrestacao(textoSeguro(bruto.nfseMunicipioPrestacao, 7));
+          setNfseCodigoTributacao(textoSeguro(bruto.nfseCodigoTributacao, 20));
+          setNfseOpcaoSimples(numeroSeguro(bruto.nfseOpcaoSimples, 3));
+          setNfseRegimeEspecial(numeroSeguro(bruto.nfseRegimeEspecial, 0));
+          setNfseTributacaoIssqn(numeroSeguro(bruto.nfseTributacaoIssqn, 1));
+          setNfseRetencaoIssqn(numeroSeguro(bruto.nfseRetencaoIssqn, 1));
+          setNfseAliquotaIssqn(textoSeguro(bruto.nfseAliquotaIssqn, 10));
           setRascunhoSalvoEm(bruto.salvoEm);
         } else {
           sessionStorage.removeItem(chaveRascunho(EMPRESA_ID));
@@ -402,13 +421,17 @@ export default function NotaFiscalPage() {
         return;
       }
       const salvoEm = Date.now();
-      const rascunho: RascunhoLocal = { versao: 1, salvoEm, tipoNota, naturezaOp, formaPagamento,
-        clienteDoc, clienteNome, infoAdicionais, itens };
+      const rascunho: RascunhoLocal = { versao: 2, salvoEm, tipoNota, naturezaOp, formaPagamento,
+        clienteDoc, clienteNome, infoAdicionais, itens,
+        nfseCompetencia, nfseMunicipioPrestacao, nfseCodigoTributacao, nfseOpcaoSimples,
+        nfseRegimeEspecial, nfseTributacaoIssqn, nfseRetencaoIssqn, nfseAliquotaIssqn };
       sessionStorage.setItem(chaveRascunho(EMPRESA_ID), JSON.stringify(rascunho));
       setRascunhoSalvoEm(salvoEm);
     }, 500);
     return () => window.clearTimeout(timeout);
-  }, [EMPRESA_ID, rascunhoPronto, tipoNota, naturezaOp, formaPagamento, clienteDoc, clienteNome, infoAdicionais, itens]);
+  }, [EMPRESA_ID, rascunhoPronto, tipoNota, naturezaOp, formaPagamento, clienteDoc, clienteNome, infoAdicionais, itens,
+    nfseCompetencia, nfseMunicipioPrestacao, nfseCodigoTributacao, nfseOpcaoSimples, nfseRegimeEspecial,
+    nfseTributacaoIssqn, nfseRetencaoIssqn, nfseAliquotaIssqn]);
 
   const salvarConfiguracao = async () => {
     if (!EMPRESA_ID || !configFiscal) return;
@@ -482,7 +505,7 @@ export default function NotaFiscalPage() {
   }, [EMPRESA_ID, filtroStatus, filtroBusca, filtroTipo, filtroAmbiente, filtroInicio, filtroFim, filtroSerie, filtroValorMin, filtroValorMax, paginaAtual]);
 
   const documentoHabilitado = (tipo: TipoNota) => Boolean(configFiscal?.fiscalHabilitado
-    && (tipo === "NFE" ? configFiscal.nfeHabilitada : tipo === "NFCE" ? configFiscal.nfceHabilitada : false));
+    && (tipo === "NFE" ? configFiscal.nfeHabilitada : tipo === "NFCE" ? configFiscal.nfceHabilitada : configFiscal.nfseHabilitada));
 
   useEffect(() => {
     if (aba === "historico" && EMPRESA_ID) {

@@ -66,14 +66,14 @@ const nextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(), payment=(self \"https://checkout.stripe.com\")",
+            value: "camera=(), microphone=(), geolocation=(), payment=(self \"https://www.mercadopago.com.br\")",
           },
           {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
               "base-uri 'self'",
-              "form-action 'self' https://checkout.stripe.com",
+              "form-action 'self' https://www.mercadopago.com.br",
               "frame-ancestors 'none'",
               "object-src 'none'",
               "script-src 'self' 'unsafe-inline'",
@@ -81,7 +81,7 @@ const nextConfig = {
               "font-src 'self' data:",
               "img-src 'self' data: blob: https://lh3.googleusercontent.com https://res.cloudinary.com https://api.gevyro.com.br https://cdn.jsdelivr.net",
               "connect-src 'self' https://api.gevyro.com.br",
-              "frame-src https://checkout.stripe.com",
+              "frame-src https://www.mercadopago.com.br",
               "upgrade-insecure-requests",
             ].join("; "),
           },

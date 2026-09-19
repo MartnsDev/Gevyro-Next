@@ -1,5 +1,6 @@
 package br.com.gestpro.plano.stripe.service;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import br.com.gestpro.plano.stripe.PlanoTipo;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 @Component
 @ConfigurationProperties(prefix = "stripe.price")
+@ConditionalOnProperty(name = "billing.provider", havingValue = "stripe")
 public class StripePriceProperties {
 
     private String basico;

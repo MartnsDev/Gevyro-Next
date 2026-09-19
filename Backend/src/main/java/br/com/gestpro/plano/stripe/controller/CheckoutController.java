@@ -1,5 +1,6 @@
 package br.com.gestpro.plano.stripe.controller;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import br.com.gestpro.auth.model.Usuario;
 import br.com.gestpro.auth.repository.UsuarioRepository;
 import br.com.gestpro.infra.exception.ApiException;
@@ -38,6 +39,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/payments")
 @RequiredArgsConstructor
+@ConditionalOnProperty(name = "billing.provider", havingValue = "stripe")
 public class CheckoutController {
 
     private static final ObjectMapper MAPPER =

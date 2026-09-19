@@ -885,7 +885,7 @@ export default function Configuracoes({
 
           <Secao titulo="Perguntas Frequentes" sub="Soluções rápidas para as dúvidas mais comuns" icon={<HelpCircle size={18} />}>
             {[
-              { p: "Como faço upgrade ou renovo meu plano?", r: "Abra a aba Meu Plano ou Planos e escolha a opção desejada. O pagamento e o gerenciamento da assinatura são feitos no ambiente seguro da Stripe." },
+              { p: "Como faço upgrade ou renovo meu plano?", r: "Abra a aba Meu Plano ou Planos e escolha a opção desejada. O pagamento é autorizado no Mercado Pago. Gerencie o status e cancele a renovação em Minha assinatura. Para trocar de plano, cancele a renovação e escolha outro após o vencimento do período pago." },
               { p: "Como consulto as condições de cancelamento?", r: "Acesse a página Cancelamento e Reembolsos. As condições finais também devem ser conferidas no portal de cobrança antes da confirmação." },
               { p: "Como exporto meus relatórios para enviar ao contador?", r: "Acesse a aba 'Relatórios' e clique no botão de exportar (CSV ou PDF). Você também pode exportar os XMLs direto na aba de Notas Fiscais." },
               { p: "Como a Gevyro protege os dados?", r: "Adotamos controles de autenticação, autorização e segurança compatíveis com a arquitetura. Consulte a página Segurança; nenhum sistema deve prometer proteção absoluta." },

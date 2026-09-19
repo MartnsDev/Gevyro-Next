@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchAuth, fetchAuthJson } from "./api-v2";
+import { fetchAuthJson } from "./api-v2";
 
 export const PLANOS_PAGOS = [
   {
@@ -40,20 +40,25 @@ export async function criarCheckout(plano: PlanoPagoId): Promise<string> {
   });
   if (!data.url) throw new Error("O backend não retornou a página de pagamento.");
   const checkoutUrl = new URL(data.url);
-  if (checkoutUrl.protocol !== "https:") throw new Error("A página de pagamento retornada não é segura.");
+  const providerCheckout = checkoutUrl.origin === "https://www.mercadopago.com.br";
+  const internalReturn = checkoutUrl.origin === window.location.origin && checkoutUrl.pathname === "/payment/sucesso";
+  if (checkoutUrl.protocol !== "https:" || checkoutUrl.username || checkoutUrl.password || !(providerCheckout || internalReturn)) {
+    throw new Error("A página de pagamento retornada não é segura.");
+  }
   return checkoutUrl.toString();
 }
 
-export async function abrirPortalCobranca(): Promise<string | null> {
-  const response = await fetchAuth("/api/payments/portal", {
-    method: "POST",
-  });
-  const data = await response.json().catch(() => null) as { url?: string; error?: string; code?: string } | null;
-  if (response.status === 409 && data?.code === "CHECKOUT_REQUIRED") return null;
-  if (!response.ok) throw new Error(data?.error ?? `Erro ${response.status} ao abrir o portal de cobrança.`);
-  const url = data?.url;
-  if (!url) throw new Error("O backend não retornou o portal de cobrança.");
-  const portalUrl = new URL(url);
-  if (portalUrl.protocol !== "https:") throw new Error("O portal de cobrança retornado não é seguro.");
-  return portalUrl.toString();
+export type AssinaturaStatus = {
+  plano?: PlanoPagoId;
+  status: "none" | "processing" | "pending" | "authorized" | "paused" | "cancelled";
+  paid: boolean;
+  paidUntil?: string;
+};
+
+export async function consultarAssinatura(): Promise<AssinaturaStatus> {
+  return fetchAuthJson<AssinaturaStatus>("/api/payments/subscription", { method: "POST" });
+}
+
+export async function cancelarAssinatura(): Promise<AssinaturaStatus> {
+  return fetchAuthJson<AssinaturaStatus>("/api/payments/cancel", { method: "POST" });
 }

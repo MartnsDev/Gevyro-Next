@@ -1,5 +1,6 @@
 package br.com.gestpro.plano.service;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import br.com.gestpro.auth.model.Usuario;
 import br.com.gestpro.auth.repository.UsuarioRepository;
 import br.com.gestpro.plano.StatusAcesso;
@@ -25,6 +26,7 @@ import java.util.Objects;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@ConditionalOnProperty(name = "billing.provider", havingValue = "stripe")
 public class AtualizarPlanoOperation {
 
     private static final String STATUS_ATIVO = "ATIVO";

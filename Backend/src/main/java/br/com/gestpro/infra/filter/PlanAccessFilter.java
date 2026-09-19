@@ -24,6 +24,8 @@ public class PlanAccessFilter
             "/api/payments/create-checkout-session",
             "/api/payments/session-info",
             "/api/payments/portal",
+            "/api/payments/subscription",
+            "/api/payments/cancel",
             "/api/v1/dashboard/vendas/plano-usuario"
     );
 
