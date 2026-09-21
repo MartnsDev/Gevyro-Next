@@ -1,6 +1,7 @@
 const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
 if (!configuredApiUrl) throw new Error("NEXT_PUBLIC_API_URL precisa estar configurada no ambiente.");
 const apiOrigin = new URL(configuredApiUrl).origin;
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -10,6 +11,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    qualities: [75, 95],
     remotePatterns: [
       // Foto do Google
       {
@@ -80,7 +82,7 @@ const nextConfig = {
               "form-action 'self' https://www.mercadopago.com.br",
               "frame-ancestors 'none'",
               "object-src 'none'",
-              "script-src 'self' 'unsafe-inline'",
+              `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
               "style-src 'self' 'unsafe-inline'",
               "font-src 'self' data:",
               "img-src 'self' data: blob: https://lh3.googleusercontent.com https://res.cloudinary.com https://api.gevyro.com.br https://cdn.jsdelivr.net",
