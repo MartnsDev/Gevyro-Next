@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
-import { cancelarAssinatura, consultarAssinatura, criarCheckout, PLANOS_PAGOS, type AssinaturaStatus } from "@/lib/billing";
+import { alterarRenovacao, cancelarAssinatura, consultarAssinatura, PLANOS_PAGOS, type AssinaturaStatus } from "@/lib/billing";
 
-const STATUS: Record<string, string> = { none: "Sem assinatura", processing: "Verificando a contratação anterior", pending: "Aguardando autorização ou pagamento", authorized: "Renovação autorizada", paused: "Renovação pausada", cancelled: "Renovação cancelada" };
+const STATUS: Record<string, string> = { none: "Sem assinatura", processing: "Verificando a contratação anterior", pending: "Aguardando autorização ou pagamento", authorized: "Renovação autorizada", paused: "Renovação pausada", canceled: "Renovação cancelada", cancelled: "Renovação cancelada" };
+
+const PAYMENT_STATUS: Record<string, string> = { none: "Sem cobrança confirmada", approved: "Pagamento aprovado", pending: "Pagamento pendente", in_process: "Pagamento em análise", in_mediation: "Pagamento em mediação", rejected: "Pagamento recusado", cancelled: "Pagamento cancelado", refunded: "Pagamento reembolsado", charged_back: "Pagamento contestado", authorized: "Pagamento autorizado, aguardando confirmação" };
 
 export default function AssinaturaPage() {
   const [assinatura, setAssinatura] = useState<AssinaturaStatus | null>(null);
@@ -25,11 +27,12 @@ export default function AssinaturaPage() {
     catch (e) { setErro(e instanceof Error ? e.message : "Não foi possível cancelar a renovação."); }
     finally { setOcupado(false); }
   }
-  async function continuar() {
-    if (!assinatura?.plano) return;
+  async function alterar(action: "pause" | "reactivate") {
+    if (!assinatura?.id || ocupado) return;
     setOcupado(true); setErro("");
-    try { window.location.assign(await criarCheckout(assinatura.plano)); }
-    catch (e) { setErro(e instanceof Error ? e.message : "Não foi possível abrir o checkout."); setOcupado(false); }
+    try { setAssinatura(await alterarRenovacao(assinatura.id, action)); }
+    catch (e) { setErro(e instanceof Error ? e.message : "Não foi possível alterar a renovação."); }
+    finally { setOcupado(false); }
   }
   const plano = PLANOS_PAGOS.find(p => p.id === assinatura?.plano);
   const podeCancelar = assinatura && ["pending", "authorized", "paused"].includes(assinatura.status);
@@ -42,10 +45,14 @@ export default function AssinaturaPage() {
       {ocupado && <p role="status" className="mt-5 flex gap-2 text-sm"><Loader2 className="animate-spin" size={18} /> Processando...</p>}
       {assinatura && <div className="mt-6 space-y-4 text-sm">
         {plano && <p className="text-xl font-semibold">{plano.nome} · R$ {plano.preco}/mês</p>}
+        {assinatura.id && <p className="break-all text-xs text-zinc-500">Assinatura: {assinatura.id}</p>}
         <p>{STATUS[assinatura.status] ?? "Status em atualização"}</p>
+        {assinatura.paymentStatus && <p>{PAYMENT_STATUS[assinatura.paymentStatus] ?? "Cobrança em atualização"}</p>}
         <p>{assinatura.paid ? `Acesso pago até ${assinatura.paidUntil?.split("-").reverse().join("/")}.` : "Não há um período pago vigente confirmado para esta assinatura."}</p>
         {assinatura.status === "processing" && <p>Estamos verificando a tentativa anterior com o Mercado Pago. Aguarde e atualize o status. Se a situação persistir, entre em contato com o suporte antes de tentar contratar novamente.</p>}
-        {assinatura.status === "pending" && <button disabled={ocupado} onClick={continuar} className="w-full rounded-full bg-[#258c53] p-3 font-semibold text-white disabled:opacity-50">Continuar no Mercado Pago</button>}
+        {assinatura.status === "pending" && <Link href={`/pagamento?plano=${assinatura.plano}`} className="block w-full rounded-full bg-[#258c53] p-3 text-center font-semibold text-white">Continuar no Mercado Pago</Link>}
+        {assinatura.id && assinatura.status === "authorized" && <button disabled={ocupado} onClick={() => alterar("pause")} className="w-full rounded-full border border-zinc-300 p-3 disabled:opacity-50">Pausar renovação</button>}
+        {assinatura.id && assinatura.status === "paused" && <button disabled={ocupado} onClick={() => alterar("reactivate")} className="w-full rounded-full border border-zinc-300 p-3 disabled:opacity-50">Reativar renovação</button>}
         {podeCancelar && !confirmar && <button disabled={ocupado} onClick={() => setConfirmar(true)} className="w-full rounded-full border border-zinc-300 p-3 disabled:opacity-50">Cancelar renovação</button>}
         {confirmar && <div className="rounded-xl bg-amber-50 p-4"><p>Ao cancelar, as próximas renovações serão interrompidas. O acesso já pago permanece até o vencimento. Esta ação não solicita reembolso.</p><div className="mt-4 flex gap-4"><button disabled={ocupado} onClick={cancelar} className="font-semibold text-red-700 disabled:opacity-50">Confirmar cancelamento</button><button disabled={ocupado} onClick={() => setConfirmar(false)}>Voltar</button></div></div>}
         {assinatura.status === "cancelled" && assinatura.paid && <p>Para trocar de plano, aguarde o vencimento do período pago e escolha o novo plano.</p>}

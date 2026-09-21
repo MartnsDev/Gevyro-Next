@@ -42,23 +42,29 @@ export async function criarCheckout(plano: PlanoPagoId): Promise<string> {
   const checkoutUrl = new URL(data.url);
   const providerCheckout = checkoutUrl.origin === "https://www.mercadopago.com.br";
   const internalReturn = checkoutUrl.origin === window.location.origin && checkoutUrl.pathname === "/payment/sucesso";
-  if (checkoutUrl.protocol !== "https:" || checkoutUrl.username || checkoutUrl.password || !(providerCheckout || internalReturn)) {
+  if (checkoutUrl.username || checkoutUrl.password || !((providerCheckout && checkoutUrl.protocol === "https:") || internalReturn)) {
     throw new Error("A página de pagamento retornada não é segura.");
   }
   return checkoutUrl.toString();
 }
 
 export type AssinaturaStatus = {
+  id?: string;
   plano?: PlanoPagoId;
   status: "none" | "processing" | "pending" | "authorized" | "paused" | "cancelled";
+  paymentStatus?: "none" | "approved" | "pending" | "in_process" | "in_mediation" | "rejected" | "cancelled" | "refunded" | "charged_back" | "authorized";
   paid: boolean;
   paidUntil?: string;
 };
 
 export async function consultarAssinatura(): Promise<AssinaturaStatus> {
-  return fetchAuthJson<AssinaturaStatus>("/api/payments/subscription", { method: "POST" });
+  return fetchAuthJson<AssinaturaStatus>("/api/payments/subscription", { method: "GET" });
 }
 
 export async function cancelarAssinatura(): Promise<AssinaturaStatus> {
   return fetchAuthJson<AssinaturaStatus>("/api/payments/cancel", { method: "POST" });
+}
+
+export async function alterarRenovacao(id: string, action: "pause" | "reactivate"): Promise<AssinaturaStatus> {
+  return fetchAuthJson<AssinaturaStatus>(`/api/subscriptions/${encodeURIComponent(id)}/lifecycle?action=${action}`, { method: "POST" });
 }

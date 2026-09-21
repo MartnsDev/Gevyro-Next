@@ -1,24 +1,24 @@
 "use client";
 
 import { useEffect, useState, Suspense, ReactNode } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Building2, CheckCircle2, Clock, Crown, Star, Rocket,
-  FlaskConical, ArrowRight, AlertCircle, Loader2,
+  ArrowRight, AlertCircle, Loader2,
   Zap, Check
 } from "lucide-react";
 import { useEmpresa } from "../context/Empresacontext";
-import { criarCheckout, type PlanoPagoId } from "@/lib/billing";
+
 
 // 1. CONFIGURAÇÕES E API
 const getApiBase = () => {
-  const envUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+  const envUrl = process.env.NEXT_PUBLIC_API_URL || "";
   const cleanUrl = envUrl.replace(/\/api\/v1\/?$/, '').replace(/\/v1\/?$/, '').replace(/\/$/, '');
   return `${cleanUrl}/api/nota-fiscal`;
 };
 const API_BASE = getApiBase();
 
-const API_GLOBAL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.gevyro.com.br";
+const API_GLOBAL = process.env.NEXT_PUBLIC_API_URL ?? "";
 
 async function fetchAuth<T>(path: string): Promise<T> {
   const res = await fetch(`${API_GLOBAL}${path}`, {
@@ -31,13 +31,6 @@ async function fetchAuth<T>(path: string): Promise<T> {
 
 // 2. DEFINIÇÃO DOS PLANOS
 const PLANOS = [
-  {
-    id: "EXPERIMENTAL", nome: "Experimental", descricao: "Explore todo o potencial da plataforma.",
-    preco: "Grátis", duracao: "por 30 dias", icon: FlaskConical,
-    corBase: "var(--primary)", corBg: "var(--primary-muted)",
-    features: ["1 empresa gerenciada", "1 frente de caixa (PDV)", "Até 300 produtos", "Relatórios e Dashboards", "Emissão de Nota Fiscal", "Histórico de 2 meses"],
-    destaque: false, pagavel: false, cta: "Iniciar Teste"
-  },
   {
     id: "BASICO", nome: "Básico", descricao: "A fundação sólida para pequenos negócios.",
     preco: "R$ 79,90", duracao: "por mês", icon: Star,
@@ -61,7 +54,7 @@ const PLANOS = [
   }
 ] as const;
 
-const ORDEM = ["EXPERIMENTAL", "BASICO", "PRO", "PREMIUM"] as const;
+const ORDEM = ["BASICO", "PRO", "PREMIUM"] as const;
 const DURACAO_TRIAL_DIAS = 30;
 
 function barWidth(dias: number, total: number) { return total === 0 ? 0 : Math.min(100, Math.max(0, (dias / total) * 100)); }
@@ -70,6 +63,7 @@ function barColor(pct: number) { return pct > 50 ? "#10b981" : pct > 20 ? "#f59e
 // 3. COMPONENTE INTERNO
 function PlanosInner() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [plano, setPlano] = useState<any>(null);
   const [emailUsuario, setEmailUsuario] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -116,11 +110,10 @@ function PlanosInner() {
       }
 
       if (plano?.tipoPlano && plano.tipoPlano !== "EXPERIMENTAL") {
-        globalThis.window.location.assign("/pagamento/assinatura");
+        router.push("/pagamento/assinatura");
         return;
       }
-      const url = await criarCheckout(planoId as PlanoPagoId);
-      globalThis.window.location.assign(url);
+      router.push(`/pagamento?plano=${encodeURIComponent(planoId)}`);
     } catch (e: unknown) {
       setErro(e instanceof Error ? e.message : "Não foi possível iniciar o checkout.");
       setLoadingPlano(null);
@@ -145,8 +138,11 @@ function PlanosInner() {
           Planos
         </h1>
         <p style={{ fontSize: 13, color: "var(--foreground-muted)", lineHeight: 1.5, margin: 0 }}>
-          Escolha os limites adequados para o momento do seu negócio.
+          Escolha o plano certo para o momento do seu negócio.
         </p>
+        <div style={{ marginTop: 14, display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 11px", borderRadius: 9, background: "rgba(16,185,129,.08)", border: "1px solid rgba(16,185,129,.18)", color: "#10b981", fontSize: 11, fontWeight: 650 }}>
+          <CheckCircle2 size={14} /> Assinaturas processadas com segurança pelo Mercado Pago
+        </div>
 
         {erro && (
           <div style={{ marginTop: 24, padding: "14px 20px", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: 12, color: "#ef4444", fontSize: 14, display: "flex", alignItems: "center", gap: 8, width: "100%" }}>
@@ -198,7 +194,7 @@ function PlanosInner() {
       {/* 3. GRID DE PLANOS */}
       <section className="pricing-grid-container">
         <style>{`
-          .pricing-grid-container { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; align-items: stretch; }
+          .pricing-grid-container { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
           @media (max-width: 1024px) { .pricing-grid-container { grid-template-columns: repeat(2, 1fr); } }
           @media (max-width: 640px) { .pricing-grid-container { grid-template-columns: 1fr; } }
         `}</style>
@@ -253,7 +249,7 @@ function PlanosInner() {
               
               <div style={{ fontSize: 25, fontWeight: 780, color: p.corBase, margin: "14px 0 3px", display: "flex", alignItems: "flex-end", gap: 3 }}>
                 {p.preco}
-                {p.preco !== "Grátis" && <span style={{ fontSize: 14, fontWeight: 600, color: "#94a3b8", paddingBottom: 8 }}>/mês</span>}
+                <span style={{ fontSize: 14, fontWeight: 600, color: "#94a3b8", paddingBottom: 8 }}>/mês</span>
               </div>
 
               <button
@@ -312,12 +308,12 @@ function PlanosInner() {
             </thead>
             <tbody>
               {[
-                { label: "Lojas Gerenciadas", values: ["1", "1", "5", "Ilimitado"] },
-                { label: "Frentes de Caixa (PDV)", values: ["1", "1", "5", "Ilimitado"] },
-                { label: "Limite de Produtos", values: ["300", "500", "Ilimitado", "Ilimitado"] },
-                { label: "Histórico de Dados", values: ["2 Meses", "6 Meses", "1 Ano", "Vitalício"] },
-                { label: "Nota Fiscal", values: [true, true, true, true] },
-                { label: "Integrações", values: [false, false, false, "Shopee e Mercado Livre"] },
+                { label: "Lojas Gerenciadas", values: ["1", "5", "Ilimitado"] },
+                { label: "Frentes de Caixa (PDV)", values: ["1", "5", "Ilimitado"] },
+                { label: "Limite de Produtos", values: ["500", "Ilimitado", "Ilimitado"] },
+                { label: "Histórico de Dados", values: ["6 Meses", "1 Ano", "Vitalício"] },
+                { label: "Nota Fiscal", values: [true, true, true] },
+                { label: "Integrações", values: [false, false, "Shopee e Mercado Livre"] },
               ].map((row, i) => (
                 <tr key={i} style={{ borderBottom: "1px solid var(--border)" }}>
                   <td style={{ padding: "11px 16px", color: "var(--foreground-muted)", fontSize: 10, fontWeight: 500 }}>{row.label}</td>

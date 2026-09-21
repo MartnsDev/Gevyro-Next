@@ -7,36 +7,50 @@ import org.springframework.stereotype.Component;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
-import java.net.URI;
-import java.net.http.*;
-import java.time.Duration;
+import com.google.gson.JsonParser;
+import com.mercadopago.core.MPRequestOptions;
+import com.mercadopago.net.HttpMethod;
+import com.mercadopago.net.MPDefaultHttpClient;
+import com.mercadopago.net.MPRequest;
+import java.util.Map;
+import jakarta.annotation.PreDestroy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 @Component
 @ConditionalOnProperty(name = "billing.provider", havingValue = "mercadopago", matchIfMissing = true)
 public class MercadoPagoClient {
     private final String token;
     private final ObjectMapper mapper;
-    private final HttpClient http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
+    private final CloseableHttpClient transport = HttpClients.custom()
+            .disableAutomaticRetries().disableRedirectHandling().disableCookieManagement().build();
+    private final MPDefaultHttpClient http = new MPDefaultHttpClient(transport) {};
+    @PreDestroy
+    public void close() throws java.io.IOException { transport.close(); }
     public MercadoPagoClient(@Value("${mercadopago.access-token:}") String token, ObjectMapper mapper) {
         this.token = token;
         this.mapper = mapper;
     }
-    public JsonNode request(String method, String path, Object body) {
+    public void ensureConfigured() {
         if (token.isBlank()) throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE,
                 "Configure MERCADO_PAGO_ACCESS_TOKEN no backend.");
+    }
+    public JsonNode request(String method, String path, Object body) {
+        ensureConfigured();
         try {
-            HttpRequest.Builder request = HttpRequest.newBuilder(URI.create("https://api.mercadopago.com" + path))
-                    .timeout(Duration.ofSeconds(20)).header("Authorization", "Bearer " + token)
-                    .header("Content-Type", "application/json");
-            request.method(method, body == null ? HttpRequest.BodyPublishers.noBody()
-                    : HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(body)));
-            HttpResponse<String> response = http.send(request.build(), HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() < 200 || response.statusCode() >= 300)
-                throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "O Mercado Pago não concluiu a solicitação. Tente novamente.");
-            return mapper.readTree(response.body());
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Consulta ao Mercado Pago interrompida.");
+            // Use the official SDK transport. Subscription duplicate protection is local;
+            // the preapproval API does not promise X-Idempotency-Key semantics.
+            MPRequest request = MPRequest.builder()
+                    .uri("https://api.mercadopago.com" + path)
+                    .method(HttpMethod.valueOf(method))
+                    .headers(Map.of("Authorization", "Bearer " + token,
+                            "Content-Type", "application/json", "User-Agent", "MercadoPago Java SDK/3.7.0"))
+                    .accessToken(token)
+                    .connectionTimeout(10000).connectionRequestTimeout(10000).socketTimeout(20000)
+                    .payload(body == null ? null : JsonParser.parseString(mapper.writeValueAsString(body)).getAsJsonObject())
+                    .build();
+            var response = http.sendWithRetry(request, MPRequestOptions.builder().maxRetries(0).build());
+            return mapper.readTree(response.getContent());
         } catch (ResponseStatusException e) { throw e;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Não foi possível consultar o Mercado Pago.");

@@ -17,4 +17,12 @@ class MercadoPagoWebhookSignatureTest {
         assertThat(verifier.valid("other", "req", signature)).isFalse();
         assertThat(verifier.valid("abc", "another-request", signature)).isFalse();
     }
+    @Test void rejectsDuplicateManifestFieldsAndDelimiterInjection() {
+        var verifier = new MercadoPagoWebhookSignature("secret");
+        String signature = "ts=1234567890,v1=f1dffa8d1185ef347681dc6388beb62cd219cc96f4a45cfd8598abb82de44724";
+        assertThat(verifier.valid("abc", "req", signature + ",ts=1234567890")).isFalse();
+        assertThat(verifier.valid("abc", "req", signature + ",v1=" + "0".repeat(64))).isFalse();
+        assertThat(verifier.valid("abc;request-id:req", "req", signature)).isFalse();
+        assertThat(verifier.valid("abc", "req;ts:1234567890", signature)).isFalse();
+    }
 }

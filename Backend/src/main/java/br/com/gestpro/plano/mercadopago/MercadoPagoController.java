@@ -1,7 +1,6 @@
 package br.com.gestpro.plano.mercadopago;
 
 import br.com.gestpro.plano.stripe.dto.CheckoutRequest;
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -17,7 +16,6 @@ import java.util.Map;
 @ConditionalOnProperty(name = "billing.provider", havingValue = "mercadopago", matchIfMissing = true)
 public class MercadoPagoController {
     private final MercadoPagoService service;
-    private final MercadoPagoWebhookSignature signatures;
     private String email(Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated())
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Entre novamente.");
@@ -35,16 +33,6 @@ public class MercadoPagoController {
     public Map<String, Object> subscription(Authentication auth) { return service.status(email(auth), null); }
     @PostMapping("/cancel")
     public Map<String, Object> cancel(Authentication auth) { return service.cancel(email(auth)); }
-    @PostMapping("/webhook")
-    public ResponseEntity<String> webhook(@RequestParam(name = "data.id", required = false) String id,
-            @RequestHeader(name = "x-request-id", required = false) String requestId,
-            @RequestHeader(name = "x-signature", required = false) String signature,
-            @RequestBody JsonNode body) {
-        if (!signatures.valid(id, requestId, signature) || !body.path("data").path("id").asText().equals(id))
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Assinatura inválida.");
-        service.webhook(body.path("type").asText(), id);
-        return ResponseEntity.ok("");
-    }
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Map<String, String>> error(ResponseStatusException exception) {
         return ResponseEntity.status(exception.getStatusCode()).body(Map.of("error",

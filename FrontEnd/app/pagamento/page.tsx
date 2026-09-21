@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -17,6 +17,7 @@ function PagamentoInner() {
   const [email, setEmail] = useState("");
   const [usuarioSessao, setUsuarioSessao] = useState<{ id: number; email: string } | null>(null);
   const [verificandoSessao, setVerificandoSessao] = useState(true);
+  const submitting = useRef(false);
   const [processando, setProcessando] = useState(false);
   const [erro, setErro] = useState("");
   const cancelado = searchParams.get("canceled") === "true";
@@ -41,6 +42,8 @@ function PagamentoInner() {
   const plano = PLANOS_PAGOS.find((item) => item.id === selecionado)!;
 
   async function assinar() {
+    if (submitting.current) return;
+    submitting.current = true;
     setErro("");
     setProcessando(true);
     try {
@@ -62,12 +65,13 @@ function PagamentoInner() {
       window.location.assign(url);
     } catch (error) {
       setErro(error instanceof Error ? error.message : "Não foi possível iniciar o pagamento.");
+      submitting.current = false;
       setProcessando(false);
     }
   }
 
   return (
-    <main className="min-h-screen bg-[#f6f8f7] text-[#303a35]">
+    <main data-mp-subscriptions-page="without-plan-pending" className="min-h-screen bg-[#f6f8f7] text-[#303a35]">
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:h-[74px] sm:px-5 lg:px-0">
           <Link href="/" className="flex min-w-0 items-center"><Image src="/images/gevyro-logo-400.webp" alt="Gevyro" width={400} height={145} priority className="h-auto w-[145px] object-contain sm:w-[200px]" /></Link>
@@ -109,7 +113,7 @@ function PagamentoInner() {
           <div className="flex items-center justify-between py-6"><span className="text-sm text-zinc-300">Total hoje</span><span className="text-2xl font-bold text-[#78d6a3]">R$ {plano.preco}</span></div>
           {!email && <div className="mb-5 rounded-xl border border-amber-300/20 bg-amber-300/10 p-3 text-xs leading-5 text-amber-100">Sua sessão não contém um e-mail válido. Entre novamente para continuar.</div>}
           {email && <p className="mb-5 truncate rounded-xl bg-white/5 px-3 py-2.5 text-xs text-zinc-300" title={email}>Assinatura para <strong className="text-white">{email}</strong></p>}
-          <button type="button" onClick={assinar} disabled={processando || verificandoSessao || !email} className="flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#78d6a3] text-sm font-bold text-[#173323] hover:bg-[#8be0b1] disabled:cursor-not-allowed disabled:opacity-60">
+          <button type="button" data-mp-subscription-cta="without-plan-pending" onClick={assinar} disabled={processando || verificandoSessao || !email} className="flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#78d6a3] text-sm font-bold text-[#173323] hover:bg-[#8be0b1] disabled:cursor-not-allowed disabled:opacity-60">
             {processando ? <><Loader2 size={17} className="animate-spin" /> Abrindo checkout...</> : verificandoSessao ? <><Loader2 size={17} className="animate-spin" /> Verificando sessão...</> : <><CreditCard size={17} /> Assinar agora <ArrowRight size={16} /></>}
           </button>
           <div className="mt-5 flex items-center justify-center gap-2 text-[11px] text-zinc-400"><ShieldCheck size={14} className="text-[#78d6a3]" /> Pagamento protegido pelo Mercado Pago</div>

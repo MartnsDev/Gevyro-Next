@@ -52,7 +52,8 @@ public class PlanAccessFilter
             return true;
         }
 
-        return path.startsWith("/api/auth/")
+        return path.matches("/api/subscriptions/[a-zA-Z0-9_-]{1,100}(?:/lifecycle)?")
+                || path.startsWith("/api/auth/")
                 || path.equals("/api/payments/webhook");
     }
 

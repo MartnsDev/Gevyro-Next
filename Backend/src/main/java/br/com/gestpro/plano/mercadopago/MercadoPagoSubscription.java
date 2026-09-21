@@ -19,4 +19,9 @@ public class MercadoPagoSubscription {
     private String preapprovalId;
     @Enumerated(EnumType.STRING) @Column(nullable = false)
     private PlanoTipo plano;
+    @Column(nullable = false, length = 32) private String providerStatus = "pending";
+    @Column(nullable = false, length = 32) private String paymentStatus = "none";
+    @Column(length = 100) private String lastPaymentId;
+    private java.time.LocalDate paidUntil;
+    private java.time.Instant lastSyncedAt;
 }

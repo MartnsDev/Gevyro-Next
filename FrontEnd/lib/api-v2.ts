@@ -3,7 +3,7 @@
 "use client";
 
 export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "https://api.gevyro.com.br";
+  process.env.NEXT_PUBLIC_API_URL ?? "";
 
 
 export interface Usuario {

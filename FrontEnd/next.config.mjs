@@ -1,3 +1,7 @@
+const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+if (!configuredApiUrl) throw new Error("NEXT_PUBLIC_API_URL precisa estar configurada no ambiente.");
+const apiOrigin = new URL(configuredApiUrl).origin;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -80,7 +84,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "font-src 'self' data:",
               "img-src 'self' data: blob: https://lh3.googleusercontent.com https://res.cloudinary.com https://api.gevyro.com.br https://cdn.jsdelivr.net",
-              "connect-src 'self' https://api.gevyro.com.br",
+              `connect-src 'self' ${apiOrigin}`,
               "frame-src https://www.mercadopago.com.br",
               "upgrade-insecure-requests",
             ].join("; "),

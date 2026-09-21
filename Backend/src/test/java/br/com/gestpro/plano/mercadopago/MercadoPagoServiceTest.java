@@ -22,7 +22,8 @@ class MercadoPagoServiceTest {
     AssinaturaRepository assinaturas = mock(AssinaturaRepository.class, withSettings().mockMaker(org.mockito.MockMakers.SUBCLASS));
     UsuarioRepository usuarios = mock(UsuarioRepository.class, withSettings().mockMaker(org.mockito.MockMakers.SUBCLASS));
     ObjectMapper mapper = new ObjectMapper();
-    MercadoPagoService service = new MercadoPagoService(client, subscriptions, assinaturas, usuarios, "https://gevyro.com.br");
+    org.springframework.transaction.PlatformTransactionManager transactionManager = mock(org.springframework.transaction.PlatformTransactionManager.class);
+    MercadoPagoService service = new MercadoPagoService(client, subscriptions, assinaturas, usuarios, "https://gevyro.com.br", transactionManager);
     Usuario usuario = new Usuario();
     MercadoPagoSubscription local = new MercadoPagoSubscription();
     LocalDate today = LocalDate.now(ZoneId.of("America/Sao_Paulo"));
@@ -36,7 +37,7 @@ class MercadoPagoServiceTest {
     }
     void remote(String status) throws Exception {
         when(client.request("GET", "/preapproval/abc123", null)).thenReturn(mapper.readTree("""
-            {"id":"abc123","external_reference":"gevyro-1-PRO","status":"%s",
+            {"id":"abc123","collector_id":99,"external_reference":"gevyro-1-PRO","status":"%s",
             "auto_recurring":{"currency_id":"BRL","frequency":1,"frequency_type":"months","transaction_amount":149.90}}
             """.formatted(status)));
     }
@@ -47,7 +48,7 @@ class MercadoPagoServiceTest {
         when(client.request("GET", "/authorized_payments/search?preapproval_id=abc123&limit=100&offset=0", null))
                 .thenReturn(mapper.readTree("{\"paging\":{\"total\":1},\"results\":" + results + "}"));
         if (paid) when(client.request("GET", "/v1/payments/123", null)).thenReturn(mapper.readTree("""
-            {"status":"%s","currency_id":"BRL","transaction_amount":149.90,"transaction_amount_refunded":0}
+            {"id":123,"collector_id":99,"status":"%s","currency_id":"BRL","transaction_amount":149.90,"transaction_amount_refunded":0}
             """.formatted(paymentStatus)));
     }
     @Test void authorizationWithoutPaymentDoesNotActivatePlan() throws Exception {
@@ -86,5 +87,19 @@ class MercadoPagoServiceTest {
         remote("authorized"); local.setPlano(PlanoTipo.BASICO);
         assertThatThrownBy(() -> service.status(usuario.getEmail(), null)).hasMessageContaining("502");
         verify(assinaturas, never()).save(any());
+    }
+    @Test void publicHttpReturnUrlIsRejected() {
+        assertThatThrownBy(() -> new MercadoPagoService(client, subscriptions, assinaturas, usuarios,
+                "http://example.com", transactionManager)).isInstanceOf(IllegalArgumentException.class);
+    }
+    @Test void returnUrlWithCredentialsOrPathIsRejected() {
+        for (String url : java.util.List.of("https://user@example.com", "https://example.com/other", "https://example.com?x=y")) {
+            assertThatThrownBy(() -> new MercadoPagoService(client, subscriptions, assinaturas, usuarios,
+                    url, transactionManager)).isInstanceOf(IllegalArgumentException.class);
+        }
+    }
+    @Test void lifecycleRejectsUnknownActionBeforeProviderCall() {
+        assertThatThrownBy(() -> service.lifecycle(usuario.getEmail(), "abc123", "refund")).hasMessageContaining("400");
+        verifyNoInteractions(client);
     }
 }

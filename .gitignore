@@ -1,0 +1,5 @@
+.mp-integrate-progress.md
+
+.env
+.env.*.local
+!.env.example
