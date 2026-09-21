@@ -32,6 +32,7 @@ public class FailedV12MigrationRecoveryConfig {
             if (!tabelaExiste(connection, "flyway_schema_history")) return;
             recuperarV12SeSeguro(connection);
             recuperarV17SeSeguro(connection);
+            recuperarV18SeSeguro(connection);
         } catch (SQLException e) {
             throw new IllegalStateException("Não foi possível verificar com segurança as migrations fiscais.", e);
         }
@@ -66,6 +67,25 @@ public class FailedV12MigrationRecoveryConfig {
 
         removerMarcadorFalho(connection, "17");
         log.warn("Recuperação controlada da V17 concluída; a migration corrigida será aplicada pelo Flyway.");
+    }
+
+    private void recuperarV18SeSeguro(Connection connection) throws SQLException {
+        int falhasV18 = contarFalhas(connection, "18");
+        if (falhasV18 == 0) return;
+        if (falhasV18 != 1) throw new IllegalStateException(
+                "Há mais de um marcador falho para a V18; recuperação automática recusada.");
+
+        if (tabelaExiste(connection, "mercado_pago_subscriptions")) {
+            String[] colunas = {"id", "usuario_id", "external_reference", "preapproval_id", "plano"};
+            for (String coluna : colunas) {
+                if (!colunaExiste(connection, "mercado_pago_subscriptions", coluna))
+                    throw new IllegalStateException(
+                            "A V18 deixou a tabela mercado_pago_subscriptions incompleta; recuperação automática recusada.");
+            }
+        }
+
+        removerMarcadorFalho(connection, "18");
+        log.warn("Recuperação controlada da V18 concluída; a migration será validada novamente pelo Flyway.");
     }
 
     private void removerMarcadorFalho(Connection connection, String versao) throws SQLException {
