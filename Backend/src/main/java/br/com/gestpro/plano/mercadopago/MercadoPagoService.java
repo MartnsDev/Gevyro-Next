@@ -129,7 +129,20 @@ public class MercadoPagoService {
             if ("pending".equals(status)) {
                 if (local.getPlano() == plano)
                     return new Attempt(local.getExternalReference(), usuario.getEmail(), plano, false, checkoutUrl(current));
-                throw error(HttpStatus.CONFLICT, "Cancele a assinatura pendente antes de escolher outro plano.");
+                // Uma tentativa abandonada ainda fica pendente no Mercado Pago.
+                // Cancele-a antes de reservar o novo plano para evitar duas cobranças.
+                client.request("PUT", "/preapproval/" + MercadoPagoClient.validId(local.getPreapprovalId()),
+                        Map.of("status", "cancelled"));
+                local.setExternalReference("gevyro-" + UUID.randomUUID());
+                local.setPreapprovalId(null);
+                local.setPlano(plano);
+                local.setProviderStatus("pending");
+                local.setPaymentStatus("none");
+                local.setLastPaymentId(null);
+                local.setPaidUntil(null);
+                local.setLastSyncedAt(null);
+                subscriptions.saveAndFlush(local);
+                return new Attempt(local.getExternalReference(), usuario.getEmail(), plano, true, null);
             }
             if (!"cancelled".equals(status)) throw error(HttpStatus.CONFLICT, "Consulte o status da assinatura antes de contratar novamente.");
         }
