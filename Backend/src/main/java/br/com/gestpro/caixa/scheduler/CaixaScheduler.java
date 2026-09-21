@@ -2,7 +2,6 @@ package br.com.gestpro.caixa.scheduler;
 
 import br.com.gestpro.caixa.model.Caixa;
 import br.com.gestpro.caixa.service.CaixaServiceInterface;
-import br.com.gestpro.caixa.dto.caixa.FecharCaixaRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -41,12 +40,7 @@ public class CaixaScheduler {
 
         for (Caixa caixa : expirados) {
             try {
-                FecharCaixaRequest req = new FecharCaixaRequest();
-                req.setCaixaId(caixa.getId());
-                req.setEmailUsuario("sistema@gestpro.auto");
-                req.setObservacao("Fechamento automático após 24 horas sem atividade.");
-
-                caixaService.fecharCaixa(req);
+                caixaService.fecharCaixaAutomaticamente(caixa.getId());
 
                 log.info("[CaixaScheduler] Caixa #{} (empresa #{}) fechado automaticamente. Aberto em: {}",
                         caixa.getId(), caixa.getEmpresa().getId(), caixa.getDataAbertura());

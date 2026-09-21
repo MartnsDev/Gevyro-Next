@@ -9,6 +9,7 @@ import java.util.List;
 public interface CaixaServiceInterface {
     CaixaResponse abrirCaixa(AbrirCaixaRequest req);
     CaixaResponse fecharCaixa(FecharCaixaRequest req);
+    CaixaResponse fecharCaixaAutomaticamente(Long caixaId);
     CaixaResponse obterResumo(Long caixaId, String emailUsuario);
     CaixaResponse buscarCaixaAberto(Long empresaId, String emailUsuario);
     List<CaixaResponse> listarPorEmpresa(Long empresaId, String emailUsuario);

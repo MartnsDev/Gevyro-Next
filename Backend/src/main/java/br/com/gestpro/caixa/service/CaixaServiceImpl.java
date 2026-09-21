@@ -71,15 +71,30 @@ public class CaixaServiceImpl implements CaixaServiceInterface {
         if (!caixa.getAberto())
             throw new ApiException("Este caixa já está fechado.", HttpStatus.BAD_REQUEST, "/caixas/fechar");
 
-       // validarPermissaoFechamento(caixa, req.getEmailUsuario());
+        return finalizarFechamento(caixa, req.getSaldoFinal(), req.getEmailUsuario());
+    }
 
+    /** Fechamento interno do agendador, sem simular a identidade de um usuário. */
+    @Override
+    @Transactional
+    public CaixaResponse fecharCaixaAutomaticamente(Long caixaId) {
+        Caixa caixa = caixaRepository.findById(caixaId)
+                .orElseThrow(() -> new ApiException("Caixa não encontrado", HttpStatus.NOT_FOUND, "/caixas/fechamento-automatico"));
+
+        if (!Boolean.TRUE.equals(caixa.getAberto())) {
+            return mapToResponse(caixa);
+        }
+
+        return finalizarFechamento(caixa, null, "sistema");
+    }
+
+    private CaixaResponse finalizarFechamento(Caixa caixa, BigDecimal saldoFinal, String fechadoPor) {
         caixa.recalcularTotalVendas();
-        caixa.setValorFinal(req.getSaldoFinal());
+        caixa.setValorFinal(saldoFinal);
         caixa.setDataFechamento(LocalDateTime.now());
         caixa.setAberto(false);
         caixa.setStatus(StatusCaixa.FECHADO);
-        caixa.setFechadoPor(req.getEmailUsuario());
-
+        caixa.setFechadoPor(fechadoPor);
         return mapToResponse(caixaRepository.save(caixa));
     }
 
