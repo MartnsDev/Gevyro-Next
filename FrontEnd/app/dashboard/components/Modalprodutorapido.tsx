@@ -299,7 +299,8 @@ export default function ModalProdutoRapido({ onClose, onCadastrado }: Props) {
               style={inp}
               value={form.codigoBarras}
               onChange={(e) => set("codigoBarras", e.target.value)}
-              placeholder="EAN-13, EAN-8..."
+              onKeyDown={(e) => { if (e.key === "Enter") e.preventDefault(); }}
+              placeholder="Digite ou bipe o código (EAN, UPC, GTIN, Code 128...)"
             />
           </div>
 

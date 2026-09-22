@@ -26,6 +26,10 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     // Consulta principal por empresa.
     List<Produto> findByEmpresa(Empresa empresa);
 
+    Optional<Produto> findByEmpresa_IdAndCodigoBarras(Long empresaId, String codigoBarras);
+
+    boolean existsByEmpresa_IdAndCodigoBarrasAndIdNot(Long empresaId, String codigoBarras, Long id);
+
     // Produtos zerados por empresa
     List<Produto> findByQuantidadeEstoqueAndEmpresaId(int quantidade, Long empresaId);
 

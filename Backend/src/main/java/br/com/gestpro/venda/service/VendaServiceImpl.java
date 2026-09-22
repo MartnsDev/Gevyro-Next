@@ -86,6 +86,9 @@ public class VendaServiceImpl implements VendaServiceInterface {
             if (produto.getEmpresa() == null || !produto.getEmpresa().getId().equals(caixa.getEmpresa().getId()))
                 throw new ApiException("Produto não pertence à empresa deste caixa.", HttpStatus.BAD_REQUEST, "/api/v1/vendas/registrar");
 
+            if (!Boolean.TRUE.equals(produto.getAtivo()))
+                throw new ApiException("O produto '" + produto.getNome() + "' está inativo e não pode ser vendido.", HttpStatus.CONFLICT, "/api/v1/vendas/registrar");
+
             int qtd = itemDTO.getQuantidade() != null ? itemDTO.getQuantidade() : 1;
 
             if (produto.getQuantidadeEstoque() < qtd)

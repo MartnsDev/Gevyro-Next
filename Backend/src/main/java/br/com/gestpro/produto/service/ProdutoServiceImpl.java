@@ -9,6 +9,7 @@ import br.com.gestpro.plano.TipoPlano;
 import br.com.gestpro.produto.dto.CriarProdutoDTO;
 import br.com.gestpro.produto.model.Produto;
 import br.com.gestpro.produto.repository.ProdutoRepository;
+import br.com.gestpro.produto.CodigoBarras;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,9 +79,25 @@ public class ProdutoServiceImpl implements ProdutoServiceInterface {
         produto.setCategoria(dto.getCategoria());
         produto.setDescricao(dto.getDescricao());
         produto.setUnidade(dto.getUnidade());
-        produto.setCodigoBarras(dto.getCodigoBarras());
+        produto.setCodigoBarras(normalizarCodigo(dto.getCodigoBarras()));
         produto.setPrecoCusto(dto.getPrecoCusto());
         produto.setEstoqueMinimo(dto.getEstoqueMinimo() != null ? dto.getEstoqueMinimo() : 0);
+    }
+
+    private String normalizarCodigo(String codigo) {
+        return CodigoBarras.normalizar(codigo);
+    }
+
+    private void validarCodigoDisponivel(String codigo, Empresa empresa, Long produtoId) {
+        if (codigo == null || empresa == null) return;
+        boolean usado = produtoId == null
+                ? produtoRepository.findByEmpresa_IdAndCodigoBarras(empresa.getId(), codigo).isPresent()
+                : produtoRepository.existsByEmpresa_IdAndCodigoBarrasAndIdNot(empresa.getId(), codigo, produtoId);
+        if (usado) {
+            Produto existente = produtoRepository.findByEmpresa_IdAndCodigoBarras(empresa.getId(), codigo).orElse(null);
+            String nome = existente != null && existente.getNome() != null ? " pelo produto '" + existente.getNome() + "'" : "";
+            throw new ApiException("Código de barras já está sendo utilizado" + nome + ".", HttpStatus.CONFLICT, "/api/v1/produtos");
+        }
     }
 
     @Override
@@ -93,9 +110,14 @@ public class ProdutoServiceImpl implements ProdutoServiceInterface {
 
         Produto produto = new Produto();
         preencherCampos(produto, dto);
+        validarCodigoDisponivel(produto.getCodigoBarras(), empresa, null);
         produto.setUsuario(usuario);
         produto.setEmpresa(empresa);
-        return produtoRepository.save(produto);
+        try {
+            return produtoRepository.save(produto);
+        } catch (DataIntegrityViolationException ex) {
+            throw new ApiException("Código de barras já está sendo utilizado nesta empresa.", HttpStatus.CONFLICT, "/api/v1/produtos");
+        }
     }
 
     @Override
@@ -107,12 +129,18 @@ public class ProdutoServiceImpl implements ProdutoServiceInterface {
         if (!produto.getUsuario().getEmail().equals(dto.getEmailUsuario()))
             throw new ApiException(
                     "Sem permissão para editar este produto.", HttpStatus.FORBIDDEN, "/api/v1/produtos/" + id);
-        preencherCampos(produto, dto);
+        Empresa empresaDestino = produto.getEmpresa();
         if (dto.getEmpresaId() != null) {
-            Empresa empresa = buscarEmpresa(dto.getEmpresaId(), dto.getEmailUsuario());
-            produto.setEmpresa(empresa);
+            empresaDestino = buscarEmpresa(dto.getEmpresaId(), dto.getEmailUsuario());
         }
-        return produtoRepository.save(produto);
+        preencherCampos(produto, dto);
+        validarCodigoDisponivel(produto.getCodigoBarras(), empresaDestino, id);
+        produto.setEmpresa(empresaDestino);
+        try {
+            return produtoRepository.save(produto);
+        } catch (DataIntegrityViolationException ex) {
+            throw new ApiException("Código de barras já está sendo utilizado nesta empresa.", HttpStatus.CONFLICT, "/api/v1/produtos/" + id);
+        }
     }
 
     @Override
@@ -160,11 +188,35 @@ public class ProdutoServiceImpl implements ProdutoServiceInterface {
         return produto;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Produto buscarPorCodigoBarras(String codigoBarras, Long empresaId, String emailUsuario) {
+        Empresa empresa = buscarEmpresa(empresaId, emailUsuario);
+        String codigo = normalizarCodigo(codigoBarras);
+        if (codigo == null) {
+            throw new ApiException("Informe um código de barras válido.", HttpStatus.BAD_REQUEST, "/api/v1/produtos/por-codigo-barras");
+        }
+        Produto produto = produtoRepository.findByEmpresa_IdAndCodigoBarras(empresa.getId(), codigo)
+                .orElseThrow(() -> new ApiException("Produto não encontrado para o código de barras informado.", HttpStatus.NOT_FOUND, "/api/v1/produtos/por-codigo-barras"));
+        if (!Boolean.TRUE.equals(produto.getAtivo())) {
+            throw new ApiException("O código de barras pertence ao produto inativo '" + produto.getNome() + "'.", HttpStatus.CONFLICT, "/api/v1/produtos/por-codigo-barras");
+        }
+        return produto;
+    }
+
     @Override @Transactional(readOnly = true)
     public List<Produto> listarTodos() { return produtoRepository.findAll(); }
 
     @Override @Transactional
-    public Produto salvar(Produto produto) { return produtoRepository.save(produto); }
+    public Produto salvar(Produto produto) {
+        produto.setCodigoBarras(normalizarCodigo(produto.getCodigoBarras()));
+        if (produto.getEmpresa() != null) validarCodigoDisponivel(produto.getCodigoBarras(), produto.getEmpresa(), produto.getId());
+        try {
+            return produtoRepository.save(produto);
+        } catch (DataIntegrityViolationException ex) {
+            throw new ApiException("Código de barras já está sendo utilizado nesta empresa.", HttpStatus.CONFLICT, "/api/v1/produtos");
+        }
+    }
 
     @Override @Transactional(readOnly = true)
     public List<Produto> listarPorUsuario(Long usuarioId) {

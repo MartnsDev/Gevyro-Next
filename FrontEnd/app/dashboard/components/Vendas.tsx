@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { useEmpresa } from "../context/Empresacontext";
 import {
   Plus,
@@ -23,8 +23,10 @@ import {
   Ban,
 } from "lucide-react";
 import { toast } from "sonner";
-import { fetchAuthJson as apiFetchAuthJson } from "@/lib/api-v2";
+import { fetchAuthJson as apiFetchAuthJson, fetchAuth as apiFetchAuth } from "@/lib/api-v2";
 import { prepararSomDeVenda } from "@/lib/som-venda";
+import { useBarcodeScanner } from "@/lib/useBarcodeScanner";
+import NovoProduto from "../acoesRapidas/NovoProduto";
 
 interface Produto {
   id: number;
@@ -33,6 +35,7 @@ interface Produto {
   quantidadeEstoque: number;
   categoria?: string;
   ativo?: boolean;
+  codigoBarras?: string | null;
 }
 interface ItemCarrinho {
   produto: Produto;
@@ -180,6 +183,22 @@ const fmtData = (s?: any) => {
 
 async function fetchAuth<T>(path: string, opts?: RequestInit): Promise<T> {
   return apiFetchAuthJson<T>(path, opts);
+}
+
+function tocarFeedbackScanner(sucesso: boolean) {
+  if (typeof window === "undefined" || !(window as any).AudioContext) return;
+  try {
+    const contexto = new (window as any).AudioContext();
+    const oscilador = contexto.createOscillator();
+    const ganho = contexto.createGain();
+    oscilador.frequency.value = sucesso ? 880 : 220;
+    ganho.gain.setValueAtTime(0.035, contexto.currentTime);
+    ganho.gain.exponentialRampToValueAtTime(0.001, contexto.currentTime + 0.07);
+    oscilador.connect(ganho).connect(contexto.destination);
+    oscilador.start();
+    oscilador.stop(contexto.currentTime + 0.07);
+    oscilador.addEventListener("ended", () => void contexto.close());
+  } catch { /* feedback opcional */ }
 }
 
 const inp: React.CSSProperties = {
@@ -725,11 +744,15 @@ function ModalNovaVenda({
   empresaId,
   onClose,
   onSucesso,
+  onCodigoNaoEncontrado,
+  catalogoVersion,
 }: {
   caixaId: number;
   empresaId: number;
   onClose: () => void;
   onSucesso: (v: Venda) => void;
+  onCodigoNaoEncontrado?: (codigo: string) => void;
+  catalogoVersion?: number;
 }) {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [carrinho, setCarrinho] = useState<ItemCarrinho[]>([]);
@@ -742,18 +765,20 @@ function ModalNovaVenda({
   const [recebido, setRecebido] = useState("");
   const [observacao, setObservacao] = useState("");
   const [salvando, setSalvando] = useState(false);
+  const [somScanner, setSomScanner] = useState(true);
 
-  useEffect(() => {
-    fetchAuth<Produto[]>(`/api/v1/produtos?empresaId=${empresaId}`)
+  const carregarProdutos = useCallback(() => fetchAuth<Produto[]>(`/api/v1/produtos?empresaId=${empresaId}`)
       .then(setProdutos)
-      .catch(() => toast.error("Erro ao carregar produtos"));
-  }, [empresaId]);
+      .catch(() => toast.error("Erro ao carregar produtos")), [empresaId]);
+
+  useEffect(() => { carregarProdutos(); }, [carregarProdutos, catalogoVersion]);
 
  const filtrados = useMemo(() =>
     produtos.filter(p => 
       p.ativo !== false && 
       p.quantidadeEstoque > 0 && 
-      p.nome.toLowerCase().includes(busca.toLowerCase())
+      (p.nome.toLowerCase().includes(busca.toLowerCase()) ||
+      (p.codigoBarras || "").toLowerCase().includes(busca.toLowerCase()))
     ),
   [produtos, busca]);
 
@@ -771,6 +796,51 @@ function ModalNovaVenda({
       }
       return [...prev, { produto: p, quantidade: 1 }];
     });
+
+  const fila = useRef<string[]>([]);
+  const processando = useRef(false);
+  const cache = useRef(new Map<string, { produto: Produto; at: number }>());
+  const processarFila = useCallback(async () => {
+    if (processando.current) return;
+    processando.current = true;
+    try {
+      while (fila.current.length) {
+        const codigo = fila.current.shift()!;
+        try {
+          const cached = cache.current.get(codigo);
+          let produto: Produto;
+          if (cached && Date.now() - cached.at < 60_000) {
+            produto = cached.produto;
+          } else {
+            const resposta = await apiFetchAuth(`/api/v1/produtos/por-codigo-barras?empresaId=${empresaId}&codigoBarras=${encodeURIComponent(codigo)}`);
+            const corpo = await resposta.json().catch(() => null);
+            if (!resposta.ok) {
+              if (resposta.status === 404) { if (somScanner) tocarFeedbackScanner(false); onCodigoNaoEncontrado?.(codigo); continue; }
+              throw new Error(corpo?.mensagem || "Não foi possível localizar o produto.");
+            }
+            produto = corpo as Produto;
+          }
+          cache.current.set(codigo, { produto, at: Date.now() });
+          setProdutos(prev => prev.some(p => p.id === produto.id) ? prev.map(p => p.id === produto.id ? produto : p) : [...prev, produto]);
+          if (produto.quantidadeEstoque <= 0) {
+            if (somScanner) tocarFeedbackScanner(false);
+            toast.error(`${produto.nome} está sem estoque.`);
+            continue;
+          }
+          addItem(produto);
+          if (somScanner) tocarFeedbackScanner(true);
+          toast.success(`${produto.nome} adicionado`, { duration: 1200 });
+        } catch (error: any) {
+          toast.error(String(error?.message || "Não foi possível localizar o produto."));
+        }
+      }
+    } finally { processando.current = false; }
+  }, [empresaId, onCodigoNaoEncontrado, somScanner]);
+  const enfileirarCodigo = useCallback((codigo: string) => {
+    fila.current.push(codigo.trim());
+    void processarFila();
+  }, [processarFila]);
+  useBarcodeScanner({ enabled: true, onScan: enfileirarCodigo });
 
   const setQtd = (id: number, q: number) => {
     if (q <= 0) setCarrinho((prev) => prev.filter((i) => i.produto.id !== id));
@@ -980,8 +1050,15 @@ function ModalNovaVenda({
                   placeholder="Buscar produto..."
                   value={busca}
                   onChange={(e) => setBusca(e.target.value)}
-                  autoFocus
+                  data-barcode-search="true"
                 />
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 5 }}>
+                  <span style={{ color: "var(--foreground-subtle)", fontSize: 10 }}>Leitor ativo · bipe um produto para adicionar</span>
+                  <button type="button" onClick={() => setSomScanner((v) => !v)} style={{ border: 0, background: "transparent", color: "var(--foreground-subtle)", fontSize: 10, cursor: "pointer" }}>
+                    Som {somScanner ? "ligado" : "desligado"}
+                  </button>
+                </div>
+                <span style={{ display: "block", marginTop: 5, color: "var(--foreground-subtle)", fontSize: 10 }}>Leitor ativo · bipe um produto para adicionar</span>
               </div>
             </div>
             <div style={{ overflowY: "auto", flex: 1 }}>
@@ -2748,6 +2825,8 @@ export default function Vendas() {
   const [modalNova, setModalNova] = useState(false);
   const [vendaSucesso, setVendaSucesso] = useState<Venda | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [codigoCadastro, setCodigoCadastro] = useState<string | null>(null);
+  const [catalogoVersion, setCatalogoVersion] = useState(0);
 
   const carregar = async () => {
     if (!empresaAtiva) return;
@@ -2896,10 +2975,23 @@ export default function Vendas() {
           caixaId={caixaAtivo.id}
           empresaId={empresaAtiva.id}
           onClose={() => setModalNova(false)}
+          onCodigoNaoEncontrado={(codigo) => setCodigoCadastro(codigo)}
+          catalogoVersion={catalogoVersion}
           onSucesso={(venda) => {
             carregar();
             setRefreshKey((value) => value + 1);
             setVendaSucesso(venda);
+          }}
+        />
+      )}
+      {codigoCadastro && (
+        <NovoProduto
+          empresaId={empresaAtiva.id}
+          initialCodigoBarras={codigoCadastro}
+          onClose={() => setCodigoCadastro(null)}
+          onConcluido={() => {
+            setCodigoCadastro(null);
+            setCatalogoVersion((v) => v + 1);
           }}
         />
       )}

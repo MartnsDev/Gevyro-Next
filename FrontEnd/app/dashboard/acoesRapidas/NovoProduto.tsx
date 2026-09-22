@@ -65,14 +65,15 @@ const fmt = (v?: number | null) => new Intl.NumberFormat("pt-BR", { style: "curr
 
 interface Props {
   empresaId: number;
+  initialCodigoBarras?: string;
   onClose: () => void;
   onConcluido: () => void;
 }
 
-export default function NovoProduto({ empresaId, onClose, onConcluido }: Props) {
+export default function NovoProduto({ empresaId, initialCodigoBarras = "", onClose, onConcluido }: Props) {
   const [form, setForm] = useState({
     nome: "", categoria: "", descricao: "", unidade: "UN",
-    codigoBarras: "", preco: "", precoCusto: "",
+    codigoBarras: initialCodigoBarras, preco: "", precoCusto: "",
     quantidadeEstoque: "0", estoqueMinimo: "0", ativo: true
   });
   const [saving, setSaving] = useState(false);
@@ -157,7 +158,8 @@ export default function NovoProduto({ empresaId, onClose, onConcluido }: Props) 
             <label style={{ fontSize: 12, color: "var(--foreground-muted)", display: "block", marginBottom: 6, fontWeight: 500 }}>
               <Barcode size={11} style={{ marginRight: 4 }} />Código de Barras
             </label>
-            <input style={inp} value={form.codigoBarras} onChange={e => set("codigoBarras", e.target.value)} placeholder="EAN-13, EAN-8..." />
+            <input style={inp} value={form.codigoBarras} onChange={e => set("codigoBarras", e.target.value)} onKeyDown={e => { if (e.key === "Enter") e.preventDefault(); }} placeholder="Digite ou bipe o código (EAN, UPC, GTIN, Code 128...)" />
+            <p style={{ margin: "5px 0 0", fontSize: 10, color: "var(--foreground-subtle)" }}>Você pode digitar, colar ou bipar com um leitor USB/Bluetooth.</p>
           </div>
           
           {/* PRECIFICAÇÃO E LUCRO */}

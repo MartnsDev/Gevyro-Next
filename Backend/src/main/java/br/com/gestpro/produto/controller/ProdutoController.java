@@ -50,6 +50,14 @@ public class ProdutoController {
         return ResponseEntity.ok(new ProdutoResponseDTO(produtoService.buscarPorId(id, authentication.getName())));
     }
 
+    @GetMapping("/por-codigo-barras")
+    public ResponseEntity<ProdutoResponseDTO> buscarPorCodigoBarras(
+            @RequestParam Long empresaId,
+            @RequestParam String codigoBarras,
+            Authentication authentication) {
+        return ResponseEntity.ok(new ProdutoResponseDTO(produtoService.buscarPorCodigoBarras(codigoBarras, empresaId, authentication.getName())));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ProdutoResponseDTO> atualizar(
             @PathVariable Long id,

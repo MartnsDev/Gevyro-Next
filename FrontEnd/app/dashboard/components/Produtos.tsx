@@ -180,7 +180,8 @@ function ModalProduto({ produto, categorias, onSave, onClose, saving }: {
           <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 12 }}>
             <div>
               <label style={{ fontSize: 12, color: "var(--foreground-muted)", display: "block", marginBottom: 6, fontWeight: 500 }}><Barcode size={11} style={{ marginRight: 4 }} />Código de Barras</label>
-              <input style={inp} value={form.codigoBarras} onChange={(e) => set("codigoBarras", e.target.value)} placeholder="EAN-13..." />
+              <input style={inp} value={form.codigoBarras} onChange={(e) => set("codigoBarras", e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") e.preventDefault(); }} placeholder="Digite ou bipe o código (EAN, UPC, GTIN, Code 128...)" />
+              <p style={{ margin: "5px 0 0", fontSize: 10, color: "var(--foreground-subtle)" }}>Digite, cole ou use um leitor USB/Bluetooth.</p>
             </div>
             <div>
               <label style={{ fontSize: 12, color: "var(--foreground-muted)", display: "block", marginBottom: 6, fontWeight: 500 }}>Ativo</label>

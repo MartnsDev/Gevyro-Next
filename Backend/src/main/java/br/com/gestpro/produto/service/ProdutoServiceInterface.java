@@ -10,6 +10,7 @@ public interface ProdutoServiceInterface {
     Produto atualizar(Long id, CriarProdutoDTO dto);
     void excluir(Long id, String emailUsuario);
     Produto buscarPorId(Long id, String emailUsuario);
+    Produto buscarPorCodigoBarras(String codigoBarras, Long empresaId, String emailUsuario);
     List<Produto> listarPorEmail(String email);
     List<Produto> listarPorEmpresa(Long empresaId, String emailUsuario);
     List<Produto> listarTodos();
