@@ -1058,7 +1058,6 @@ function ModalNovaVenda({
                     Som {somScanner ? "ligado" : "desligado"}
                   </button>
                 </div>
-                <span style={{ display: "block", marginTop: 5, color: "var(--foreground-subtle)", fontSize: 10 }}>Leitor ativo · bipe um produto para adicionar</span>
               </div>
             </div>
             <div style={{ overflowY: "auto", flex: 1 }}>
