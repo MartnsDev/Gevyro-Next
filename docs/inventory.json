@@ -5458,12 +5458,48 @@
   ],
   "frontend": [
     {
+      "path": "FrontEnd/app/api/auth/[operation]/route.ts",
+      "sha256": "7c84a0d6db8f0686d3b22ea1d46b55b47cc77abcccd54892fbf12ad5741e497c"
+    },
+    {
+      "path": "FrontEnd/app/api/auth/callback/route.ts",
+      "sha256": "e630b77ee8dacdb6d498cfb78d3907f46bf17d61d0d1afc1f863d1cb861dfa10"
+    },
+    {
+      "path": "FrontEnd/app/api/auth/confirm/route.ts",
+      "sha256": "eca995f0a54984aba43e1ce66ccc16854da66527b1765cf9cd48bd21c37e0bb8"
+    },
+    {
+      "path": "FrontEnd/app/api/auth/google/route.ts",
+      "sha256": "a038d82e9dfd2b4087540dff92152850ba0402cde648df5e5851b0387ffa3018"
+    },
+    {
+      "path": "FrontEnd/app/api/auth/photo/route.ts",
+      "sha256": "ea618f761cb179572e19122897e9c32cf1db72b7104708b6d2f43f14e7af876e"
+    },
+    {
+      "path": "FrontEnd/app/api/health/route.ts",
+      "sha256": "d9c51a8e87d1988346ce9668a32c80ce071205799e053e23151507960d579e0a"
+    },
+    {
+      "path": "FrontEnd/app/api/v1/[resource]/[[...path]]/route.ts",
+      "sha256": "16b83dd909296c474cf5463030b8a4c94914833280e3eee5398adefa753a7e90"
+    },
+    {
+      "path": "FrontEnd/app/api/v1/configuracoes/[...path]/route.ts",
+      "sha256": "9aedbee00c653d3d175894d39b35e63f1991ab24c452b26682eb774babf35e92"
+    },
+    {
+      "path": "FrontEnd/app/api/v1/empresas/[[...path]]/route.ts",
+      "sha256": "3df987e2632d309e11380664f1bf8c4bf9642d2c4d065b544a208f39de3b349e"
+    },
+    {
       "path": "FrontEnd/app/auth/cadastro/layout.tsx",
       "sha256": "4f522c4cce3c57bc3bcba1d25a2f183dc954d43e3ab4b47ab3ec77f6a9b219b5"
     },
     {
       "path": "FrontEnd/app/auth/cadastro/page.tsx",
-      "sha256": "cbbfd7eacbddebb0d8f79bf41d477c737f04f08b406dab0cde8962431fcb4ff3"
+      "sha256": "afbdf161db51bb2d049a5060c7aef83edd3cf7527496b4e6dca65c14d6832d25"
     },
     {
       "path": "FrontEnd/app/auth/layout.tsx",
@@ -5519,7 +5555,7 @@
     },
     {
       "path": "FrontEnd/app/dashboard/acoesRapidas/NovaVenda.tsx",
-      "sha256": "215c844e5f7b56b9aaac498729d623e19477ce19ba8ef823706f27e280e556e7"
+      "sha256": "383bb97097d8f3ce08ca6185ff1cb2dbea861384067bc3d527b53c8a48723eea"
     },
     {
       "path": "FrontEnd/app/dashboard/acoesRapidas/NovoCliente.tsx",
@@ -5543,11 +5579,11 @@
     },
     {
       "path": "FrontEnd/app/dashboard/components/Configuracoes.tsx",
-      "sha256": "632d701776205959e172cdade22e06e090c6f75c4050b6612c7825c3400d9e75"
+      "sha256": "bc8a6ef6dd90d4aff9eca0e96a63145e2a906f64e7be8bd61e873e716379394f"
     },
     {
       "path": "FrontEnd/app/dashboard/components/DashboardHome.tsx",
-      "sha256": "c904ce6e97d8437704de19febd4620d8c6e6edc381445e17d609022bf8532e63"
+      "sha256": "7ac3d7014c08f44bc773ec100f4d4c8b07230f08a55a44ae07dcbcb2c281aa49"
     },
     {
       "path": "FrontEnd/app/dashboard/components/GerenciarEmpresas.tsx",
@@ -5567,11 +5603,11 @@
     },
     {
       "path": "FrontEnd/app/dashboard/components/NotaFiscal.tsx",
-      "sha256": "94413bac25bbd9d0490b1e614e868d31388d00e88d59b349275bd2f75171ed08"
+      "sha256": "795fbabe9fadc7486f6312273f95779eee73cc058e6009539eb51b313e2a22ab"
     },
     {
       "path": "FrontEnd/app/dashboard/components/Pedidos.tsx",
-      "sha256": "bc7168e7041bc64607ed4f1caa601b2309e6742b0e4f35c07b9730b8d748a935"
+      "sha256": "32038d4a02146098303827a435ed4162753d591619178aa5d6118feac9513b3e"
     },
     {
       "path": "FrontEnd/app/dashboard/components/Plano.tsx",
@@ -5587,11 +5623,11 @@
     },
     {
       "path": "FrontEnd/app/dashboard/components/Seletorempresa.tsx",
-      "sha256": "15922b6757a6e6a4dd01eb816ff8d55b1fce07265c639d086fb5a78f8b081550"
+      "sha256": "2a420c5b81a04f299f9b8a083880d7a77ade89d47787bb0ba1e952b7a5f22f49"
     },
     {
       "path": "FrontEnd/app/dashboard/components/Vendas.tsx",
-      "sha256": "050dc610f384575802a9c4eab3faf0e0f55076923cdd98291fcc966cd9d1933f"
+      "sha256": "10cbfc259e893a77bcf8d9d321ec1da2a97e6893602945f790fff0bc1e995375"
     },
     {
       "path": "FrontEnd/app/dashboard/components/complementos/FormularioProduto.tsx",
@@ -5619,7 +5655,7 @@
     },
     {
       "path": "FrontEnd/app/dashboard/page.tsx",
-      "sha256": "e97cb76297bebe2a795f02554c536df728abed465197af9ae8da0f61ee08ad1d"
+      "sha256": "67c2dfcc84102fc996e295ad3d79496f9dd253b7891992e08f63cd9920cd2a0a"
     },
     {
       "path": "FrontEnd/app/esqueceu-senha/layout.tsx",
@@ -5627,7 +5663,7 @@
     },
     {
       "path": "FrontEnd/app/esqueceu-senha/page.tsx",
-      "sha256": "5add32f6a6c2f4ead4261e3af5231c9e9ef051569ac91f052acf081d8711b56a"
+      "sha256": "8603e35f6cf1ae850ce60b1fb77fc7bbcd27ef64632bbc0b5b1558ea79ff4ea0"
     },
     {
       "path": "FrontEnd/app/globals.css",
@@ -5635,7 +5671,7 @@
     },
     {
       "path": "FrontEnd/app/layout.tsx",
-      "sha256": "9cdcd720e4d90fff154df553ca87971fe495d5a371c77de5da3018decc14229d"
+      "sha256": "f35e959172bda2df3f3d265b31d9a76fc13f6c0acdcba478b12637a53562d855"
     },
     {
       "path": "FrontEnd/app/manifest.ts",
@@ -5755,7 +5791,7 @@
     },
     {
       "path": "FrontEnd/components/pwa-install-prompt.tsx",
-      "sha256": "df8fea2356398946325b35b52a5347fc78cac91ca625244dad45f4a4bf852717"
+      "sha256": "8fe8c37c14501326bacf7bdf431ccabd6602f8072cca2d6d5bba45aa12ae5d0c"
     },
     {
       "path": "FrontEnd/components/theme-provider.tsx",
@@ -6003,7 +6039,7 @@
     },
     {
       "path": "FrontEnd/lib/api-v2.ts",
-      "sha256": "9a813a3f978d256f0cbee4def5bed065eeebfa52e9448012d7fb078ed881cb86"
+      "sha256": "e8a27625c17a92d1df0327264f8062f80f75458a9fcb1fa6835ce6510ed5b09c"
     },
     {
       "path": "FrontEnd/lib/auth-v2.ts",
@@ -6015,7 +6051,7 @@
     },
     {
       "path": "FrontEnd/lib/config.ts",
-      "sha256": "a806536f4a37046dafb9d808582ff6b9bb9fb320fd365760c2fc14431d4221bb"
+      "sha256": "a798a3ec04ca6d7c741d16cd969025b5c515de566253e6e560095a6e0c442a6b"
     },
     {
       "path": "FrontEnd/lib/http-client.ts",
@@ -6026,12 +6062,24 @@
       "sha256": "65e7b596daf66b44c878db34f3390f2cde7d9247dde75a64b0f44d6fcd65a562"
     },
     {
+      "path": "FrontEnd/lib/pending-profile-photo.ts",
+      "sha256": "ecf7dcbfb4cb6171e8c94f9fa112f668c096cfa0ac764a8e19644d75b7ca0da1"
+    },
+    {
       "path": "FrontEnd/lib/produtos.ts",
       "sha256": "8dab182ed62a526a077b592e71f9a789dc07a2d2ee53f9ed95d6d325ba5007ac"
     },
     {
+      "path": "FrontEnd/lib/sale-idempotency.ts",
+      "sha256": "034a998e9a545b19a8760da8b29c171fdaf5e30388b031f5eb6a8b716d74afb1"
+    },
+    {
       "path": "FrontEnd/lib/seo.ts",
-      "sha256": "b95243de64f7d288c42e3a8d0b0df2c8dd5c01831f9ff0711107164dc81bf9dc"
+      "sha256": "0b49187ec3076722aa240b22232fc2ab27980392d86e87441094cb44b1bfd75b"
+    },
+    {
+      "path": "FrontEnd/lib/service-worker-lifecycle.ts",
+      "sha256": "9359847bc6456003cd329e0397d949d1aa24f78eaa4b0b9a46ea0c9bb37c088e"
     },
     {
       "path": "FrontEnd/lib/services/clientes.ts",
@@ -6062,6 +6110,10 @@
       "sha256": "26b1c29080cc1852b1ec39136b780482e1e4c39b3859139a542fd3334a3dc91e"
     },
     {
+      "path": "FrontEnd/lib/supabase/server.ts",
+      "sha256": "49ecd10c98c55c26106886dd2d804676665db4845c57be03f76440f7ac1ce1c8"
+    },
+    {
       "path": "FrontEnd/lib/types.ts",
       "sha256": "1cd850d513a639e942bb655eb2b24b3dd723937654e67014657ef10e4c22413f"
     },
@@ -6087,7 +6139,35 @@
     },
     {
       "path": "FrontEnd/public/sw.js",
-      "sha256": "2473e4e86ac3572541441f02c1a40e00018a1ff2907a0b88e4ab386aa39a9652"
+      "sha256": "46ec1c693b6271a4483a9e275a6716915f33e7a1e0bceeac919d40a146b69f84"
+    },
+    {
+      "path": "FrontEnd/server/auth/account.ts",
+      "sha256": "4f5ecd9c77a8b65cfab1ae30a6aa6a2520d9256b53d1fcd2b3cb9ee124f44ba9"
+    },
+    {
+      "path": "FrontEnd/server/auth/photos.ts",
+      "sha256": "ec3406d1080d22ce4f4bb421e0c67a0c97ae973417abd9bc08da8a81acf76f6d"
+    },
+    {
+      "path": "FrontEnd/server/auth/request-security.ts",
+      "sha256": "0d08d271fc2f3a2fa2ac8ff907f5c9c8d343c2408acf4202c58a6980aa2c9219"
+    },
+    {
+      "path": "FrontEnd/server/auth/session.ts",
+      "sha256": "5ec2ce9ad41f25485c007bb493a405bd804045926e6de5ddaecb93b25f7aec4d"
+    },
+    {
+      "path": "FrontEnd/server/catalog/service.ts",
+      "sha256": "725eccce0361a822079fc63a64e7b6f4ee6c7df4e2f220e437a2a303ec1bdd39"
+    },
+    {
+      "path": "FrontEnd/server/company/service.ts",
+      "sha256": "369b2e9cd940851c51c62761b9d45678e328ae3210f8771418520dd143ba4c73"
+    },
+    {
+      "path": "FrontEnd/server/finance/handler.ts",
+      "sha256": "7c4a1462d76fc77f65b269b36e03572620557ce0210a91e0737450032679b1e8"
     }
   ],
   "mysqlMigrations": [
@@ -6117,10 +6197,47 @@
   "originalComparison": {
     "source": "/home/matheus-martins/Documentos/GestPro/Gest-Pro",
     "available": true,
-    "equal": 465,
+    "equal": 449,
     "different": [
-      "FrontEnd/app/styles/auth.module.css"
+      "FrontEnd/app/auth/cadastro/page.tsx",
+      "FrontEnd/app/dashboard/acoesRapidas/NovaVenda.tsx",
+      "FrontEnd/app/dashboard/components/Configuracoes.tsx",
+      "FrontEnd/app/dashboard/components/DashboardHome.tsx",
+      "FrontEnd/app/dashboard/components/NotaFiscal.tsx",
+      "FrontEnd/app/dashboard/components/Pedidos.tsx",
+      "FrontEnd/app/dashboard/components/Seletorempresa.tsx",
+      "FrontEnd/app/dashboard/components/Vendas.tsx",
+      "FrontEnd/app/dashboard/page.tsx",
+      "FrontEnd/app/esqueceu-senha/page.tsx",
+      "FrontEnd/app/layout.tsx",
+      "FrontEnd/app/styles/auth.module.css",
+      "FrontEnd/components/pwa-install-prompt.tsx",
+      "FrontEnd/lib/api-v2.ts",
+      "FrontEnd/lib/config.ts",
+      "FrontEnd/lib/seo.ts",
+      "FrontEnd/public/sw.js"
     ],
-    "missing": []
+    "missing": [
+      "FrontEnd/app/api/auth/[operation]/route.ts",
+      "FrontEnd/app/api/auth/callback/route.ts",
+      "FrontEnd/app/api/auth/confirm/route.ts",
+      "FrontEnd/app/api/auth/google/route.ts",
+      "FrontEnd/app/api/auth/photo/route.ts",
+      "FrontEnd/app/api/health/route.ts",
+      "FrontEnd/app/api/v1/[resource]/[[...path]]/route.ts",
+      "FrontEnd/app/api/v1/configuracoes/[...path]/route.ts",
+      "FrontEnd/app/api/v1/empresas/[[...path]]/route.ts",
+      "FrontEnd/lib/pending-profile-photo.ts",
+      "FrontEnd/lib/sale-idempotency.ts",
+      "FrontEnd/lib/service-worker-lifecycle.ts",
+      "FrontEnd/lib/supabase/server.ts",
+      "FrontEnd/server/auth/account.ts",
+      "FrontEnd/server/auth/photos.ts",
+      "FrontEnd/server/auth/request-security.ts",
+      "FrontEnd/server/auth/session.ts",
+      "FrontEnd/server/catalog/service.ts",
+      "FrontEnd/server/company/service.ts",
+      "FrontEnd/server/finance/handler.ts"
+    ]
   }
 }

@@ -323,11 +323,9 @@ function gerarCupom(venda: Venda, nomeEmpresa: string, documentoEmpresa?: string
   </div>
 </div>
 
-<button class="print-btn no-print" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+<button class="print-btn no-print">🖨️ Imprimir / Salvar PDF</button>
 
-<script>
-  window.onload = () => setTimeout(() => { window.focus(); window.print(); }, 400);
-</script>
+
 </body></html>`;
 
   const janela = window.open("", "_blank", "width=500,height=700");
@@ -336,6 +334,8 @@ function gerarCupom(venda: Venda, nomeEmpresa: string, documentoEmpresa?: string
     return;
   }
   janela.document.write(html);
+  janela.document.querySelector("button.print-btn")?.addEventListener("click", () => janela.print());
+  janela.onload = () => setTimeout(() => { janela.focus(); janela.print(); }, 400);
   janela.document.close();
 }
 

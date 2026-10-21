@@ -6,19 +6,19 @@ Gerada por `npm run audit`. Os destinos são propostas; presença no inventário
 |---|---:|---:|---:|---|---|
 | GestproBackendApplication.java | 1 | 0 | 0 | `src/server/GestproBackendApplication.java` | Não iniciado |
 | analytics | 7 | 1 | 1 | `src/server/analytics` | Não iniciado |
-| auth | 32 | 6 | 1 | `src/server/auth` | Não iniciado |
-| caixa | 13 | 1 | 1 | `src/server/caixa` | Não iniciado |
-| cliente | 12 | 2 | 2 | `src/server/cliente` | Não iniciado |
-| configuracao | 8 | 1 | 1 | `src/server/configuracao` | Não iniciado |
+| auth | 32 | 6 | 1 | `FrontEnd/server/auth` | Em desenvolvimento |
+| caixa | 13 | 1 | 1 | `FrontEnd/server/finance` | Em desenvolvimento |
+| cliente | 12 | 2 | 2 | `FrontEnd/server/catalog` | Em desenvolvimento |
+| configuracao | 8 | 1 | 1 | `FrontEnd/server/auth` | Em desenvolvimento |
 | dashboard | 11 | 1 | 0 | `src/server/dashboard` | Não iniciado |
-| empresa | 8 | 1 | 1 | `src/server/empresa` | Não iniciado |
+| empresa | 8 | 1 | 1 | `FrontEnd/server/company` | Em desenvolvimento |
 | infra | 22 | 0 | 0 | `src/server/infra` | Não iniciado |
 | marketplace | 17 | 2 | 2 | `src/server/marketplace` | Não iniciado |
 | nota | 117 | 6 | 13 | `src/server/nota` | Não iniciado |
 | pedidos | 10 | 1 | 2 | `src/server/pedidos` | Não iniciado |
 | plano | 26 | 4 | 4 | `src/server/plano` | Não iniciado |
-| produto | 14 | 2 | 2 | `src/server/produto` | Não iniciado |
-| venda | 10 | 1 | 2 | `src/server/venda` | Em desenvolvimento |
+| produto | 14 | 2 | 2 | `FrontEnd/server/catalog` | Em desenvolvimento |
+| venda | 10 | 1 | 2 | `FrontEnd/server/finance` | Em desenvolvimento |
 
 ## Interfaces preservadas
 

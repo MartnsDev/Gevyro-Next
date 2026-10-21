@@ -2,14 +2,25 @@
   "name": "gevyro-next",
   "version": "0.1.0",
   "private": true,
-  "description": "Migração incremental da Gevyro; consulte MIGRATION_STATUS.md",
+  "description": "Migra\u00e7\u00e3o incremental da Gevyro; consulte MIGRATION_STATUS.md",
   "scripts": {
+    "supabase:init": "npx --yes supabase@2.121.0 init",
+    "supabase:login": "npx --yes supabase@2.121.0 login",
+    "supabase:link": "npx --yes supabase@2.121.0 link --project-ref zevgzuhtemnjrqeolmit",
+    "supabase:status": "node scripts/supabase-project.mjs status",
+    "supabase:migrate:check": "node scripts/supabase-project.mjs check",
+    "supabase:migrate": "node scripts/supabase-project.mjs migrate",
     "audit": "python3 scripts/audit.py",
     "typecheck": "tsc --noEmit",
     "test": "tsc && node --test tests/*.test.cjs",
     "test:postgres": "bash scripts/test-postgres.sh",
     "dev": "npm --prefix FrontEnd run dev",
-    "build": "npm --prefix FrontEnd run build -- --webpack"
+    "build": "npm --prefix FrontEnd run build -- --webpack",
+    "deploy:check": "node scripts/deploy-check.mjs",
+    "deploy:smoke": "node scripts/deploy-smoke.mjs",
+    "start": "npm --prefix FrontEnd start"
   },
-  "devDependencies": { "typescript": "5.9.3" }
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
 }

@@ -1,0 +1,14 @@
+**/node_modules
+**/.next*
+**/.env*
+**/.git
+**/.aws
+**/.codex
+**/.agents
+**/*.pem
+**/*.p12
+**/*.pfx
+Backend
+Backup
+supabase/.temp
+.test-build

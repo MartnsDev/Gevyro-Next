@@ -34,9 +34,11 @@ jobs:
       - name: Verificar tipos
         run: npm run typecheck
       - name: Gerar build
+        run: npm run build:deploy
         env:
-          NEXT_PUBLIC_API_URL: http://localhost:8080
-        run: npm run build -- --webpack
+          NEXT_PUBLIC_APP_URL: https://gevyro-next-ci.invalid
+          NEXT_PUBLIC_SUPABASE_URL: https://zevgzuhtemnjrqeolmit.supabase.co
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_buildcheck
 
   typescript:
     name: Gevyro Next - servicos TypeScript
@@ -51,10 +53,25 @@ jobs:
           cache: npm
       - name: Instalar dependencias
         run: npm ci --ignore-scripts
+      - name: Instalar dependencias dos contratos de autenticacao
+        run: npm ci --prefix FrontEnd --ignore-scripts
       - name: Verificar tipos
         run: npm run typecheck
       - name: Testar regras financeiras
         run: npm test
+
+  postgres:
+    name: PostgreSQL - RLS, transacoes e concorrencia
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+      - name: Instalar PostgreSQL 16
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-16
+      - name: Testar migrations e regras no banco real
+        run: bash scripts/test-postgres.sh
 
   backend:
     name: Backend - testes

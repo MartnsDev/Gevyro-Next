@@ -79,7 +79,7 @@ const MARKETPLACE_META: Record<MarketplaceKey,{label:string;icon:React.ReactNode
   MERCADO_LIVRE: {label:"Mercado Livre", icon:<img src="https://cdn.jsdelivr.net/gh/MartnsDev/Icons@main/mercadolivre.svg" alt="ML"     width={22} height={22}/>, color:"#854F0B", bg:"#FAEEDA", border:"#EF9F27"},
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://api.gevyro.com.br";
+const API_URL = "";
 
 /**
  * Monta a URL de autorização OAuth de cada marketplace.
@@ -170,10 +170,13 @@ function imprimirPedido(pedido:Pedido) {
       <table><thead><tr><th>Produto</th><th class="right">Valor</th></tr></thead><tbody>${itens}</tbody></table>
       <section class="totais"><div class="linha"><span>Subtotal</span><span>${escaparHtml(fmt(pedido.valorTotal))}</span></div>${pedido.desconto>0?`<div class="linha"><span>Desconto</span><span>− ${escaparHtml(fmt(pedido.desconto))}</span></div>`:""}${pedido.custoFrete>0?`<div class="linha"><span>Frete</span><span>+ ${escaparHtml(fmt(pedido.custoFrete))}</span></div>`:""}<div class="linha total"><span>Total</span><span>${escaparHtml(fmt(pedido.valorFinal))}</span></div></section>
       ${pedido.enderecoEntrega?`<div class="bloco"><strong>Endereço de entrega</strong><br>${escaparHtml(pedido.enderecoEntrega)}</div>`:""}${pedido.observacao?`<div class="bloco"><strong>Observações</strong><br>${escaparHtml(pedido.observacao)}</div>`:""}${pedido.motivoCancelamento?`<div class="bloco"><strong>Motivo do cancelamento</strong><br>${escaparHtml(pedido.motivoCancelamento)}</div>`:""}
-      <footer class="rodape">Emitido via Gevyro</footer></main><button class="print" onclick="window.print()">Imprimir / Salvar PDF</button><script>window.onload=()=>setTimeout(()=>window.print(),300)</script></body></html>`;
+      <footer class="rodape">Emitido via Gevyro</footer></main><button class="print">Imprimir / Salvar PDF</button></body></html>`;
   const janela=window.open("","_blank","width=850,height=800");
   if(!janela){toast.error("Permita pop-ups para imprimir o pedido.");return;}
-  janela.document.write(html);janela.document.close();
+  janela.document.write(html);
+  janela.document.querySelector("button.print")?.addEventListener("click", () => janela.print());
+  janela.onload = () => setTimeout(() => janela.print(), 300);
+  janela.document.close();
 }
 
 function SeletorStatus({statusAtual,onChange,salvando}:{

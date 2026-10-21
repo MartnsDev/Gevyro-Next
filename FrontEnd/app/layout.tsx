@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import type React from "react";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
@@ -53,15 +54,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false} themes={["dark", "light"]}>
+        <ThemeProvider nonce={nonce} attribute="data-theme" defaultTheme="light" enableSystem={false} themes={["dark", "light"]}>
           <LanguageProvider>
             <AuthSessionSync />
             <Suspense fallback={null}>{children}</Suspense>

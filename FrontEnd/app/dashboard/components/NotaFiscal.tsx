@@ -13,7 +13,7 @@ import { useEmpresa } from "../context/Empresacontext";
 import { fetchAuth } from "@/lib/api-v2";
 
 const getApiBase = () => {
-  const envUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+  const envUrl = "";
   const cleanUrl = envUrl.replace(/\/api\/v1\/?$/, '').replace(/\/v1\/?$/, '').replace(/\/$/, '');
   return `${cleanUrl}/api/nota-fiscal`;
 };

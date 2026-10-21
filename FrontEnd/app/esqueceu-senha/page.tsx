@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check, Eye, EyeOff, KeyRound, Loader2, Mail } from "lucide-react";
-import { API_BASE_URL, obterCsrfToken } from "@/lib/api-v2";
+
 
 async function mensagemErro(response: Response, fallback: string) {
   const data = await response.json().catch(() => null);
@@ -33,7 +33,7 @@ export default function EsqueceuSenhaPage() {
     if (!email.trim()) return setErro("Informe o e-mail da sua conta.");
     setCarregando(true); setErro("");
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/esqueceu-senha`, { method: "POST", headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": await obterCsrfToken() }, credentials: "include", body: JSON.stringify({ email: email.trim().toLowerCase() }) });
+      const response = await fetch("/api/auth/recover", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ email: email.trim().toLowerCase() }) });
       if (!response.ok) throw new Error(await mensagemErro(response, "Não foi possível enviar o código."));
       setEtapa(2); setContador(60);
     } catch (error) {
@@ -48,7 +48,7 @@ export default function EsqueceuSenhaPage() {
     if (novaSenha !== confirmacao) return setErro("As senhas não conferem.");
     setCarregando(true); setErro("");
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/redefinir-senha`, { method: "POST", headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": await obterCsrfToken() }, credentials: "include", body: JSON.stringify({ email: email.trim().toLowerCase(), codigo, novaSenha }) });
+      const response = await fetch("/api/auth/reset", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ email: email.trim().toLowerCase(), codigo, novaSenha }) });
       if (!response.ok) throw new Error(await mensagemErro(response, "Código inválido ou expirado."));
       setEtapa(3);
     } catch (error) {

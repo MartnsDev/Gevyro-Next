@@ -10,8 +10,10 @@ deploy/oracle/backups/
 node_modules/
 .test-build/
 .next/
+.next-validation/
 .open-next/
 .wrangler/
+.vercel/
 *.tsbuildinfo
 .env.*
 !.env.example

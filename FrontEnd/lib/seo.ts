@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://www.gevyro.com.br";
+export const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 export const SITE_NAME = "Gevyro";
 export const DEFAULT_TITLE = "Gevyro | Software de Gestão Empresarial";
 export const DEFAULT_DESCRIPTION =

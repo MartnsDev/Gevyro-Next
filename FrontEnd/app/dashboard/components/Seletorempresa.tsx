@@ -26,7 +26,7 @@ interface Props {
 
 async function fetchAuth<T>(path: string, opts?: RequestInit): Promise<T> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL ?? "https://api.gevyro.com.br"}${path}`,
+    `${""}${path}`,
     {
       credentials: "include",
       cache: "no-store",

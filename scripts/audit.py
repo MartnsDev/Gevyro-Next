@@ -20,7 +20,7 @@ for path in sorted(JAVA.rglob('*.java')):
         'dependencies': re.findall(r'private\s+final\s+([\w<>]+)\s+\w+\s*;', source),
     })
 frontend = []
-for folder in ['app', 'components', 'lib', 'hooks', 'public']:
+for folder in ['app', 'components', 'lib', 'hooks', 'public', 'server']:
     for path in sorted((ROOT / 'FrontEnd' / folder).rglob('*')):
         if path.is_file() and path.suffix in {'.ts', '.tsx', '.js', '.mjs', '.css', '.json'}:
             frontend.append({'path': str(path.relative_to(ROOT)), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
@@ -50,8 +50,10 @@ for module in modules:
     group = [e for e in entries if e['module'] == module]
     controllers = sum('RestController' in e['annotations'] or 'Controller' in e['annotations'] for e in group)
     entities = sum('Entity' in e['annotations'] for e in group)
-    state = 'Em desenvolvimento' if module == 'venda' else 'Não iniciado'
-    lines.append(f'| {module} | {len(group)} | {controllers} | {entities} | `src/server/{module}` | {state} |')
+    migrated = {'auth':'auth', 'empresa':'company', 'produto':'catalog', 'cliente':'catalog', 'venda':'finance', 'caixa':'finance', 'configuracao':'auth'}
+    state = 'Em desenvolvimento' if module in migrated else 'Não iniciado'
+    destination = f'FrontEnd/server/{migrated[module]}' if module in migrated else f'src/server/{module}'
+    lines.append(f'| {module} | {len(group)} | {controllers} | {entities} | `{destination}` | {state} |')
 lines += ['', '## Interfaces preservadas', '']
 lines += [f'- `{e["path"]}`' for e in frontend if '/app/' in e['path'] and (e['path'].endswith('page.tsx') or '/components/' in e['path'])]
 lines += ['', '## Limites do levantamento', '',

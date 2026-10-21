@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Download, Share, X } from "lucide-react";
+import { removeDevelopmentWorker } from "@/lib/service-worker-lifecycle";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -22,7 +23,12 @@ export function PwaInstallPrompt() {
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
+      if (process.env.NODE_ENV === "development") {
+        // Remove somente o worker desta aplicação; HMR e API ficam na rede direta.
+        void removeDevelopmentWorker().catch(() => {});
+      } else {
+        navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" }).catch(() => {});
+      }
     }
 
     const instalado = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;

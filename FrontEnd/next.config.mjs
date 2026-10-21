@@ -1,11 +1,16 @@
-const isDevelopment = process.env.NODE_ENV === "development";
-const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL?.trim() ||
-  (isDevelopment ? "http://localhost:8080" : undefined);
-if (!configuredApiUrl) throw new Error("NEXT_PUBLIC_API_URL precisa estar configurada no ambiente.");
-const apiOrigin = new URL(configuredApiUrl).origin;
+import { fileURLToPath } from "node:url";
+const projectRoot = fileURLToPath(new URL(".", import.meta.url));
+// O Gevyro Next usa suas próprias Route Handlers, nunca a API Java original.
+const configuredApiUrl = "";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone",
+  poweredByHeader: false,
+  productionBrowserSourceMaps: false,
+  distDir: process.env.GEVYRO_VALIDATE_BUILD === "1" ? ".next-validation" : ".next",
+  outputFileTracingRoot: projectRoot,
+  turbopack: { root: projectRoot },
   // Compartilha o mesmo endereço com todos os clientes HTTP da interface.
   env: {
     NEXT_PUBLIC_API_URL: configuredApiUrl,
@@ -34,16 +39,6 @@ const nextConfig = {
         hostname: "res.cloudinary.com",
       },
     ],
-  },
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "gevyro.com.br" }],
-        destination: "https://www.gevyro.com.br/:path*",
-        permanent: true,
-      },
-    ];
   },
   async headers() {
     return [
@@ -77,25 +72,9 @@ const nextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(), payment=(self \"https://www.mercadopago.com.br\")",
+            value: "camera=(self), microphone=(), geolocation=(), payment=(self \"https://www.mercadopago.com.br\")",
           },
-          {
-            key: "Content-Security-Policy",
-            value: [
-              "default-src 'self'",
-              "base-uri 'self'",
-              "form-action 'self' https://www.mercadopago.com.br",
-              "frame-ancestors 'none'",
-              "object-src 'none'",
-              `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
-              "style-src 'self' 'unsafe-inline'",
-              "font-src 'self' data:",
-              "img-src 'self' data: blob: https://lh3.googleusercontent.com https://res.cloudinary.com https://api.gevyro.com.br https://cdn.jsdelivr.net",
-              `connect-src 'self' ${apiOrigin}`,
-              "frame-src https://www.mercadopago.com.br",
-              "upgrade-insecure-requests",
-            ].join("; "),
-          },
+
         ],
       },
     ];

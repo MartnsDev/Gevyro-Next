@@ -100,7 +100,7 @@ export default function CadastroPage() {
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#258c53]/10 text-[#258c53]"><Check size={30} /></div>
               <h1 className="mt-7 text-4xl font-light tracking-[-.04em]">Conta <span className="italic text-[#258c53]">criada</span></h1>
               <p className="mt-4 text-sm leading-7 text-[#718078]">Enviamos a confirmação para <strong className="font-semibold text-[#343b37]">{form.email}</strong>. Confirme o e-mail para acessar sua conta.</p>
-              <p className="mt-2 text-xs leading-5 text-[#8a958f]">Confira também as pastas de spam e promoções. O link vale por 24 horas.</p>
+              <p className="mt-2 text-xs leading-5 text-[#8a958f]">Confira também as pastas de spam e promoções. Se o link expirar, solicite uma nova confirmação.</p>
               {avisoReenvio && <p role="status" className="mt-4 rounded-xl bg-[#f3f7f4] px-4 py-3 text-sm text-[#46514b]">{avisoReenvio}</p>}
               <button type="button" disabled={reenviando} onClick={handleReenvio} className="mt-5 text-sm font-semibold text-[#258c53] hover:underline disabled:opacity-60">{reenviando ? "Reenviando..." : "Não recebeu? Reenviar confirmação"}</button>
               <button type="button" onClick={() => router.push("/auth/login")} className="mt-8 flex h-[52px] w-full items-center justify-center gap-3 rounded-full bg-[#258c53] text-sm font-bold text-white hover:bg-[#1d7544]">Ir para o login <ArrowRight size={17} /></button>

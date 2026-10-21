@@ -4,8 +4,6 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(self.clients.claim());
 });
 
-// Mantém todas as requisições na rede. Dados empresariais e sessões não são
-// armazenados no dispositivo pelo service worker.
-self.addEventListener("fetch", (event) => {
-  event.respondWith(fetch(event.request));
-});
+// Sem interceptação de fetch: o navegador faz as requisições diretamente.
+// O worker não mantém cache nem transforma falhas de rede em respostas válidas.
+// A sincronização offline será implementada com confirmação explícita do servidor.

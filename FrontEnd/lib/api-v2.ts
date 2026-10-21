@@ -2,8 +2,10 @@
 
 "use client";
 
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "";
+import { savePendingPhoto, uploadPendingPhoto } from "./pending-profile-photo";
+import { fetchIdempotentSale } from "./sale-idempotency";
+
+export const API_BASE_URL = "";
 
 
 export interface Usuario {
@@ -101,7 +103,6 @@ export function lerTokenCookie(): null { return null; }
 export function getToken(): null { return null; }
 export function hasToken(): boolean { return false; }
 
-let csrfToken: string | null = null;
 export const AUTH_EVENT_KEY = "gevyro-auth-event";
 
 export function limparDadosSessaoCliente(): void {
@@ -144,15 +145,8 @@ function publicarLogout(): void {
   localStorage.setItem(AUTH_EVENT_KEY, JSON.stringify({ type: "logout", at: Date.now() }));
 }
 
-export async function obterCsrfToken(): Promise<string> {
-  if (csrfToken) return csrfToken;
-  const response = await fetch(`${API_BASE_URL}/auth/csrf`, { credentials: "include", cache: "no-store" });
-  const data = await response.json().catch(() => null);
-  if (!response.ok || !data?.token) throw new Error("Não foi possível iniciar uma sessão segura.");
-  const token = String(data.token);
-  csrfToken = token;
-  return token;
-}
+/** @deprecated As rotas Next.js validam Origin; não há token CSRF do Spring. */
+export async function obterCsrfToken(): Promise<string> { return ""; }
 
 
 /**
@@ -166,34 +160,16 @@ export async function fetchAuth(path: string, options: RequestInit = {}): Promis
     ...(options.headers as Record<string, string> ?? {}),
   };
 
-  const method = (options.method ?? "GET").toUpperCase();
-  if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
-    headers["X-CSRF-TOKEN"] = await obterCsrfToken();
-  }
-
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   const url = `${API_BASE_URL}${cleanPath}`;
 
-  let response = await fetch(url, {
+  const transport = cleanPath === "/api/v1/vendas/registrar" && options.method?.toUpperCase() === "POST" ? fetchIdempotentSale : fetch;
+  const response = await transport(url, {
     ...options,
     headers,
     credentials: "include",
     cache: "no-store",
   });
-
-  // O Spring pode rotacionar o token ao autenticar ou criar uma sessão.
-  // Em mutações consecutivas (ex.: portal -> checkout), repete uma única vez
-  // com o token novo quando o CSRF anterior foi invalidado.
-  if (response.status === 403 && !["GET", "HEAD", "OPTIONS"].includes(method)) {
-    csrfToken = null;
-    headers["X-CSRF-TOKEN"] = await obterCsrfToken();
-    response = await fetch(url, {
-      ...options,
-      headers,
-      credentials: "include",
-      cache: "no-store",
-    });
-  }
 
   return response;
 }
@@ -217,38 +193,22 @@ export async function fetchAuthJson<T>(path: string, options: RequestInit = {}):
 /**
  * Login com e-mail e senha. A credencial permanece apenas no cookie HttpOnly.
  */
-export async function login(email: string, senha: string): Promise<Usuario> {
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": await obterCsrfToken() },
-    body: JSON.stringify({ email, senha }),
-    credentials: "include",
+async function authRequest<T>(operation: string, options: RequestInit = {}): Promise<T> {
+  const response = await fetch(`/api/auth/${operation}`, {
+    ...options,
+    credentials: "same-origin",
     cache: "no-store",
+    headers: { "Content-Type": "application/json", ...options.headers },
   });
+  const data = response.status === 204 ? null : await response.json().catch(() => null);
+  if (!response.ok) throw new Error(data?.mensagem ?? "Não foi possível autenticar sua sessão.");
+  return data as T;
+}
 
-  const data = await response.json().catch(() => null);
-  if (!response.ok) {
-    const mensagem = mensagemErroApi(data, response.status);
-    throw new Error(
-      mensagem === "NAO_AUTENTICADO"
-        ? "E-mail ou senha inválidos."
-        : mensagem
-    );
-  }
-
-  // O Spring rotaciona/invalida o CSRF token ao autenticar.
-  csrfToken = null;
-
-  return {
-    id:             Number.isSafeInteger(Number(data.id)) ? Number(data.id) : 0,
-    nome:           data.nome,
-    email:          data.email,
-    foto:           data.foto || undefined,
-    fotoUpload:     data.fotoUpload || undefined,
-    tipoPlano:      data.tipoPlano,
-    statusAcesso:   data.statusAcesso,
-    expiracaoPlano: data.expiracaoPlano,
-  };
+export async function login(email: string, senha: string): Promise<Usuario> {
+  const user = await authRequest<Usuario>("login", { method: "POST", body: JSON.stringify({ email, senha }) });
+  await uploadPendingPhoto(user.email);
+  return user;
 }
 
 /**
@@ -260,55 +220,25 @@ export async function cadastrar(
   senha: string,
   foto?: File,
 ): Promise<void> {
-  const formData = new FormData();
-  formData.append("nome", nome);
-  formData.append("email", email);
-  formData.append("senha", senha);
-  if (foto) formData.append("foto", foto);
-
-  const response = await fetch(`${API_BASE_URL}/auth/cadastro`, {
-    method: "POST",
-    headers: { "X-CSRF-TOKEN": await obterCsrfToken() },
-    body: formData,
-    credentials: "include",
-  });
-
-  const data = await response.json().catch(() => null) as ErrorResponse | null;
-  if (!response.ok) {
-    throw new Error(mensagemErroApi(data, response.status));
-  }
+  await savePendingPhoto(email, foto);
+  await authRequest<void>("signup", { method: "POST", body: JSON.stringify({ nome, email, senha }) });
 }
 
 /**
  * Solicita um novo link sem revelar se o e-mail está cadastrado.
  */
 export async function reenviarConfirmacao(email: string): Promise<string> {
-  const response = await fetch(`${API_BASE_URL}/auth/reenviar-confirmacao`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRF-TOKEN": await obterCsrfToken(),
-    },
-    body: JSON.stringify({ email: email.trim().toLowerCase() }),
-    credentials: "include",
-    cache: "no-store",
+  const data = await authRequest<{ mensagem: string }>("resend", {
+    method: "POST", body: JSON.stringify({ email: email.trim().toLowerCase() }),
   });
-
-  const data = await response.json().catch(() => null);
-  if (!response.ok) throw new Error(mensagemErroApi(data, response.status));
-  return data?.mensagem ?? "Se houver uma conta pendente, enviaremos um novo link.";
+  return data.mensagem;
 }
 
 /**
  * Logout — remove cookie local e invalida sessão no backend.
  */
 export async function logout(): Promise<void> {
-  const response = await fetchAuth("/auth/logout", { method: "POST" });
-  if (!response.ok) {
-    throw new Error("Não foi possível encerrar a sessão com segurança. Tente novamente.");
-  }
-
-  csrfToken = null;
+  await authRequest<void>("logout", { method: "POST" });
   limparDadosSessaoCliente();
   publicarLogout();
 }
@@ -318,32 +248,12 @@ export async function logout(): Promise<void> {
  * O navegador envia somente o cookie HttpOnly definido pelo backend.
  */
 export async function getUsuario(): Promise<Usuario> {
-  const response = await fetchAuth("/api/usuario");
-
-  if (response.status === 401 || response.status === 403) {
-    throw new Error(response.status === 403 ? "PLANO_INATIVO" : "NAO_AUTENTICADO");
-  }
-
-  const data = await response.json().catch(() => null);
-  if (!response.ok || !data) {
-    throw new Error(data?.erro || data?.mensagem || "Erro ao obter usuário");
-  }
-
-  return {
-    id:             Number.isSafeInteger(Number(data.id)) ? Number(data.id) : 0,
-    nome:           data.nome,
-    email:          data.email,
-    foto:           data.foto || undefined,
-    fotoUpload:     data.fotoUpload || undefined,
-    tipoPlano:      data.tipoPlano,
-    statusAcesso:   data.statusAcesso,
-    expiracaoPlano: data.expiracaoPlano,
-  };
+  return authRequest<Usuario>("session");
 }
 
 /**
  * Login com Google — redireciona para o backend iniciar o fluxo OAuth2.
  */
 export function loginComGoogle() {
-  globalThis.window.location.href = `${API_BASE_URL}/oauth2/authorization/google`;
+  globalThis.window.location.href = "/api/auth/google";
 }

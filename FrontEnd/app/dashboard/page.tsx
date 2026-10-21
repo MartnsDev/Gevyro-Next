@@ -72,8 +72,7 @@ type Secao =
   | "notafiscal";
 
 const BASE =
-  process.env.NEXT_PUBLIC_API_URL ??
-  "https://api.gevyro.com.br";
+  "";
 
 async function fetchAuth<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {

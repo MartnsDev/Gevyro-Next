@@ -1,6 +1,6 @@
 # Gevyro → Gevyro Next: status verificável
 
-Atualizado em 20/10/2026. A migração **não está completa**. O frontend ainda utiliza o backend Java. Nenhum deploy ou acesso a banco de produção foi realizado.
+Atualizado em 21/10/2026. A migração **não está completa**. O frontend agora usa sua própria origem HTTP. Autenticação, perfil, empresas, produtos, clientes/fornecedores, caixa e vendas têm implementação Next.js/PostgreSQL. Há módulos e validações ainda pendentes; remover chamadas ao Java não prova paridade funcional. Nenhum deploy de aplicação ou alteração em banco de produção foi realizado.
 
 Estados: Não iniciado; Em desenvolvimento; Implementado; Testado; Validado. Uma unidade testada não implica módulo completo.
 
@@ -8,33 +8,35 @@ Estados: Não iniciado; Em desenvolvimento; Implementado; Testado; Validado. Uma
 |---|---|---|
 | Auditoria integral | Em desenvolvimento | Inventário estático de 308 arquivos Java, 158 arquivos frontend, 22 migrations. Falta revisão semântica de todos os serviços, contratos e testes originais. |
 | Cópia independente | Validado no escopo inventariado | Workspace já existente; 466 arquivos de código idênticos à origem localizada. Nenhum arquivo foi copiado neste incremento. Alterações Git anteriores preservadas. |
-| Infraestrutura TypeScript | Testado | Compilação estrita e testes do primeiro serviço. Next, Supabase SSR e runtime final ainda não integrados. |
-| PostgreSQL/Supabase | Em desenvolvimento | Migration parcial de empresas/RLS; não é o schema completo. Ver testes em `docs/VALIDATION.md`. |
-| Auth/usuário/perfil/OAuth2/e-mail | Não iniciado | Login, cadastro, confirmação, recuperação, Google, cookies e autorização continuam Java. |
-| Empresas e multiempresa | Em desenvolvimento | Leitura por dono em RLS preparada; serviços, limites, arquivamento, restauração e associações pendentes. |
-| Dashboard | Não iniciado | Telas preservadas, consultas ainda Java. |
-| Produtos/categorias/código de barras/fiscal | Não iniciado | Entidade e validações inventariadas; portar CRUD, busca, imagens, estoque e configuração fiscal. |
-| PDV/vendas | Em desenvolvimento | Calculador monetário portado com seis testes. Persistência, autorização, caixa, estoque, cancelamento, observações e idempotência pendentes. |
-| Estoque | Não iniciado | Bloqueio transacional por produto identificado no Java; falta PostgreSQL, movimentações e testes concorrentes. |
-| Caixa | Não iniciado | Abertura/fechamento, totais, scheduler e limites pendentes. |
-| Clientes e dívidas | Não iniciado | `Cliente` e `Divida` no original; portar regras e relações. |
-| Fornecedores | Não iniciado | Existência de módulo próprio ainda não confirmada. Não inventar equivalência. |
+| Infraestrutura TypeScript | Testado | Build Next.js/Webpack com Route Handlers passou em diretório separado; tipos e testes locais passaram. Runtime Workers ainda não validado. |
+| PostgreSQL/Supabase | Em desenvolvimento | Oito migrations de domínio/Storage e testes reais PostgreSQL 16 passaram. Oito migrations aplicadas em zevgzuhtemnjrqeolmit em 21/10/2026; histórico local/remoto sincronizado. Google remoto desabilitado; confirmação de e-mail habilitada. |
+| Auth/usuário/perfil/OAuth2/e-mail | Em desenvolvimento | Login, logout, cadastro, confirmação, reenvio, Google/PKCE, recuperação por OTP, perfil e foto privada implementados. Testes locais passaram. Validar e-mails, SMTP, configuração Google e sessões contra o Supabase real; contas Java não foram importadas. |
+| Empresas e multiempresa | Em desenvolvimento | CRUD, documento fiscal, arquivamento/exclusão com reautenticação, restauração, cotas transacionais e RLS implementados/testados localmente. Associação de colaboradores/permissões fiscais e paginação completa da UI pendentes. |
+| Dashboard | Não iniciado | Interface preservada. Agregações combinam PDV e pedidos no original; precisam de migração conjunta. As rotas não retornam indicadores simulados. |
+| Produtos/categorias/código de barras/fiscal | Em desenvolvimento | CRUD, código único, preço/custo/margem decimal, estoque, exclusão/arquivamento e cotas implementados/testados. Configuração fiscal e integração completa de paginação/busca na UI pendentes. |
+| PDV/vendas | Em desenvolvimento | Transação de venda/itens/estoque/caixa, pagamentos mistos, desconto/troco, observação, cancelamento e idempotência implementados. Concorrência/rollback passaram no PostgreSQL. Validar fluxo autenticado completo, impressão e grandes históricos na UI. |
+| Estoque | Em desenvolvimento | Baixa/restituição transacional, ajustes via produto e registro de movimentações implementados; estoque concorrente testado. Endpoints específicos e UI de histórico/offline pendentes. |
+| Caixa | Em desenvolvimento | Abertura, fechamento, consulta, histórico e totais implementados. Função de fechamento automático de 24 horas restrita ao servidor criada; agendamento/runtime ainda não configurados. |
+| Clientes e dívidas | Em desenvolvimento | CRUD, e-mail ativo único por empresa/tipo e desativação implementados/testados. Dívidas, histórico, paginação da UI e fluxos relacionados ainda pendentes. |
+| Fornecedores | Em desenvolvimento | Confirmado no Java como Cliente.tipo=FORNECEDOR; CNPJ, contato, observações e unicidade de e-mail por tipo preservados nas rotas novas. |
 | Pedidos | Não iniciado | Módulo identificado, além do checklist inicial. |
 | Analytics/relatórios/exportação/impressão | Não iniciado | Preservar formatos encontrados após revisão dos geradores Java e frontend. |
 | Assinaturas/planos | Não iniciado | Experimental, Básico, Pro, Premium; referências Stripe e Mercado Pago. Confirmar fluxos efetivamente ativos. |
 | Marketplace | Não iniciado | Shopee e Mercado Livre, conexões OAuth, produtos, pedidos e webhooks identificados. |
 | Fiscal/documentos | Não iniciado | NF-e/NFC-e/NFS-e, certificados, XML, sequências, jobs, contingência, auditoria, permissões e entregas. Avaliar runtime e alternativas Java. |
-| Configurações | Não iniciado | Telas preservadas; persistência e permissões pendentes. |
-| PWA/offline | Não iniciado | Manifest e SW existentes. SW atual é somente rede: não há offline funcional demonstrado. |
+| Configurações | Em desenvolvimento | Nome, foto privada, preferências de notificação e troca de senha via OTP implementados. Validar interface autenticada, entrega de e-mail e compatibilidade de imagens. |
+| PWA/offline | Em desenvolvimento | Worker não intercepta a rede; worker antigo removido/recarregado em desenvolvimento. Chaves de venda sem confirmação persistem para retry. Cache de catálogo, carrinho offline e fila completa com conflitos ainda não implementados. |
 | Suporte/notificações/admin | Não iniciado | Revisão semântica pendente para confirmar recursos existentes. |
 | Migração de dados/contas | Não iniciado | Nenhum dado original acessado. Preparar importação opcional, correspondência de IDs, reconciliação e estratégia de senha. |
-| Qualidade completa | Em desenvolvimento | Seis testes financeiros, RLS local, tipos e build Next/Webpack passaram. Faltam autenticação, fluxos E2E, regressão visual, concorrência, pagamentos e equivalência com Java executado. |
+| Qualidade completa | Em desenvolvimento | Build, tipos, testes unitários, RLS, cotas, idempotência e concorrência reais PostgreSQL passaram. Faltam E2E autenticado, comparação diferencial JVM, módulos avançados e runtime Workers. |
 | Cloudflare/Vercel | Não iniciado | Documentação comparada; nenhum adaptador/runtime validado ou deploy executado. |
 
-## Próxima sequência necessária
+## Pendências que impedem declarar a migração completa
 
-1. Revisar integralmente contratos e regras por módulo a partir do inventário, começando auth/empresa/plano.
-2. Completar modelo PostgreSQL e instalar Supabase SSR com sessões verificadas; testar isolamento de domínio e papéis.
-3. Portar produtos/caixa/venda em transação com idempotência e testes de concorrência antes de conectar o PDV.
-4. Migrar demais módulos e integrações sem remover recursos; manter matriz atualizada com evidências.
-5. Validar UI, relatórios, impressão, offline e Workers; documentar custos e operação antes de publicar.
+1. Acesso autorizado ao Supabase, aplicação das migrations e validação real de Auth/Storage/SMTP/Google.
+2. Dashboard, pedidos, dívidas, relatórios/exportações, assinaturas/webhooks, fiscal e marketplace.
+3. Paginação e busca completas nas telas: APIs de lista já aceitam page/size e limitam o retorno; não considerar catálogos/históricos grandes validados até conectar os controles de navegação e os totais agregados. Hoje páginas sem page/size recebem até 500 itens (empresas: 1000).
+4. Permissões delegadas/multiempresa além do dono, migração de dados/contas, offline completo e agendamento de caixa.
+5. E2E/regressão visual, backup/restauração PostgreSQL e runtime/deploy Workers.
+
+Nenhum módulo foi marcado como Validado apenas por existir uma tela ou endpoint.

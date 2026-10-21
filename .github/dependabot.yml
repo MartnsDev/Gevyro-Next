@@ -1,5 +1,9 @@
 version: 2
 updates:
+  - package-ecosystem: docker
+    directory: /deploy
+    schedule: { interval: weekly, day: monday, time: "08:45", timezone: America/Sao_Paulo }
+    open-pull-requests-limit: 3
   - package-ecosystem: npm
     directory: /FrontEnd
     schedule: { interval: weekly, day: monday, time: "09:00", timezone: America/Sao_Paulo }

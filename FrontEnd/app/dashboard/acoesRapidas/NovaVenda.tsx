@@ -153,13 +153,15 @@ function gerarCupom(venda: Venda, nomeEmpresa: string, documentoEmpresa?: string
     ${venda.observacao ? `<div class="dash"></div><div class="row"><span>Obs:</span><span>${esc(venda.observacao)}</span></div>` : ""}
     <div class="dash"></div><div class="footer">Obrigado pela preferência!<br>Este documento não tem valor fiscal.<br>Emitido via Gevyro</div>
   </div>
-  <button class="print-btn no-print" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
-  <script>window.onload = () => setTimeout(() => { window.focus(); window.print(); }, 400);</script>
+  <button class="print-btn no-print">🖨️ Imprimir / Salvar PDF</button>
+
   </body></html>`;
 
   const janela = window.open("", "_blank", "width=500,height=700");
   if (!janela) { alert("Permita pop-ups para imprimir o cupom."); return; }
   janela.document.write(html);
+  janela.document.querySelector("button.print-btn")?.addEventListener("click", () => janela.print());
+  janela.onload = () => setTimeout(() => { janela.focus(); janela.print(); }, 400);
   janela.document.close();
 }
 

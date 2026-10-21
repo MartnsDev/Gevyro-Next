@@ -532,7 +532,7 @@ export default function Configuracoes({
 
   const trocarSenha = async () => {
     if (novaSenha !== confirmar) { toast.error("As senhas não coincidem"); return; }
-    if (novaSenha.length < 6) { toast.error("Mínimo 6 caracteres"); return; }
+    if (novaSenha.length < 8 || !/[A-Za-z]/.test(novaSenha) || !/\d/.test(novaSenha)) { toast.error("Use ao menos 8 caracteres, com letras e números"); return; }
     setSalvandoSenha(true);
     try {
       await fetchAuth("/api/v1/configuracoes/senha/trocar", {
@@ -544,6 +544,7 @@ export default function Configuracoes({
       setCodigo("");
       setNovaSenha("");
       setConfirmar("");
+      window.location.assign("/auth/login");
     } catch (e: any) {
       toast.error(e.message);
     } finally {

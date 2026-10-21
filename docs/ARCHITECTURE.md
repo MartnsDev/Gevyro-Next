@@ -4,7 +4,7 @@
 
 `FrontEnd/` conserva o Next.js existente e `Backend/` conserva o Spring Boot como referência executável. Ambos já estavam copiados neste workspace. A origem localizada em `/home/matheus-martins/Documentos/GestPro/Gest-Pro` foi somente lida para comparação de código. Não houve cópia de configurações privadas.
 
-`src/server/services/` inicia o domínio TypeScript independente de React e de infraestrutura. Somente os cálculos monetários de registro de venda foram portados. Não há Route Handler novo, persistência de venda nem autenticação Supabase operacional. A aplicação ainda depende do Java.
+`src/server/services/` mantém os cálculos monetários puros. `FrontEnd/server/` agora contém auth, perfil, empresas, catálogo e a entrada de operações financeiras. Route Handlers recebem Zod e sessões SSR; RPCs PostgreSQL mantêm preço, estoque, caixa, idempotência e auditoria em transações. Os caminhos de API são da própria aplicação, sem fallback para o Java. A implementação completa de todos os módulos ainda está pendente e o Supabase remoto não recebeu as migrations.
 
 ## Inventário
 
@@ -37,3 +37,15 @@ Antes de liberar escritas: portar limites e validações de CPF/CNPJ, serviços 
 ## PWA
 
 Há `manifest.ts` e `public/sw.js`; o SW inspecionado somente encaminha requisições para a rede. Fila de vendas offline, IndexedDB e resolução de conflitos ainda precisam de auditoria e implementação. Não declarar vendas sincronizadas antes da confirmação persistida. Pagamentos externos dependem de conexão. Limpar dados locais por sessão/empresa e nunca armazenar segredos.
+
+## Regras migradas e diferenças documentadas em 21/10
+
+A criação de empresa conta inclusive empresas arquivadas, como no Java; restaurar considera apenas as ativas. RPCs serializam cotas por perfil para impedir bypass concorrente. CPF/CNPJ são validados no servidor e no banco. Os cinco provedores cadastrais presentes no Java são mantidos como fallbacks, sem tornar sua disponibilidade requisito para cadastrar um CNPJ válido.
+
+Produtos mantêm códigos de barras textuais (inclusive zeros), unicidade por empresa, custo/preço/margem e arquivamento se houve venda. Reativação/mudança de empresa passam a verificar cota: correção do bypass de limite identificado no serviço original, necessária para não permitir contornar planos. Clientes e fornecedores compartilham a tabela, com e-mail único entre contatos ativos do mesmo tipo na mesma empresa.
+
+A venda registra itens, baixa estoque, atualiza caixa, grava chave/hash e audita em uma única transação. Itens repetidos têm estoque validado agregado; as linhas originais são mantidas no comprovante. Preço do navegador não é aceito. Cancelamento bloqueia a venda e devolve o estoque uma única vez. A chave de tentativa sem confirmação é persistida no navegador; requisições simultâneas do mesmo carrinho compartilham envio, e a chave só é removida após ler confirmação válida do servidor.
+
+O Java `Caixa.recalcularTotalVendas` incluía vendas canceladas, reintroduzindo seus valores depois de o cancelamento descontá-los. A migração corrige essa inconsistência financeira: resumo/fechamento consideram somente vendas não canceladas. O troco misto ainda segue a fórmula original do servidor; nenhuma regra comercial foi inventada para corrigi-lo silenciosamente. Saldos de caixa preservam quatro casas decimais do modelo Java; preços de produtos e vendas usam decimais apropriados no PostgreSQL, sem cálculo por float no servidor.
+
+As APIs de listas têm paginação limitada. Ainda falta conectar paginação, busca global, categorias e totais agregados a todas as telas e ao PDV para catálogos grandes. Os oito arquivos de migration não equivalem à conversão de todas as entidades JPA: pedidos, dívidas, fiscal, marketplace e assinaturas ainda precisam de schema/serviços próprios. As interfaces permanecem no repositório; suas operações não migradas não devem ser tratadas como concluídas por apontarem à mesma origem.

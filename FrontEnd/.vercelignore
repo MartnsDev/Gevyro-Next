@@ -1,0 +1,8 @@
+.env*
+!.env.example
+.next*
+node_modules
+*.tsbuildinfo
+*.pem
+*.p12
+*.pfx
