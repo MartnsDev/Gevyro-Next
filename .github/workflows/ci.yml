@@ -22,7 +22,7 @@ jobs:
         working-directory: FrontEnd
     steps:
       - name: Baixar codigo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Baixar codigo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
@@ -64,7 +64,7 @@ jobs:
         working-directory: Backend
     steps:
       - name: Baixar codigo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Configurar Java
         uses: actions/setup-java@v4
         with:
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Baixar codigo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Construir imagem
         run: docker build --tag gevyro-backup:ci Backup
       - name: Confirmar execucao sem root
