@@ -3,3 +3,18 @@
 .env
 .env.*.local
 !.env.example
+deploy/oracle/.env
+deploy/oracle/backups/
+
+# Gevyro Next: artefatos locais e segredos
+node_modules/
+.test-build/
+.next/
+.open-next/
+.wrangler/
+*.tsbuildinfo
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx

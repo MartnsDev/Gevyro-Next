@@ -1,0 +1,15 @@
+{
+  "name": "gevyro-next",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Migração incremental da Gevyro; consulte MIGRATION_STATUS.md",
+  "scripts": {
+    "audit": "python3 scripts/audit.py",
+    "typecheck": "tsc --noEmit",
+    "test": "tsc && node --test tests/*.test.cjs",
+    "test:postgres": "bash scripts/test-postgres.sh",
+    "dev": "npm --prefix FrontEnd run dev",
+    "build": "npm --prefix FrontEnd run build -- --webpack"
+  },
+  "devDependencies": { "typescript": "5.9.3" }
+}

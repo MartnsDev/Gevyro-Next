@@ -1,10 +1,15 @@
-const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL?.trim();
+const isDevelopment = process.env.NODE_ENV === "development";
+const configuredApiUrl = process.env.NEXT_PUBLIC_API_URL?.trim() ||
+  (isDevelopment ? "http://localhost:8080" : undefined);
 if (!configuredApiUrl) throw new Error("NEXT_PUBLIC_API_URL precisa estar configurada no ambiente.");
 const apiOrigin = new URL(configuredApiUrl).origin;
-const isDevelopment = process.env.NODE_ENV !== "production";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Compartilha o mesmo endereço com todos os clientes HTTP da interface.
+  env: {
+    NEXT_PUBLIC_API_URL: configuredApiUrl,
+  },
   experimental: {
     workerThreads: false,
     cpus: 1,

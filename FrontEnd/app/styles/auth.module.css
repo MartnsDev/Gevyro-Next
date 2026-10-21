@@ -2,8 +2,9 @@
    dashboard.module.css — Gevyro Dashboard (Fixed for Turbopack)
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Variáveis (Recomenda-se mover para o globals.css, mas mantido aqui) */
-:local(:root) {
+/* Variáveis limitadas aos contêineres deste módulo (seletores CSS Modules puros). */
+.authContainer,
+.dashboardContainer {
   --primary: #10b981;
   --primary-muted: rgba(16, 185, 129, 0.12);
   --secondary: #3b82f6;
@@ -199,9 +200,9 @@
     font-size: 10px;
   }
 
-  /* Target buttons with inline styles safely using :local wrapper */
-  :local(.dashboardHeader button[style*="Caixa"] span),
-  :local(.dashboardHeader button[style*="caixa"] span) {
+  /* Classes são locais por padrão em CSS Modules */
+  .dashboardHeader button[style*="Caixa"] span,
+  .dashboardHeader button[style*="caixa"] span {
     display: none;
   }
 
@@ -223,23 +224,23 @@
   }
 
   /* ─── Corrigindo seletores "Impuros" ─── */
-  
+
   /* Cards de métricas */
-  :local(.dashboardContainer [class*="metricsGrid"]),
-  :local(.dashboardContainer [class*="statsGrid"]) {
+  .dashboardContainer [class*="metricsGrid"],
+  .dashboardContainer [class*="statsGrid"] {
     grid-template-columns: 1fr 1fr !important;
     gap: 8px !important;
   }
 
   /* Ações rápidas */
-  :local(.dashboardContainer [class*="acoesRapidas"]),
-  :local(.dashboardContainer [class*="quickActions"]) {
+  .dashboardContainer [class*="acoesRapidas"],
+  .dashboardContainer [class*="quickActions"] {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 8px !important;
   }
 
   /* Modais e grids via style attributes */
-  :local(.dashboardContainer div[style*="position: fixed"][style*="z-index: 50"] > div) {
+  .dashboardContainer div[style*="position: fixed"][style*="z-index: 50"] > div {
     max-width: 100% !important;
     max-height: 100dvh !important;
     border-radius: 0 !important;
@@ -248,31 +249,31 @@
   }
 
   /* Gráficos */
-  :local(.dashboardContainer [class*="chartContainer"]),
-  :local(.dashboardContainer [class*="graficos"]),
-  :local(.dashboardContainer div[style*="recharts"]) {
+  .dashboardContainer [class*="chartContainer"],
+  .dashboardContainer [class*="graficos"],
+  .dashboardContainer div[style*="recharts"] {
     width: 100% !important;
     overflow-x: auto !important;
   }
 
   /* Tabelas */
-  :local(.dashboardContainer [class*="tableWrap"]),
-  :local(.dashboardContainer table) {
+  .dashboardContainer [class*="tableWrap"],
+  .dashboardContainer table {
     overflow-x: auto;
     display: block;
     width: 100%;
   }
 
   /* Paddings e grids genéricos fixados com prefixo local */
-  :local(.dashboardContainer div[style*="padding: 28px"]),
-  :local(.dashboardContainer div[style*="padding: 24px"]) {
+  .dashboardContainer div[style*="padding: 28px"],
+  .dashboardContainer div[style*="padding: 24px"] {
     padding: 14px !important;
   }
 
   /* Inputs iOS fix */
-  :local(.dashboardContainer input), 
-  :local(.dashboardContainer select), 
-  :local(.dashboardContainer textarea) {
+  .dashboardContainer input,
+  .dashboardContainer select,
+  .dashboardContainer textarea {
     min-height: 44px;
     font-size: 16px !important;
   }

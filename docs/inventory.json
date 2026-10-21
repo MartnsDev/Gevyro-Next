@@ -1,0 +1,6126 @@
+{
+  "scope": "Inventário estático; não prova equivalência funcional nem auditoria semântica completa.",
+  "java": [
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/GestproBackendApplication.java",
+      "module": "GestproBackendApplication.java",
+      "sha256": "0e955d39d8a8053a25b208cf22c692b09278be08a0ad44b5960816c2f3504b4c",
+      "annotations": [
+        "EnableAsync",
+        "EnableScheduling",
+        "SpringBootApplication"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/analytics/controller/RelatorioController.java",
+      "module": "analytics",
+      "sha256": "e948a41d24b02c8572397a7628de216bd8bf5242ba433b29301c3b30d1644379",
+      "annotations": [
+        "DateTimeFormat",
+        "GetMapping",
+        "PathVariable",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/relatorios\""
+        ],
+        [
+          "GetMapping",
+          "\"/hoje\""
+        ],
+        [
+          "GetMapping",
+          "\"/semana\""
+        ],
+        [
+          "GetMapping",
+          "\"/mes\""
+        ],
+        [
+          "GetMapping",
+          "\"/periodo\""
+        ],
+        [
+          "GetMapping",
+          "\"/caixa/{caixaId}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "RelatorioServiceInterface"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/analytics/dto/RelatorioDTO.java",
+      "module": "analytics",
+      "sha256": "07a71fefcacaf478170ae9d6293891874904c77ced697a8fe3df00f92fa58e49",
+      "annotations": [
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/analytics/model/Relatorio.java",
+      "module": "analytics",
+      "sha256": "ef4ca27a3c54681659fd42ce5af1bef5df1af13fe1951b84942db1fb4f810ad9",
+      "annotations": [
+        "AllArgsConstructor",
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "NoArgsConstructor",
+        "Setter",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "relatorio"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/analytics/repository/GraficoRepository.java",
+      "module": "analytics",
+      "sha256": "4f48b3d73c183474dc61316130cd2922ed1997497000000230f38a8b1e238eda",
+      "annotations": [
+        "Param",
+        "Query",
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/analytics/repository/RelatorioRepository.java",
+      "module": "analytics",
+      "sha256": "df3cd432183777cf65e122b308101f5debbc56da87d19cab6bcf41b7b38ecf2a",
+      "annotations": [
+        "Param",
+        "Query",
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/analytics/service/RelatorioServiceImpl.java",
+      "module": "analytics",
+      "sha256": "e7bbe1175260d3f66f4adf6d7a2b82335bb0f9560bc62c57177aac6a1a488238",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "DashboardRepository",
+        "EmpresaRepository",
+        "CaixaRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/analytics/service/RelatorioServiceInterface.java",
+      "module": "analytics",
+      "sha256": "dcb20de3578024825283a71b05509979967f640e7004177c46ee7244a7691458",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/EmailService.java",
+      "module": "auth",
+      "sha256": "d07ddc7fd1c781d4853ab292ff37bd5574a93fcf394e16efff5ee444303fb3a8",
+      "annotations": [
+        "Service",
+        "Slf4j",
+        "Value",
+        "gevyro"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/MailTrapEmail.java",
+      "module": "auth",
+      "sha256": "3f67884b66fc35259d949f3cacb382facf96f10f56971f31c62ca177b3c7062b",
+      "annotations": [
+        "Service",
+        "gevyro"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "JavaMailSender"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/controller/AuthController.java",
+      "module": "auth",
+      "sha256": "8abd379bd1688674ee965fb38d130114f4e6bc069e345966a790151783ebd749",
+      "annotations": [
+        "Email",
+        "GetMapping",
+        "ModelAttribute",
+        "NotBlank",
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequestParam",
+        "RestController",
+        "Size",
+        "Valid",
+        "Value"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/auth\""
+        ],
+        [
+          "PostMapping",
+          "\n            value = \"/cadastro\",\n            consumes = MediaType.MULTIPART_FORM_DATA_VALUE\n    "
+        ],
+        [
+          "GetMapping",
+          "\"/confirmar\""
+        ],
+        [
+          "PostMapping",
+          "\"/reenviar-confirmacao\""
+        ],
+        [
+          "PostMapping",
+          "\"/login\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "AuthenticationService",
+        "AuthCookieService",
+        "String",
+        "String",
+        "DistributedRateLimitService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/controller/CsrfController.java",
+      "module": "auth",
+      "sha256": "32dddf0c5f31ca15d4e95423bde7df626e26590692f51fa9ce61b3064389c33b",
+      "annotations": [
+        "GetMapping",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "GetMapping",
+          "\"/auth/csrf\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/controller/GoogleAuthController.java",
+      "module": "auth",
+      "sha256": "4773881e20b34f07caef8aa507569ff94e48272c9e11547f268e253144057011",
+      "annotations": [
+        "GetMapping",
+        "RequestMapping",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/auth/google\""
+        ],
+        [
+          "GetMapping",
+          "\"/success\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/controller/UpdatePasswordController.java",
+      "module": "auth",
+      "sha256": "8f2163708271c61d16a5be196d5bee005ff7a2b0270cd647f060f2357f72edb4",
+      "annotations": [
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/auth\""
+        ],
+        [
+          "PostMapping",
+          "\"/esqueceu-senha\""
+        ],
+        [
+          "PostMapping",
+          "\"/redefinir-senha\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "UpdatePasswordService",
+        "DistributedRateLimitService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/controller/UserAuthenticatedController.java",
+      "module": "auth",
+      "sha256": "6a0a27a9fca02bc6fd5522c4ad886a70f48e5fb22dd4828a9ede79b5fb9559ad",
+      "annotations": [
+        "CookieValue",
+        "GetMapping",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "GetMapping",
+          "\"/api/usuario/autenticado\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "UserAuthenticatedService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/controller/UsuarioController.java",
+      "module": "auth",
+      "sha256": "68706a4971f99a6c7173e302f016bafc6698e364138c9924349382ef86e5545e",
+      "annotations": [
+        "GetMapping",
+        "PostMapping",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "GetMapping",
+          "\"/api/usuario\""
+        ],
+        [
+          "PostMapping",
+          "\"/auth/logout\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "AuthCookieService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/dto/AuthDTO/AuthResponseDTO.java",
+      "module": "auth",
+      "sha256": "9f6fdf0e7c29d511b0d4d2467af816ca0707e77233a1bbad3bf4a5d71e83566e",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/dto/AuthDTO/CadastroRequestDTO.java",
+      "module": "auth",
+      "sha256": "e4744fa36863130762e6be46a4bb74a5d31c44478e31ca85db680bfedf9b224b",
+      "annotations": [
+        "Data",
+        "Email",
+        "NotBlank",
+        "Pattern",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/dto/AuthDTO/LoginResponse.java",
+      "module": "auth",
+      "sha256": "7d30a3d880017385d1c49f3c857f0ee000bb14a368179d52ab6febff37d0e81c",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/dto/AuthDTO/LoginUsuarioDTO.java",
+      "module": "auth",
+      "sha256": "2c71488a0164e283de65a11986622ec678ec8cf47e3293662ec89251c3efd17e",
+      "annotations": [
+        "Email",
+        "NotBlank",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/dto/googleAuthDTO/UsuarioResponse.java",
+      "module": "auth",
+      "sha256": "2d2a4d6d23aa430ab0640fc4506bfc9a6e505a768b382511f26786f4eb53a105",
+      "annotations": [
+        "Builder",
+        "Data"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/dto/updatePassword/ForgotPasswordRequest.java",
+      "module": "auth",
+      "sha256": "1273e03c2e4a803f1637c960bb55c36513177b4841e556687a590544e0b635a3",
+      "annotations": [
+        "Email",
+        "NotBlank",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/dto/updatePassword/ResetPasswordRequest.java",
+      "module": "auth",
+      "sha256": "d3549f69688aee0b25c5bd2f155c72e93c5bfc510d6fa148fa74b420ebd14c2d",
+      "annotations": [
+        "Email",
+        "NotBlank",
+        "Pattern",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/dto/updatePassword/UpdatePasswordRequestDTO.java",
+      "module": "auth",
+      "sha256": "e55e857fa57b9f345f9873a564d349f021b6a571bcb96dc8a06f50f2cf3f92d7",
+      "annotations": [
+        "Data",
+        "NotBlank"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/model/Usuario.java",
+      "module": "auth",
+      "sha256": "3a56b4eb4a5141879ddf4fb70755d6fba3693e317453b4f0b86e7490870c0f03",
+      "annotations": [
+        "AllArgsConstructor",
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JsonIgnore",
+        "NoArgsConstructor",
+        "PrePersist",
+        "Setter",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "usuarios"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/model/UsuarioPrincipal.java",
+      "module": "auth",
+      "sha256": "1d2abab24f58b37f3f0c98f05eb68ab2c63cb277c30b21730fc6dcd113fe06ad",
+      "annotations": [
+        "Override"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "Usuario"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/repository/UsuarioRepository.java",
+      "module": "auth",
+      "sha256": "c7024130ae4cb410a14ec9c85f9150a8a0012c5646ba32536466be9d3482b092",
+      "annotations": [
+        "Lock",
+        "Modifying",
+        "Param",
+        "Query",
+        "Repository",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/AuthCookieService.java",
+      "module": "auth",
+      "sha256": "f185ffa0e518888558be696b6dd276cb4811d982c7cdff6643859b882ea2d2dd",
+      "annotations": [
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "CookieSecurityProperties"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/AuthenticationService.java",
+      "module": "auth",
+      "sha256": "8e27e20e80dae19307791c935b5cf0de46a121820f0fe0b10d6ea1958e7afbad",
+      "annotations": [
+        "Override",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "CadastroManualOperation",
+        "LoginManualOperation",
+        "ConfirmarEmailOperation",
+        "LoginGoogleOperation",
+        "JwtService",
+        "UploadFotoOperation"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/CadastroManualOperation.java",
+      "module": "auth",
+      "sha256": "e63479455f792db534d388e08b7bddd60419eda271f240220ed4686182b2083c",
+      "annotations": [
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "EmailService",
+        "PasswordEncoder",
+        "UploadFotoOperation"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/ConfirmarEmailOperation.java",
+      "module": "auth",
+      "sha256": "00788feee2471b95584ffd7379b68ea71c1ccc2655cf5580d76a97a6c99b712b",
+      "annotations": [
+        "Component",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/CookieSecurityProperties.java",
+      "module": "auth",
+      "sha256": "dd5e6d2dd53ba58086aac6de9821b69dee56e7424d28170c2ace3f8201766cae",
+      "annotations": [
+        "Component",
+        "ConfigurationProperties"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/IAuthenticationService.java",
+      "module": "auth",
+      "sha256": "6317a9c06f571a3451248684ee9cef2e02e67d9ca03b78e5ffa6db6d9f48ee94",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/LoginGoogleOperation.java",
+      "module": "auth",
+      "sha256": "3b963c419705322fbf4fe8f28d0d81cce6e94af51f403a70221623ed21bdecf2",
+      "annotations": [
+        "Service",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "VerificarPlanoOperation",
+        "JwtService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/LoginManualOperation.java",
+      "module": "auth",
+      "sha256": "8950d240dc89616d3be6f6e6e953b06868a3fbd6666c7c4f37c9ba94f3ba7e80",
+      "annotations": [
+        "Component",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "PasswordEncoder",
+        "JwtTokenServiceInterface",
+        "VerificarPlanoOperation",
+        "AuthCookieService",
+        "String",
+        "StringRedisTemplate"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/UpdatePasswordService.java",
+      "module": "auth",
+      "sha256": "d9c7608381c6c8ca4a4eb544748384b5f3c3ddf6f31de2bd0b3f8d6874bea336",
+      "annotations": [
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "PasswordEncoder",
+        "EmailService",
+        "StringRedisTemplate"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/UploadFotoOperation.java",
+      "module": "auth",
+      "sha256": "7abc1b5bffa857742b28a7d05d7bb54fc9a8985e14e96e1b6748f1abebdb7a78",
+      "annotations": [
+        "Component",
+        "RequiredArgsConstructor",
+        "Slf4j",
+        "SuppressWarnings"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "Cloudinary"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/UserAuthenticatedService.java",
+      "module": "auth",
+      "sha256": "f32451265af7ac84d4a0a004659d591e06ee53c83119dd5a7120367f9094d98f",
+      "annotations": [
+        "Cacheable",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "JwtService",
+        "UsuarioRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/jwtService/JwtTokenService.java",
+      "module": "auth",
+      "sha256": "8d2c67b8ece1d4ba032fc51c719e3c6c243483dd4642d5763e3211ea00499bae",
+      "annotations": [
+        "Override",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "JwtService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/auth/service/jwtService/JwtTokenServiceInterface.java",
+      "module": "auth",
+      "sha256": "b3550de38cd550fd157874881e3afe1f7e436c34ab03845e047d5864e503d738",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/FormaDePagamento.java",
+      "module": "caixa",
+      "sha256": "f035ec52a14a37c0f5df7df3922aa2e0c5479bcc84b441a4fa211379e8a2e58a",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/StatusCaixa.java",
+      "module": "caixa",
+      "sha256": "b9bd1c81b1f90bc52ede97fbe35619f29dc1ce779312cc73406f7137eff6a2ed",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/controller/CaixaController.java",
+      "module": "caixa",
+      "sha256": "87fe88bfa53492e819b5f481ef933abbd457fe9c4d539978311771ab17608ec2",
+      "annotations": [
+        "GetMapping",
+        "PathVariable",
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequestParam",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/caixas\""
+        ],
+        [
+          "PostMapping",
+          "\"/abrir\""
+        ],
+        [
+          "PostMapping",
+          "\"/fechar\""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}/resumo\""
+        ],
+        [
+          "GetMapping",
+          "\"/aberto\""
+        ],
+        [
+          "GetMapping",
+          "\"/empresa/{empresaId}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "CaixaServiceInterface"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/dto/caixa/AbrirCaixaRequest.java",
+      "module": "caixa",
+      "sha256": "029b7537f83a059c361da19e0835477d4433cae34a12c8386ffe256e9f52e684",
+      "annotations": [
+        "Data",
+        "DecimalMin",
+        "NotNull"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/dto/caixa/CaixaDTO.java",
+      "module": "caixa",
+      "sha256": "5633506faf37e477b91818f486a78b5944a68e436954a42957409d174ad832d4",
+      "annotations": [
+        "Data"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/dto/caixa/CaixaResponse.java",
+      "module": "caixa",
+      "sha256": "83bca266a7ef1efb6db6868a7d0fa833496d17902fd92e00a560b93f85a95f15",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/dto/caixa/FecharCaixaRequest.java",
+      "module": "caixa",
+      "sha256": "fd4d2fba5afd4aec735e2da401bd40e72c26173ff3f94bbe4f6b4c0e30cb7e1a",
+      "annotations": [
+        "Data",
+        "NotNull"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/model/Caixa.java",
+      "module": "caixa",
+      "sha256": "4c539f451df0c097559f0b0f0df8673c640f5bbeb89999b35e4a6db36bc32112",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "OneToMany",
+        "Setter",
+        "Table",
+        "Version"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "caixas"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/repository/CaixaRepository.java",
+      "module": "caixa",
+      "sha256": "254cddf4e0454fec39a5d2ca24ec43a25d1f7882c2ff50f7686074984ecd0ae9",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/scheduler/CaixaRepositoryScheduler.java",
+      "module": "caixa",
+      "sha256": "f0ff398cf3399dae7b3a266ea75fbf1607b51c0e07f2c1f775e1ceb38bd5aebd",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/scheduler/CaixaScheduler.java",
+      "module": "caixa",
+      "sha256": "081052db87a187beeef3470c0b7fcf9804e8077a9b8e785e32453cd29e24345c",
+      "annotations": [
+        "Component",
+        "RequiredArgsConstructor",
+        "Scheduled",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "CaixaRepositoryScheduler",
+        "CaixaServiceInterface"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/service/CaixaServiceImpl.java",
+      "module": "caixa",
+      "sha256": "70136012fa36e1333250a5af26daee3c531d7ce2312c10acbdef552be00b63e5",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "CaixaRepository",
+        "UsuarioRepository",
+        "EmpresaRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/caixa/service/CaixaServiceInterface.java",
+      "module": "caixa",
+      "sha256": "8809229cf099fc8e722d8af8dc622ea318382eed1934dcf72d6107ccdb93fea6",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/controller/ClienteController.java",
+      "module": "cliente",
+      "sha256": "b036c738d0d4e36702842f1aef530459a3ef6e86a2af9739ea08cc49f258120b",
+      "annotations": [
+        "DeleteMapping",
+        "GetMapping",
+        "PathVariable",
+        "PostMapping",
+        "PutMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/clientes\""
+        ],
+        [
+          "PostMapping",
+          ""
+        ],
+        [
+          "PutMapping",
+          "\"/{id}\""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}\""
+        ],
+        [
+          "GetMapping",
+          ""
+        ],
+        [
+          "DeleteMapping",
+          "\"/{id}\""
+        ],
+        [
+          "PostMapping",
+          "\"/criar\""
+        ],
+        [
+          "GetMapping",
+          "\"/listar\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/desativar/{id}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "ClienteServiceImpl"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/controller/DividaController.java",
+      "module": "cliente",
+      "sha256": "663fa266d1d3abd8abac73706ac15ecb3cc5a3a32278e6efbb6cda1116f9a896",
+      "annotations": [
+        "DeleteMapping",
+        "GetMapping",
+        "PatchMapping",
+        "PathVariable",
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/dividas\""
+        ],
+        [
+          "PostMapping",
+          ""
+        ],
+        [
+          "GetMapping",
+          "\"/cliente/{clienteId}\""
+        ],
+        [
+          "PatchMapping",
+          "\"/{id}/pagamento\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/{id}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "DividaService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/dto/ClienteDTO.java",
+      "module": "cliente",
+      "sha256": "0aa90950a665fbc52cd175833566a6a4433089bdbdd78c37f26e37891b5f57c2",
+      "annotations": [
+        "Getter"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/dto/ClienteRequest.java",
+      "module": "cliente",
+      "sha256": "d2e8f5768c3969779a15d137c5830918e952f2304d7c0925974240e2acc9907b",
+      "annotations": [
+        "Data",
+        "Email",
+        "Pattern",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/dto/DividaDTO.java",
+      "module": "cliente",
+      "sha256": "79da7105d86f0357e11e98ef9370c66458401c67efbfeebf64a261fa35c4ab22",
+      "annotations": [
+        "AllArgsConstructor",
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/dto/DividaRequest.java",
+      "module": "cliente",
+      "sha256": "e4b02876bcd05b1da45da8b2fe575808f0e5491c200bc097bd9276fdab494ecf",
+      "annotations": [
+        "Data",
+        "DecimalMin",
+        "NotBlank",
+        "NotNull",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/model/Cliente.java",
+      "module": "cliente",
+      "sha256": "79a59cff2f80ecc2aa963df93281598d66c9df861e5c6b6225e3d754b755592f",
+      "annotations": [
+        "AllArgsConstructor",
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "Setter",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "clientes"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/model/Divida.java",
+      "module": "cliente",
+      "sha256": "10588f89ccc5431aa2821b8504bdd6f2a756267a0ac2c845462cd53b42f163a0",
+      "annotations": [
+        "Column",
+        "Data",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "dividas"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/repository/ClienteRepository.java",
+      "module": "cliente",
+      "sha256": "c0e14325fe00dad3cce76772d2005d409c3a94bccd9099eaef5c89bc292f4859",
+      "annotations": [
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/repository/DividaRepository.java",
+      "module": "cliente",
+      "sha256": "7568806536c34994264e94385f57b9338db6c740aeaa8c4d53ab18836101113a",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/service/ClienteServiceImpl.java",
+      "module": "cliente",
+      "sha256": "c118416b91bc11a4da8840be5ef642ddf2f104116dc600934b39bda3eb382909",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "ClienteRepository",
+        "UsuarioRepository",
+        "EmpresaRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/cliente/service/DividaService.java",
+      "module": "cliente",
+      "sha256": "8ee2c75b816a90f92e6db0e72a2595a9b1a01634597cc6ed3beb1bd19f91cbe7",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "DividaRepository",
+        "ClienteRepository",
+        "EmpresaRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/configuracao/controller/ConfiguracaoController.java",
+      "module": "configuracao",
+      "sha256": "96548ccd564f792f6f2afc72153bdcf5874d47e5312ec245c328280f1ccb3e0f",
+      "annotations": [
+        "DeleteMapping",
+        "GetMapping",
+        "PostMapping",
+        "PutMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Slf4j"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/configuracoes\""
+        ],
+        [
+          "GetMapping",
+          "\"/perfil\""
+        ],
+        [
+          "PutMapping",
+          "\"/perfil/nome\""
+        ],
+        [
+          "PostMapping",
+          "value = \"/perfil/foto\", consumes = MediaType.MULTIPART_FORM_DATA_VALUE"
+        ],
+        [
+          "DeleteMapping",
+          "\"/perfil/foto\""
+        ],
+        [
+          "PostMapping",
+          "\"/senha/solicitar-codigo\""
+        ],
+        [
+          "PostMapping",
+          "\"/senha/trocar\""
+        ],
+        [
+          "GetMapping",
+          "\"/notificacoes\""
+        ],
+        [
+          "PutMapping",
+          "\"/notificacoes\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "UploadFotoOperation",
+        "VerificarPlanoOperation"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/configuracao/dto/NotificacaoPreferenciasDTO.java",
+      "module": "configuracao",
+      "sha256": "ccf1b51b17f9dab154b409cd45a4160b191e2f24c796061cbcb5e151d8e3d7fb",
+      "annotations": [
+        "Data"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/configuracao/dto/NotificacoesDTO.java",
+      "module": "configuracao",
+      "sha256": "455a37a022a231b7f3ff839b1b8bc2efc773cf36372f5deafdcd0fa150c987f5",
+      "annotations": [
+        "Data"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/configuracao/dto/PerfilDTO.java",
+      "module": "configuracao",
+      "sha256": "0f60fdb90b8aaef581b325dc4fbbbe43f416f1d0e95817779b28515290edc1b7",
+      "annotations": [
+        "Builder",
+        "Data"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/configuracao/dto/TrocarSenhaDTO.java",
+      "module": "configuracao",
+      "sha256": "b5ec12b022c28df8b0b3dd6172134795dfd1b1389fe437e5112888b141983811",
+      "annotations": [
+        "Data"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/configuracao/model/Configuracao.java",
+      "module": "configuracao",
+      "sha256": "086117688e600d00b7f27fc0f70fd0ae6727b68fcfc74fbf5d05966acdfb48c9",
+      "annotations": [
+        "Entity",
+        "GeneratedValue",
+        "Id"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/configuracao/service/ConfiguracaoServiceImpl.java",
+      "module": "configuracao",
+      "sha256": "df219a83540076f41cd31098945df09c17321985e58e2e39a32e09cce835b141",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "PasswordEncoder",
+        "EmailService",
+        "StringRedisTemplate"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/configuracao/service/ConfiguracaoServiceInterface.java",
+      "module": "configuracao",
+      "sha256": "4c7690c267772ee471b7646fdee3e6ffe96163f277053bb40ef656110fe2acae",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/controller/DashboardController.java",
+      "module": "dashboard",
+      "sha256": "9a4bea24ebb9c83521c381e1829f121c8ee8a8eb0ff5627a8d037b5deca5e3d9",
+      "annotations": [
+        "GetMapping",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/dashboard\""
+        ],
+        [
+          "GetMapping",
+          "\"/visao-geral\""
+        ],
+        [
+          "GetMapping",
+          "\"/vendas/metodo-pagamento\""
+        ],
+        [
+          "GetMapping",
+          "\"/vendas/produto\""
+        ],
+        [
+          "GetMapping",
+          "\"/vendas/diarias\""
+        ],
+        [
+          "GetMapping",
+          "\"/vendas/plano-usuario\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "DashboardServiceInterface"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/dto/DashboardVisaoGeralResponse.java",
+      "module": "dashboard",
+      "sha256": "9739ec2a6cd94033562a9024460e13d786bcf9408f8b56e3ca21eb1048144256",
+      "annotations": [
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/dto/MetodoPagamentoDTO.java",
+      "module": "dashboard",
+      "sha256": "a7cd9983b0071460d33b230f66d0d4d16a2afcf0fde977779adb23bfa5987794",
+      "annotations": [
+        "AllArgsConstructor",
+        "Data",
+        "JsonIgnoreProperties",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/dto/PlanoDTO.java",
+      "module": "dashboard",
+      "sha256": "dd16a8fc1f1e2db2526c0753b3908d766725789921b200e6a56ddc032611dd3d",
+      "annotations": [
+        "AllArgsConstructor",
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/dto/ProdutoVendasDTO.java",
+      "module": "dashboard",
+      "sha256": "4b8a371d740d3e4196a83aeb8cc7cd7d79a78047c224e1dfd36d9259809fd29e",
+      "annotations": [
+        "AllArgsConstructor",
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/dto/VendasDiariasDTO.java",
+      "module": "dashboard",
+      "sha256": "7bad2464ac08b70d8b3262e4e7bc4a3f5d7f50d7db192b8463e99380ec81b204",
+      "annotations": [
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/repository/DashboardRepository.java",
+      "module": "dashboard",
+      "sha256": "7f484e10767c5cd36c6f9bb31a47fe26b149c75b974ca64de7916dd6739a4f3d",
+      "annotations": [
+        "Param",
+        "Query",
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/service/DashboardServiceImpl.java",
+      "module": "dashboard",
+      "sha256": "2a5170326902a6926bacbfbea76fd8f9c44d43c63cd7396749dd63aea834eea1",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "DashboardRepository",
+        "GraficoServiceOperation",
+        "VisaoGeralOperation",
+        "EmpresaRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/service/DashboardServiceInterface.java",
+      "module": "dashboard",
+      "sha256": "c1d8492845c79533e6d4ec7d1b600425ec409c2f68ca09ec512be09adcf3d247",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/service/GraficoServiceOperation.java",
+      "module": "dashboard",
+      "sha256": "8424315fc07ebb9310266dc94a224b7b3995a13638506abc016234c4ae6282d1",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "GraficoRepository",
+        "DashboardRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/dashboard/service/VisaoGeralOperation.java",
+      "module": "dashboard",
+      "sha256": "9a29388a120580a125b6208aae1a265f0182a7ed7b728b846ae7b4fd2e63ae2f",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "ProdutoRepository",
+        "UsuarioRepository",
+        "EmpresaRepository",
+        "VerificarPlanoOperation",
+        "DashboardRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/empresa/controller/EmpresaController.java",
+      "module": "empresa",
+      "sha256": "4e2b451b7394ff1917aba1d21681f3730f4e1c2b5dba225419385ce84711758c",
+      "annotations": [
+        "DeleteMapping",
+        "GetMapping",
+        "PathVariable",
+        "PostMapping",
+        "PutMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/empresas\""
+        ],
+        [
+          "PostMapping",
+          ""
+        ],
+        [
+          "GetMapping",
+          ""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}\""
+        ],
+        [
+          "PutMapping",
+          "\"/{id}\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/{id}/confirmar-exclusao\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/{id}/exclusao-permanente\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "EmpresaService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/empresa/dto/CriarEmpresaRequest.java",
+      "module": "empresa",
+      "sha256": "12b0b165f57b68bc6b4535a839c3eb89bf581868b151cc0c1e5f44d206d33a93",
+      "annotations": [
+        "Data",
+        "NotBlank",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/empresa/dto/EmpresaResponse.java",
+      "module": "empresa",
+      "sha256": "bf2097e6e9215fe75cf3f7a9fc15711f9b39829ada297e3dbb012a0c52857b74",
+      "annotations": [
+        "Data"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/empresa/model/Empresa.java",
+      "module": "empresa",
+      "sha256": "ea74669a4bcbbc3d8c22703f20cf0a085c184cb34cd4d5b59261e0f8a096f29a",
+      "annotations": [
+        "AllArgsConstructor",
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "PrePersist",
+        "PreUpdate",
+        "Setter",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "empresas"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/empresa/repository/EmpresaRepository.java",
+      "module": "empresa",
+      "sha256": "f34d08b26b38d535241f801a98d7856440aa06fbfd6b11d401b8f694930fd6c4",
+      "annotations": [
+        "Param",
+        "Query",
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/empresa/service/EmpresaService.java",
+      "module": "empresa",
+      "sha256": "13348d7bee62a71bf4d95a65d66928f4d0ab52cb737e653900770aac7209b86d",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "EmpresaRepository",
+        "UsuarioRepository",
+        "VerificarPlanoOperation",
+        "PasswordEncoder",
+        "VerificarCNPJ",
+        "VerificarCPF"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/empresa/service/VerificarCNPJ.java",
+      "module": "empresa",
+      "sha256": "07faaec0ab92b8e1a168e21cc23d0dc3fe5066f4540d59af4acdd480384167d4",
+      "annotations": [
+        "Service",
+        "SuppressWarnings"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "WebClient"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/empresa/service/VerificarCPF.java",
+      "module": "empresa",
+      "sha256": "f76459272d4187c36c0653f7454920a35ad1e49759025dfe85626a056b2de6e5",
+      "annotations": [
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/config/AsyncConfig.java",
+      "module": "infra",
+      "sha256": "e63175b21fbf0ddc49a15a7f23cc2d26612f1694178671e2ccd60c7153dbe0c0",
+      "annotations": [
+        "Bean",
+        "Configuration"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/config/CacheConfig.java",
+      "module": "infra",
+      "sha256": "19754e7bbe1fd4d579be4b5d0486f3fe0a2cd46705a64ae015e6562b7d21f8ce",
+      "annotations": [
+        "Bean",
+        "Configuration",
+        "EnableCaching"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/config/CloudinaryConfig.java",
+      "module": "infra",
+      "sha256": "959e419ba494d06e6ac8e533874ce5ae9e512980c4e6801a5a51fe8d932ec38d",
+      "annotations": [
+        "Bean",
+        "Configuration",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/config/CorsConfig.java",
+      "module": "infra",
+      "sha256": "1657cb9542bc64400ca5eb2ec501e2c97f5b068cfa9c5ae24127a06d9bafebde",
+      "annotations": [
+        "Bean",
+        "Configuration",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "String",
+        "String",
+        "boolean"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/config/FailedV12MigrationRecoveryConfig.java",
+      "module": "infra",
+      "sha256": "8f48ecd531a27c11c228f96c45c957091e427b0667259da6c43046a905282a2d",
+      "annotations": [
+        "Bean",
+        "Configuration",
+        "Profile",
+        "Slf4j"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/config/StaticResourceConfig.java",
+      "module": "infra",
+      "sha256": "a15464222b46244d1df5bd0281d7706985272671477065edbc8c33c0e06a025b",
+      "annotations": [
+        "Configuration",
+        "Override"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/config/StripeConfig.java",
+      "module": "infra",
+      "sha256": "bfb7c9c9b7f2496fe88735a3e89b9aababc49f3e4d818b183a88079f49295e64",
+      "annotations": [
+        "ConditionalOnProperty",
+        "Configuration",
+        "PostConstruct",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/config/WebClienteConfig.java",
+      "module": "infra",
+      "sha256": "dbaa4d60446e2be73787bf846d6d6fe1c8021bcc58bc476af069acff4f565f27",
+      "annotations": [
+        "Bean",
+        "Configuration"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/exception/ApiException.java",
+      "module": "infra",
+      "sha256": "a6d3770b640b9925febca0cd12fe2d541d0262808c9fe8609196a4382dd631c4",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "HttpStatus",
+        "String",
+        "Object"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/exception/GlobalExceptionHandler.java",
+      "module": "infra",
+      "sha256": "3c9d95c7f95201950485233a69ca3e15cd8bd83855b2f1debaaecc03cfe9141a",
+      "annotations": [
+        "ControllerAdvice",
+        "ExceptionHandler",
+        "Slf4j",
+        "Valid",
+        "Validated"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/exception/RateLimitExceededException.java",
+      "module": "infra",
+      "sha256": "16a74c756966bd6b0c43ad81188333ed8bb7e53d463cc64032f77eca02dc0628",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "long",
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/exception/RetornoErroAPI.java",
+      "module": "infra",
+      "sha256": "afffca70d5913f925b14bf36201aa42407d88331c14dcd1a9063ba3a45052739",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/filter/CorrelationIdFilter.java",
+      "module": "infra",
+      "sha256": "9197e74e3016969269dfd4c542df5863a0b8b0f41a6b6fa159f723c760b44e23",
+      "annotations": [
+        "Component",
+        "Override"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/filter/JwtAuthenticationFilter.java",
+      "module": "infra",
+      "sha256": "b9e49cd73d34a17ef5dddcef7eee15db7ce2f04fcfcc70353197f3fd19854057",
+      "annotations": [
+        "Component",
+        "Override"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "JwtService",
+        "UsuarioRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/filter/OAuth2LoginSuccessHandler.java",
+      "module": "infra",
+      "sha256": "9baa4e425db6d8cb0be4fbec95e8d21a46a8db9f2bc42872a0be6f3916cdc1e6",
+      "annotations": [
+        "Component",
+        "Override",
+        "Slf4j",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "LoginGoogleOperation",
+        "AuthCookieService",
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/filter/PlanAccessFilter.java",
+      "module": "infra",
+      "sha256": "b62e5865d59fddafb650d4fd21418c93ce5f353153fd776353c0a4c43f0326bd",
+      "annotations": [
+        "Component",
+        "Override"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/jwt/JwtService.java",
+      "module": "infra",
+      "sha256": "0e913c6151dcf25df1759081407da7a8c3e9ca8c819fdd91034a0519001eb70e",
+      "annotations": [
+        "Service",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/security/CustomOAuth2UserService.java",
+      "module": "infra",
+      "sha256": "b32d30a96e048bb320bb36eccd01c84fee4a4e92aaed01765a97eed22f3a5eef",
+      "annotations": [
+        "Override",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/security/DistributedRateLimitService.java",
+      "module": "infra",
+      "sha256": "bbd85b709868d7b6ad3abbfc5a9a1110f2cc60fb85c14dc02b30080d244c4342",
+      "annotations": [
+        "Service",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "StringRedisTemplate",
+        "int",
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/security/SecurityConfig.java",
+      "module": "infra",
+      "sha256": "316f110897395a0bdd3eaeee1a296adfd5d196087f2bc3389af0032ef3885177",
+      "annotations": [
+        "Bean",
+        "Configuration"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "CustomOAuth2UserService",
+        "JwtAuthenticationFilter",
+        "PlanAccessFilter",
+        "OAuth2LoginSuccessHandler",
+        "CorsConfigurationSource",
+        "CookieSecurityProperties"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/swagger/DocumentationSwagger.java",
+      "module": "infra",
+      "sha256": "3116c71f90fcc2f1622bd8a55d656d947b59881579c1ff33eff268c855b28d39",
+      "annotations": [
+        "Bean",
+        "Configuration",
+        "gmail"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/infra/util/UsuarioCleanupScheduler.java",
+      "module": "infra",
+      "sha256": "21f8f361226556106a489dc547964007da8bf1cf87399b81745512009d9fa60d",
+      "annotations": [
+        "Component",
+        "RequiredArgsConstructor",
+        "Scheduled",
+        "Slf4j"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/client/MercadoLivreApiClient.java",
+      "module": "marketplace",
+      "sha256": "2a8463f2b8158b88be9f9b9ba952c7bc98988e01c1b7beb4a2b98f0be9a8d9be",
+      "annotations": [
+        "Component",
+        "RequiredArgsConstructor",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "MarketplaceConnectionRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/client/ShopeeApiClient.java",
+      "module": "marketplace",
+      "sha256": "5a44ae8f1684db7f9bfcac665aa7d81501c2ed2035836d800de9e18f47d8b862",
+      "annotations": [
+        "Component",
+        "RequiredArgsConstructor",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "MarketplaceConnectionRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/controller/MarketplaceConnectionController.java",
+      "module": "marketplace",
+      "sha256": "9059a0aae7d95467c22230edb06c82cda2d865c030c70f0b81bc23774a596e92",
+      "annotations": [
+        "DeleteMapping",
+        "GetMapping",
+        "Getter",
+        "NotBlank",
+        "NotNull",
+        "PathVariable",
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Setter",
+        "Valid",
+        "Value"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/marketplace\""
+        ],
+        [
+          "GetMapping",
+          "\"/callback/shopee\""
+        ],
+        [
+          "GetMapping",
+          "\"/callback/mercadolivre\""
+        ],
+        [
+          "PostMapping",
+          "\"/empresa/{empresaId}/conectar\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/empresa/{empresaId}/desconectar\""
+        ],
+        [
+          "GetMapping",
+          "\"/empresa/{empresaId}/conexoes\""
+        ],
+        [
+          "GetMapping",
+          "\"/empresa/{empresaId}/oauth-state\""
+        ],
+        [
+          "PostMapping",
+          "\"/empresa/{empresaId}/vinculos\""
+        ],
+        [
+          "GetMapping",
+          "\"/empresa/{empresaId}/vinculos\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/empresa/{empresaId}/vinculos/{linkId}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "MarketplaceConnectionService",
+        "OAuthStateService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/controller/WebhookController.java",
+      "module": "marketplace",
+      "sha256": "18719ab669b9f8769aa9b659d4a51994f99da8a7f731264f57de8e8dd9923723",
+      "annotations": [
+        "PostMapping",
+        "RequestBody",
+        "RequestHeader",
+        "RequestMapping",
+        "RequiredArgsConstructor",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/webhooks\""
+        ],
+        [
+          "PostMapping",
+          "\"/shopee\""
+        ],
+        [
+          "PostMapping",
+          "\"/mercadolivre\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "WebhookShopeeService",
+        "WebhookMercadoLivreService",
+        "ObjectMapper"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/dto/ConectarMarketplaceDTO.java",
+      "module": "marketplace",
+      "sha256": "8d02d71434d48dcaa11c46f1b7ef0c8f7c385efeb4aba16314a466cc4e95818c",
+      "annotations": [
+        "NotBlank",
+        "NotNull"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/dto/MarketplaceConnectionResponseDTO.java",
+      "module": "marketplace",
+      "sha256": "1f5a9084cd4f2a74da82c02758a7075b0bbe0ab3e7fa1b3cd2e342bc6def06c0",
+      "annotations": [
+        "Getter"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "Long",
+        "CanalVenda",
+        "String",
+        "boolean",
+        "LocalDateTime",
+        "LocalDateTime",
+        "List<LinkDTO>",
+        "Long",
+        "Long",
+        "String",
+        "String",
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/dto/VincularProdutoDTO.java",
+      "module": "marketplace",
+      "sha256": "fdfcc8777d0c9c7922416f6557e162b806bc087326068506499fb87eb74a3cd2",
+      "annotations": [
+        "NotBlank",
+        "NotNull"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/model/MarketplaceConnection.java",
+      "module": "marketplace",
+      "sha256": "3eb492c6e7b5f2e805b7d9b7f035a422e93efaca85e1d420526e30bd8009f925",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "EqualsAndHashCode",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "JsonIgnore",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "PrePersist",
+        "PreUpdate",
+        "Setter",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "marketplace_connection"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/model/MarketplaceProductLink.java",
+      "module": "marketplace",
+      "sha256": "0a263d22890b6db4de38939054f6b6425e0f14838cd29825647757ad1c161da0",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "EqualsAndHashCode",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "PrePersist",
+        "Setter",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "marketplace_product_link"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/repository/MarketplaceConnectionRepository.java",
+      "module": "marketplace",
+      "sha256": "ad2af0165103beb10a9c81d5a82a5e2b6ffd71a3d583af2c746a182d9d5a6be0",
+      "annotations": [
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/repository/MarketplaceProductLinkRepository.java",
+      "module": "marketplace",
+      "sha256": "f81a8a035d8b9ec2ba08ba48b0a7ff48efb922dafc24fa750a6065da2aa5e346",
+      "annotations": [
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/service/MarketplaceConnectionService.java",
+      "module": "marketplace",
+      "sha256": "78eca2a4b3d78e9e14f51d9450c65fd90968a620e69647cd3a75e9309cb63346",
+      "annotations": [
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "Service",
+        "SuppressWarnings",
+        "Transactional",
+        "Value",
+        "param"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "MarketplaceConnectionRepository",
+        "MarketplaceProductLinkRepository",
+        "EmpresaRepository",
+        "ProdutoRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/service/OAuthStateService.java",
+      "module": "marketplace",
+      "sha256": "f6044f1a4b08877a01d3394f2c03f33a0339e17b2e3d3b5954fc335c7c075d04",
+      "annotations": [
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "StringRedisTemplate"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/webhook/WebhookMercadoLivreService.java",
+      "module": "marketplace",
+      "sha256": "b83a906ee63ba1c2d0bf8a0e2cae6c9a375aa4e786a9087a52be85b5ef6669f0",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Value",
+        "param"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "WebhookProcessorService",
+        "MercadoLivreApiClient"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/webhook/WebhookOrderDTO.java",
+      "module": "marketplace",
+      "sha256": "ba395f89070f1ff026e2bc3688d0f85a11558485579bd3332df1cf43d0ca771a",
+      "annotations": [
+        "Builder",
+        "Getter"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/webhook/WebhookProcessorService.java",
+      "module": "marketplace",
+      "sha256": "ed3cf7bb20106ea3094e8181279c70a6a515e5455ee61548e296314207592db8",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "MarketplaceConnectionRepository",
+        "MarketplaceProductLinkRepository",
+        "PedidoServiceInterface",
+        "StringRedisTemplate"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/marketplace/webhook/WebhookShopeeService.java",
+      "module": "marketplace",
+      "sha256": "624c748a807147e13c6d1ea521b1a41a3876551b9853c5b9f4b718da621a3be6",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "WebhookProcessorService",
+        "ShopeeApiClient"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/DocumentoFiscalAmbiente.java",
+      "module": "nota",
+      "sha256": "794276eb10fcc0c9966409809e9750a406de3b1c374d9be9a18ed6c81e8a2a9f",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/FiscalPermission.java",
+      "module": "nota",
+      "sha256": "6404d1d2dadcbacc68ee275c40f083f7047aac1adeb7445791e579c6bf2c48ed",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/FiscalRole.java",
+      "module": "nota",
+      "sha256": "13c13e58e46b87098236eaef893df2b1afc9210bfd1e2b4eade2bf2db957900f",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "Set<FiscalPermission>"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/FormaPagamento.java",
+      "module": "nota",
+      "sha256": "ee02a259d5963cbcdb9710d7b58bfcb1d3a2253d15081b175426e482b7737fa3",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "String",
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/NotaFiscalStatus.java",
+      "module": "nota",
+      "sha256": "d9391f6286770655ed848b1a7baae56826202bed36b8eab2d97adac54e143fd0",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/RegimeTributario.java",
+      "module": "nota",
+      "sha256": "89de1845c1b1657eddb5f14d6b8cc203952ca0446da48ff645743738e133764b",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "int",
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/TipoNota.java",
+      "module": "nota",
+      "sha256": "f570cfc4bc950f0d3019c1760a376c516265578bbc3b549c257d25d42907c6c5",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "String",
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/config/FiscalObservabilityConfig.java",
+      "module": "nota",
+      "sha256": "c9231ed60d8b4591f9178feb5e636ba5929fdf907f27c106884a9206016714c5",
+      "annotations": [
+        "Configuration",
+        "PropertySource"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/config/FiscalResilienceConfig.java",
+      "module": "nota",
+      "sha256": "0b1226f243122ab3eb2420439fb0f50f907cae4ba85a95ae0d5e5bb08af2c7ae",
+      "annotations": [
+        "Bean",
+        "Configuration"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/config/FiscalSpecificationVersion.java",
+      "module": "nota",
+      "sha256": "a51a233222d2b9d47c8f05beba63d40fcaff616b27db8834eeecfb0b44fa9cca",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/config/NotaFiscalConfig.java",
+      "module": "nota",
+      "sha256": "ffe7d0870e047d5332de4a5d0c6f4a12f32f9f39acb12ad7c5a03e40f4e94716",
+      "annotations": [
+        "AllArgsConstructor",
+        "Bean",
+        "Configuration",
+        "ConfigurationProperties",
+        "Data",
+        "Getter"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "String",
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/controller/ConfiguracaoFiscalController.java",
+      "module": "nota",
+      "sha256": "251608290df67a31615afd1645bef909d54e8f36d1a54b6dd07a488f46c967ad",
+      "annotations": [
+        "GetMapping",
+        "PathVariable",
+        "PutMapping",
+        "RequestBody",
+        "RequestHeader",
+        "RequestMapping",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/fiscal/configuracao\""
+        ],
+        [
+          "GetMapping",
+          "\"/{empresaId}\""
+        ],
+        [
+          "GetMapping",
+          "\"/{empresaId}/prontidao\""
+        ],
+        [
+          "PutMapping",
+          "\"/{empresaId}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "ConfiguracaoFiscalService",
+        "FiscalAuthorizationService",
+        "FiscalStepUpService",
+        "DistributedRateLimitService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/controller/FiscalAccessController.java",
+      "module": "nota",
+      "sha256": "3e20b6dffca1e9948b5d99fcbaa89e568007cf08d799b27dcd309fa84789f4f4",
+      "annotations": [
+        "DeleteMapping",
+        "GetMapping",
+        "PathVariable",
+        "PutMapping",
+        "RequestBody",
+        "RequestHeader",
+        "RequestMapping",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/fiscal/acessos/{empresaId}\""
+        ],
+        [
+          "GetMapping",
+          ""
+        ],
+        [
+          "PutMapping",
+          ""
+        ],
+        [
+          "DeleteMapping",
+          "\"/{acessoId}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "FiscalAccessManagementService",
+        "DistributedRateLimitService",
+        "FiscalAuthorizationService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/controller/FiscalHealthController.java",
+      "module": "nota",
+      "sha256": "f15e4464ba6f18add4b4967082aa69284279a7770fac9793f79a56e63deb66a6",
+      "annotations": [
+        "GetMapping",
+        "RequestMapping",
+        "RequiredArgsConstructor",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/fiscal/health\""
+        ],
+        [
+          "GetMapping",
+          ""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "FiscalHealthService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/controller/FiscalStepUpController.java",
+      "module": "nota",
+      "sha256": "725580937900ae3630fc1e04c3f11b71bc5568f6b64c0fb2254a2436d6ef9b13",
+      "annotations": [
+        "PathVariable",
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/fiscal/confirmacao\""
+        ],
+        [
+          "PostMapping",
+          "\"/{empresaId}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "FiscalStepUpService",
+        "DistributedRateLimitService",
+        "FiscalAuthorizationService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/controller/FiscalWebhookConfigController.java",
+      "module": "nota",
+      "sha256": "ea8c842fb6fc1f6162f64e552d30000a2e59c62a36b4e6311cf85afc50dfdbc9",
+      "annotations": [
+        "GetMapping",
+        "PathVariable",
+        "PutMapping",
+        "RequestBody",
+        "RequestHeader",
+        "RequestMapping",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/fiscal/webhook/{empresaId}\""
+        ],
+        [
+          "GetMapping",
+          ""
+        ],
+        [
+          "PutMapping",
+          ""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "FiscalWebhookConfigService",
+        "FiscalAuthorizationService",
+        "FiscalStepUpService",
+        "DistributedRateLimitService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/controller/NotaFiscalController.java",
+      "module": "nota",
+      "sha256": "c8212a19b0a358e05e083d0203106e30d2e781de0d7a6d27b5ca3d40955c325a",
+      "annotations": [
+        "DeleteMapping",
+        "GetMapping",
+        "ModelAttribute",
+        "PathVariable",
+        "PostMapping",
+        "RequestBody",
+        "RequestHeader",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController",
+        "jakarta"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/nota-fiscal\""
+        ],
+        [
+          "PostMapping",
+          ""
+        ],
+        [
+          "PostMapping",
+          "\"/vendas/{vendaId}/nfce\""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}\""
+        ],
+        [
+          "GetMapping",
+          ""
+        ],
+        [
+          "DeleteMapping",
+          "\"/{id}\""
+        ],
+        [
+          "PostMapping",
+          "\"/{id}/emitir\""
+        ],
+        [
+          "PostMapping",
+          "\"/cancelar\""
+        ],
+        [
+          "PostMapping",
+          "\"/carta-correcao\""
+        ],
+        [
+          "PostMapping",
+          "\"/inutilizar\""
+        ],
+        [
+          "PostMapping",
+          "\"/transmitir-contingencias\""
+        ],
+        [
+          "PostMapping",
+          "\"/{id}/contingencia-offline\""
+        ],
+        [
+          "PostMapping",
+          "\"/{id}/dps\""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}/dps\""
+        ],
+        [
+          "PostMapping",
+          "value = \"/importar-xml\", consumes = MediaType.MULTIPART_FORM_DATA_VALUE"
+        ],
+        [
+          "GetMapping",
+          "\"/{id}/xml\""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}/danfe\""
+        ],
+        [
+          "PostMapping",
+          "\"/{id}/entregas/email\""
+        ],
+        [
+          "GetMapping",
+          "\"/exportar/xml-mensal\""
+        ],
+        [
+          "GetMapping",
+          "\"/exportar/sped\""
+        ],
+        [
+          "GetMapping",
+          "\"/certificado/{empresaId}\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/certificado/{empresaId}\""
+        ],
+        [
+          "PostMapping",
+          "\"/certificado/{empresaId}\""
+        ],
+        [
+          "GetMapping",
+          "\"/cep/{cep}\""
+        ],
+        [
+          "GetMapping",
+          "\"/cnpj/{cnpj}\""
+        ],
+        [
+          "GetMapping",
+          "\"/chave/{chaveAcesso}\""
+        ],
+        [
+          "GetMapping",
+          "\"/estatisticas\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalInterface",
+        "NotaFiscalServiceImpl",
+        "DistributedRateLimitService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/ApiResponse.java",
+      "module": "nota",
+      "sha256": "69359cf02d0f3ba7d89fc04a96b14ee9d89117682834cf297c8d1a7fd409cd03",
+      "annotations": [
+        "Getter",
+        "Setter"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/CancelarNotaRequest.java",
+      "module": "nota",
+      "sha256": "036caba65279c2db64d235d77f76af048c80dde4329363da4e8aff593033dc57",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Data",
+        "NoArgsConstructor",
+        "NotBlank",
+        "NotNull",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/CartaCorrecaoRequest.java",
+      "module": "nota",
+      "sha256": "200a9d71d905cac5d0de0ff95befe1ae1d67e829b7e4b89f9e6616fefb1f6f58",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Data",
+        "NoArgsConstructor",
+        "NotBlank",
+        "NotNull",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/ConfiguracaoFiscalRequest.java",
+      "module": "nota",
+      "sha256": "091c1b99897dac09fdb154481c0a7dc557a6f0f3ed997902750591b7f5dd6f91",
+      "annotations": [
+        "Email",
+        "NotBlank",
+        "NotNull",
+        "Pattern",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/ConfiguracaoFiscalResponse.java",
+      "module": "nota",
+      "sha256": "c815677e014871a2cecd32012531ea91146271742fe74c6618fb8b25c1e0c1cc",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/ContingenciaOfflineRequest.java",
+      "module": "nota",
+      "sha256": "3a3459990e3f97d0ef70257f37ee571a95b62436b5c4a50eb231d94ccc556e68",
+      "annotations": [
+        "NotBlank",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/CriarNotaRequest.java",
+      "module": "nota",
+      "sha256": "ca851360b46b1ce30d5a1d417bb2c1c0a55920435e6f47b29f1b0612baaef480",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/DpsNacionalDados.java",
+      "module": "nota",
+      "sha256": "c60f25f912f7ab92ae834a7a0a668429bfa426bbc1243f7e49a5c58c6a3d8d1c",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/EmpresaInfo.java",
+      "module": "nota",
+      "sha256": "fa4700838575d103e9ae78173c15a35ae14316fcbf3b74f91b5ec3606baf3b71",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/EstatisticasResponse.java",
+      "module": "nota",
+      "sha256": "734eda52d99a387030847fd4265dd1d2be4eefaaa871f31be5169fe6da850fe2",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Getter",
+        "NoArgsConstructor",
+        "Setter"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FilterNotaFiscalDTO.java",
+      "module": "nota",
+      "sha256": "65b34e18e97ce3217a55d917d650b7ffc7c06c1c155015107d2d43d3bed31b65",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FiscalAccessRequest.java",
+      "module": "nota",
+      "sha256": "21c18cbbbe9eb6996d7ce5c9a1824a4bbeef993e96fcb0ddb62d946123406275",
+      "annotations": [
+        "Email",
+        "NotNull",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FiscalAccessResponse.java",
+      "module": "nota",
+      "sha256": "83a63823322a9215a8f6372bfb8a0887a9e3ab4be2d8b381e8439a83c031bc8a",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FiscalDeliveryResponse.java",
+      "module": "nota",
+      "sha256": "e51b29d52f3210d9b6b735e3966cf81961d2beb02fe5ab25de05de6216b03837",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FiscalEmailDeliveryRequest.java",
+      "module": "nota",
+      "sha256": "bd2c1cb9b8ba263179a79846486ee5381775af0e6288518e36e2f06497b138b2",
+      "annotations": [
+        "AssertTrue",
+        "Email",
+        "NotBlank",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FiscalHealthResponse.java",
+      "module": "nota",
+      "sha256": "7f87c952c21a3dd01990e51f6782cf7bac0a6c44c5c5f1927e6e8c8c506e4996",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FiscalStepUpRequest.java",
+      "module": "nota",
+      "sha256": "d5afb1b9d4c8382c51f7b0677bc2f208ddffb3219a4315eefe3924511071d8a6",
+      "annotations": [
+        "NotBlank",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FiscalStepUpResponse.java",
+      "module": "nota",
+      "sha256": "91bc9dc0ee577703c91c6b346a4cb8eec4b6460557788832bae4b57916e52d1e",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FiscalWebhookConfigRequest.java",
+      "module": "nota",
+      "sha256": "c8bc611dfcb900951cb8daa66838d2bfedf8cc64bdf7bafb4b2946bc5f5901fc",
+      "annotations": [
+        "NotBlank",
+        "NotEmpty",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/FiscalWebhookConfigResponse.java",
+      "module": "nota",
+      "sha256": "3b950fc604d1b645a977c8a17484f8493e06b101c8ae390ae9b21d5e87d2296e",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/InutilizarRequest.java",
+      "module": "nota",
+      "sha256": "8db2a89b48d8b2e9085174bbf1a95aef8d9767cf19d01a904bb3abf73da762e2",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Data",
+        "Max",
+        "Min",
+        "NoArgsConstructor",
+        "NotBlank",
+        "NotNull",
+        "Pattern",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/ItemCalc.java",
+      "module": "nota",
+      "sha256": "557b76cc7467e87815587b08d2025d4fc700a28f074ddda396c86f3b8acc7541",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Data",
+        "JsonIgnoreProperties",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/NotaFiscalResumoResponse.java",
+      "module": "nota",
+      "sha256": "2635d4f3d82f1fd51b068a732790a564cd0ec1fe48ed2e0804e1aff8c36cdb63",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Data",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/dto/ProntidaoFiscalResponse.java",
+      "module": "nota",
+      "sha256": "8c4c54048f768a9d55cab0e649f45131a4eb9b55f132f0db1862a11c3ffbac7c",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/CertificadoDigital.java",
+      "module": "nota",
+      "sha256": "2b10cf6923d0c96ac6a39573bd96eab285108fb6f3693d7184e0e0875eb8b81d",
+      "annotations": [
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Lob",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "certificados_digitais"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/ConfiguracaoFiscalEmpresa.java",
+      "module": "nota",
+      "sha256": "7ed0419ff86d416ecf42cf01b4b9f27f99d2dc68d48c3d4d20af90779edd44b9",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Lob",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "configuracoes_fiscais"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/EventoFiscal.java",
+      "module": "nota",
+      "sha256": "a8c5e973c1dab5e42f4f44193a0eb926de292852f86c4e2634a4fd60c4f70b7c",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Index",
+        "Lob",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "eventos_fiscais"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/FiscalAuditLog.java",
+      "module": "nota",
+      "sha256": "c206c1ce269268d3edf3f3bd24f80ff7540ba3e4b8f6aee734b210596cf82fd7",
+      "annotations": [
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Immutable",
+        "Index",
+        "NoArgsConstructor",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "fiscal_audit_log"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/FiscalCompanyAccess.java",
+      "module": "nota",
+      "sha256": "8fdbd6ab35996688d57104edb3d8d827b1fd4ad0543fda708dd37b70ee678713",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "NoArgsConstructor",
+        "Setter",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "fiscal_company_access"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/FiscalDelivery.java",
+      "module": "nota",
+      "sha256": "ff169fb80fd30bda4b7339c5433dd7199afa70172fdb136b41bae137b6f4d519",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Index",
+        "Lob",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint",
+        "Version"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "fiscal_deliveries"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/FiscalIdempotency.java",
+      "module": "nota",
+      "sha256": "1376fb3b8eb18549fdd9fc9556ba8c1bfb7f6a5bc8927f0e6ea33369f13e83e6",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "fiscal_idempotency"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/FiscalJob.java",
+      "module": "nota",
+      "sha256": "8a758c8b3ed23d30157a23b29bce6414cbb512dbfcd516f4e121395caa35ae76",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Index",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint",
+        "Version"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "fiscal_jobs"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/FiscalWebhookConfig.java",
+      "module": "nota",
+      "sha256": "5341b1c18abfb29196a5582135a17fcbdea1fb78292b0d9171bad2eb87bbdda3",
+      "annotations": [
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Lob",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "fiscal_webhook_configs"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/ItemNotaFiscal.java",
+      "module": "nota",
+      "sha256": "7ca0d25ced0c54240bb783ed90ea52c5c15b168e904c495b17b19956a7e88eea",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "Setter",
+        "Table",
+        "code"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "itens_nota_fiscal"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/NotaFiscal.java",
+      "module": "nota",
+      "sha256": "f040f2dd34759cab105b1b08fa86a3d5f943b143ef6e8ff7917de6a9a3263a09",
+      "annotations": [
+        "AllArgsConstructor",
+        "Builder",
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Index",
+        "Lob",
+        "NoArgsConstructor",
+        "OneToMany",
+        "PrePersist",
+        "PreUpdate",
+        "Setter",
+        "Table",
+        "UniqueConstraint",
+        "code"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "notas_fiscais"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/SequenciaFiscal.java",
+      "module": "nota",
+      "sha256": "65ee73b91d3e43be7340b553d210f7e7458f634f7c909b349031dc3b4ff04e3c",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "sequencias_fiscais"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/model/XmlFiscal.java",
+      "module": "nota",
+      "sha256": "ae31819f889050ec51605444ff268ae8d825751c9afb0147a8ab92f8f66b7800",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Immutable",
+        "Index",
+        "Lob",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "xmls_fiscais"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/provider/DirectSefazFiscalProvider.java",
+      "module": "nota",
+      "sha256": "2dc4a2ed39be54f096935d6af88057d004e530f57421d3224c7c7ca99076a3f4",
+      "annotations": [
+        "Component"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "SefazComunicacaoService",
+        "CircuitBreaker"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/provider/FiscalProvider.java",
+      "module": "nota",
+      "sha256": "524ca28d809512a0ca33f6e336218d78db4d05b17841b77aa8fb54a1ff9943ff",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/provider/FiscalProviderException.java",
+      "module": "nota",
+      "sha256": "1543664eaa56dd3608be4446e9f93fb3ed12e3ef7f77506da55835289d2a83e5",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "boolean"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/provider/FiscalProviderRegistry.java",
+      "module": "nota",
+      "sha256": "4105b660cf1f89687e87304d4b13d9c302f07f7369f1ec1d6e6604284aa9ca59",
+      "annotations": [
+        "Component"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "List<FiscalProvider>"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/provider/NationalNfseProvider.java",
+      "module": "nota",
+      "sha256": "aa8d08463af404926a8fee23f9d8bd91e0ad390e7325dcb1130f23cb74f6e69d",
+      "annotations": [
+        "Component",
+        "Override",
+        "RequiredArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NfseNationalHttpClient"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/provider/NfseNationalHttpClient.java",
+      "module": "nota",
+      "sha256": "45b7f1b8c3f0295e81bf29ef411f2163f9139c8df26264badd7d0e75626a15dd",
+      "annotations": [
+        "Component",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "ObjectMapper",
+        "boolean"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/provider/NfseProvider.java",
+      "module": "nota",
+      "sha256": "50c180bc128d8d8ecb8940f781fb9dc31a04c06fb7c1cad21450fb5af19e35fa",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/provider/NfseProviderRegistry.java",
+      "module": "nota",
+      "sha256": "f53334595c217ee9c842902b443ac0d3f7e415b241651cdaf8801ff8c99e1da4",
+      "annotations": [
+        "Component"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "List<NfseProvider>"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/CertificadoDigitalRepository.java",
+      "module": "nota",
+      "sha256": "f79cf8c79d6f0e6f9e99f4c1a277aae359603afcac5004d85249b9d52406cb02",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/ConfiguracaoFiscalEmpresaRepository.java",
+      "module": "nota",
+      "sha256": "0d68c52e12d0f4089bcdd0207108462bfa39424c9b6b64c708d39eab9314d372",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/EventoFiscalRepository.java",
+      "module": "nota",
+      "sha256": "17bba2a436dc0bd65ce15ef55f72a9970214eda0ead950abb1612afb590ddcaa",
+      "annotations": [
+        "Param",
+        "Query"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/FiscalAuditStore.java",
+      "module": "nota",
+      "sha256": "1ab21bf9c6857461eb59331a7c2ba655d51a7cb82f47f61c5886823c2081da99",
+      "annotations": [
+        "Repository",
+        "RequiredArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "EntityManager"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/FiscalCompanyAccessRepository.java",
+      "module": "nota",
+      "sha256": "f9e8fa73b99e90a5ed03252a8b57fd4e237a8aa81dcfb68702a0dc52fa9225be",
+      "annotations": [
+        "Param",
+        "Query"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/FiscalDeliveryRepository.java",
+      "module": "nota",
+      "sha256": "87d728ed37d1517361448e04a723934550d684c24e1f198201158d6814e084da",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/FiscalIdempotencyRepository.java",
+      "module": "nota",
+      "sha256": "d75cfe759e7bda71abddd1f0d560359b446a2f0c90562c6eca4c5e2b4fce22c7",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/FiscalJobRepository.java",
+      "module": "nota",
+      "sha256": "20feb4b1f98b99df84bcd2de4a810383b3c1b5b47ba9a52d2d408a98f4f62cc3",
+      "annotations": [
+        "Lock",
+        "Param",
+        "Query"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/FiscalWebhookConfigRepository.java",
+      "module": "nota",
+      "sha256": "3e6b520c5a025200b5be8852442abee443105d4194c6072856d6173ff74b95b7",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/ItemNotaFiscalRepository.java",
+      "module": "nota",
+      "sha256": "1db0d37023136d3a427db46c121c800fbbab862fc18c8d5d17831deee2b461da",
+      "annotations": [
+        "Modifying",
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/NotaFiscalRepository.java",
+      "module": "nota",
+      "sha256": "5bb7e450b592cd86098d8a891dae330008982a0df218192aad7f6d8101f57a85",
+      "annotations": [
+        "Lock",
+        "Param",
+        "Query",
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/SequenciaFiscalRepository.java",
+      "module": "nota",
+      "sha256": "ee40a89ec704d248eaf86d47e3ce1b6163be2269e6fea9253ae60284208fcb2a",
+      "annotations": [
+        "Lock",
+        "Param",
+        "Query"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/repository/XmlFiscalRepository.java",
+      "module": "nota",
+      "sha256": "80b2b905715ca3646b26fcae4c1d063c22c89d3cbb6b1da16a007e7e831b390b",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/CertificateService.java",
+      "module": "nota",
+      "sha256": "bd3ae8c1de375caadfdb16ad89aecdd30fdb4e38d620b14fb0eb9f683c8f954c",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "CertificadoDigitalRepository",
+        "FiscalEncryptionService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/ConfiguracaoFiscalService.java",
+      "module": "nota",
+      "sha256": "1ecfc75c06434c062128120d24499563f6695c13c15896c4650068e64aaf6f19",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "ConfiguracaoFiscalEmpresaRepository",
+        "FiscalEncryptionService",
+        "FiscalAuditService",
+        "CertificadoDigitalRepository",
+        "FiscalAuthorizationService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/DanfePdfService.java",
+      "module": "nota",
+      "sha256": "861b979e635537ac0f95b8bf5e5a49522ad3f004d17fb3e288c0924a7c361944",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository",
+        "FiscalXmlService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalAccessManagementService.java",
+      "module": "nota",
+      "sha256": "a018438bcb5530f8f7fc726972a0eb7df1aa6ab371d2289c13ccc8a1ead1b0e1",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "FiscalCompanyAccessRepository",
+        "UsuarioRepository",
+        "FiscalAuthorizationService",
+        "FiscalAuditService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalAuditService.java",
+      "module": "nota",
+      "sha256": "cc68c3a82e16e2657bf6b09c40f1f31cf29de40c2a643c54e59a91bde961303e",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "FiscalAuditStore",
+        "FiscalSensitiveDataRedactor"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalAuthorizationService.java",
+      "module": "nota",
+      "sha256": "dca9120019f87a6260687e5c67ef1f2d1a20863a3ebddc1ff56df2adb1827f23",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "EmpresaRepository",
+        "FiscalCompanyAccessRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalDeliveryService.java",
+      "module": "nota",
+      "sha256": "fc9afb74844bca80ce0af90b2aeb532d876b7b27b397769e525f80692dfa1fe5",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository",
+        "FiscalDeliveryRepository",
+        "FiscalAuthorizationService",
+        "FiscalEncryptionService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalEmissionQueueService.java",
+      "module": "nota",
+      "sha256": "5ead168a574a4b667a33d3671055fb073b8833f4a30726b488f1852068fd12e6",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository",
+        "FiscalJobRepository",
+        "FiscalIdempotencyService",
+        "FiscalAuditService",
+        "DistributedRateLimitService",
+        "FiscalMetricsService",
+        "FiscalFeatureService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalEncryptionService.java",
+      "module": "nota",
+      "sha256": "c8000bd844cef7c1f312ba68f8e1cdaa1803899207532512c286f73bcd092434",
+      "annotations": [
+        "PostConstruct",
+        "Service",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalFeatureService.java",
+      "module": "nota",
+      "sha256": "a8e66203c304c14b14a819270f5914de6f18801ac0a861e75e8d717b6aa159f6",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "ConfiguracaoFiscalEmpresaRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalHealthService.java",
+      "module": "nota",
+      "sha256": "64012c215eadee572f5781a1e308f892f80d3f4d7037350f100147b38ce81fc8",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "CircuitBreakerRegistry",
+        "FiscalJobRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalIdempotencyService.java",
+      "module": "nota",
+      "sha256": "05a9bdf715e7dcad25e9f1e5ac5eb3e57315faff97070ac776903a56c984d5cc",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "FiscalIdempotencyRepository",
+        "FiscalIdempotencyWriter"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalIdempotencyWriter.java",
+      "module": "nota",
+      "sha256": "a8d3df18ba67476ab5411e0176ca054a9bb77e53cf8aa070a5926a83f9d8d3f9",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "FiscalIdempotencyRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalJobCoordinator.java",
+      "module": "nota",
+      "sha256": "12e3bc8e8dd64bb026812864bf1d29adb5c9c67ae44532b2f0b0b84534a46e66",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "FiscalJobRepository",
+        "FiscalIdempotencyRepository",
+        "NotaFiscalRepository",
+        "FiscalXmlService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalJobWorker.java",
+      "module": "nota",
+      "sha256": "6be7eab5fd1f086b998c03f748359d0535374d33113e4b337639eb34256d1c56",
+      "annotations": [
+        "Component",
+        "RequiredArgsConstructor",
+        "Scheduled",
+        "Slf4j"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "FiscalJobRepository",
+        "FiscalJobCoordinator",
+        "NotaFiscalServiceImpl",
+        "FiscalAuditService",
+        "FiscalSituationService",
+        "FiscalMetricsService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalMetricsService.java",
+      "module": "nota",
+      "sha256": "1b4546e51bf9d82cbd2740e7dc3991102ac09e1f311354dd503e5083c68e8cbe",
+      "annotations": [
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "MeterRegistry",
+        "Timer",
+        "Counter",
+        "Counter",
+        "Counter"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalSensitiveDataRedactor.java",
+      "module": "nota",
+      "sha256": "558f41b3f1154b67339eb9589cd4f4d5cf714139d8af01605a56a2b349d4801c",
+      "annotations": [
+        "Component"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalSequenceInitializer.java",
+      "module": "nota",
+      "sha256": "6d2b2e7b6bc96409cefb52b773aaad36f3ca7f5232e203e75416c62e1606e839",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "SequenciaFiscalRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalSequenceService.java",
+      "module": "nota",
+      "sha256": "70add4da3ce20952a8d79c92fe06134f0f65ea489ce8ed9ff380e7cb47081808",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "SequenciaFiscalRepository",
+        "FiscalSequenceInitializer"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalSituationService.java",
+      "module": "nota",
+      "sha256": "763d6bbbaf7cd406e43f96adebc6708042a874faff35d6f43082f7af8cb2da38",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository",
+        "EmpresaRepository",
+        "ConfiguracaoFiscalEmpresaRepository",
+        "CertificateService",
+        "FiscalProviderRegistry"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalStepUpService.java",
+      "module": "nota",
+      "sha256": "e147d7764f6b1ebc92fae01e7ceb0b6280026ec21d808467bc42061b10ce90cf",
+      "annotations": [
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "PasswordEncoder",
+        "StringRedisTemplate",
+        "FiscalAuthorizationService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalWebhookConfigService.java",
+      "module": "nota",
+      "sha256": "4159d806dd27211b30e945c356cfbd870a48b60a4f9288e5c1e1239d818aa4f8",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "FiscalWebhookConfigRepository",
+        "FiscalAuthorizationService",
+        "FiscalEncryptionService",
+        "FiscalAuditService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/FiscalXmlService.java",
+      "module": "nota",
+      "sha256": "60c2f0f267d81ef004d2496fe0469b4cab608b807a918d48d7981c1d0d07fa31",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "XmlFiscalRepository",
+        "FiscalEncryptionService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/NfceQrCodeService.java",
+      "module": "nota",
+      "sha256": "e21cad53b9e83999c7537df24b62d63797822891f1eef872e1c413f656734fd6",
+      "annotations": [
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/NfeXmlImportService.java",
+      "module": "nota",
+      "sha256": "4843b298f8eb637d2a67708be04c8f974b2a7f50ccacab1570b7508f1a32b7d2",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service",
+        "SuppressWarnings",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "EmpresaRepository",
+        "NotaFiscalRepository",
+        "FiscalXsdValidationService",
+        "FiscalXmlService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/NfseDpsXmlService.java",
+      "module": "nota",
+      "sha256": "5da2a223168136a6d13b73ffda2de3205e9ea6364c7028beb16c43c0a245a7e7",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "FiscalXsdValidationService",
+        "AssinaturaDigitalService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/NotaFiscalInterface.java",
+      "module": "nota",
+      "sha256": "ae5f002bd57d016788bd1601f2cde6d3b58c1fc24c5242d9bef2c8815e1955a9",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/NotaFiscalServiceImpl.java",
+      "module": "nota",
+      "sha256": "68f11849a86ed17f527bb0fcb19122dd0f4576630693aaf7e213d4d0346e831b",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository",
+        "ItemNotaFiscalRepository",
+        "GerarChaveAcesso",
+        "XmlGeneratorService",
+        "AssinaturaDigitalService",
+        "FiscalProviderRegistry",
+        "Criar",
+        "Cancelar",
+        "ConsultarCEP",
+        "ConsultarCNPJ",
+        "BuscarMunicipios",
+        "EmpresaRepository",
+        "CertificateService",
+        "FiscalIdempotencyService",
+        "FiscalAuditService",
+        "ConfiguracaoFiscalEmpresaRepository",
+        "FiscalXmlService",
+        "FiscalXsdValidationService",
+        "DanfePdfService",
+        "EventoFiscalRepository",
+        "FiscalEncryptionService",
+        "VendaRepository",
+        "ProdutoFiscalService",
+        "FiscalFeatureService",
+        "Estatisticas",
+        "FiscalAuthorizationService",
+        "NfceQrCodeService",
+        "NfseDpsXmlService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/AssinaturaDigitalService.java",
+      "module": "nota",
+      "sha256": "7a7614465a11514ff90cedccf280e84d5e64813ec68cd76f917710b6a81446bf",
+      "annotations": [
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/BuscaPorId.java",
+      "module": "nota",
+      "sha256": "4a173ad0fa93d0d1c9b534d1b3adca90aa2a3c31af9e52a9efeac7cb3daa4171",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository",
+        "ItemNotaFiscalRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/BuscarMunicipios.java",
+      "module": "nota",
+      "sha256": "914b0cc768c84f63c83bd6be4005429b104d1990e57344fc5be41c2f3eaded3d",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "SuppressWarnings"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "WebClient"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/Cancelar.java",
+      "module": "nota",
+      "sha256": "981482695767446c59976fa1d4c17fadd31e4ef48fedf0a5a15286556c02367e",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository",
+        "BuscaPorId"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/ConsultarCEP.java",
+      "module": "nota",
+      "sha256": "c508dee5dbbf53fa8f01284bafddce15d4c742cd30a7d9841893bb13d63f72d5",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "WebClient"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/ConsultarCNPJ.java",
+      "module": "nota",
+      "sha256": "afad0c456d27985e005e1905c84bddccc1d84efa1c80aa50ef257cddf1e5c233",
+      "annotations": [
+        "Service",
+        "SuppressWarnings"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "WebClient"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/Criar.java",
+      "module": "nota",
+      "sha256": "dc51da7d49d2933b4724ebbfa8bd8590783bd262fe19c44bed10d0255ed79df2",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository",
+        "BuscaPorId",
+        "FiscalSequenceService",
+        "ConfiguracaoFiscalEmpresaRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/Estatisticas.java",
+      "module": "nota",
+      "sha256": "92ea99c10a20b2f62dd052ef44fbd1b6f2523e1b713b90b6520a01f6c13c2b2b",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/FiscalXsdValidationService.java",
+      "module": "nota",
+      "sha256": "1e84eb541e52120fdb65760fe7b5876e4a4fc7fd8512ae537f19b6649e45928b",
+      "annotations": [
+        "Override",
+        "PostConstruct",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "String",
+        "String",
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/GerarChaveAcesso.java",
+      "module": "nota",
+      "sha256": "27f43c6d4869cb6993a5141ccdffcb0e897b1c5c8a5450d53952f2f189279609",
+      "annotations": [
+        "Service",
+        "Slf4j"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/GerarDadosDanfe.java",
+      "module": "nota",
+      "sha256": "6121504b9140c394e2edaaeea9356c25b6a23015de01f71d5acb77109c32f9fa",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository",
+        "ItemNotaFiscalRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/Listar.java",
+      "module": "nota",
+      "sha256": "b34bcdf52c8ed404dc3a80302c0f897141d18d3131e34625c17d434c282af741",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NotaFiscalRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/SefazComunicacaoService.java",
+      "module": "nota",
+      "sha256": "c9ffc5914a1ca6b22307ecfd893fb49e7d62dc4ee0527b7e01fd6c60e265a7c3",
+      "annotations": [
+        "Data",
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "param"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "AssinaturaDigitalService",
+        "FiscalXsdValidationService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/nota/service/validacoes/XmlGeneratorService.java",
+      "module": "nota",
+      "sha256": "b11b9fbdac567fa97a965ffb818deb247b492eab536240d84e720ec7c2d2404c",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Slf4j",
+        "code",
+        "link",
+        "param",
+        "return"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "NfceQrCodeService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/CanalVenda.java",
+      "module": "pedidos",
+      "sha256": "45665d554604f9bde53efc75d46acea404d8504557c831153e45521c3825c728",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/Repository/PedidoRepository.java",
+      "module": "pedidos",
+      "sha256": "a3c8e80c01f2603808499dd5d61561366a46c287c8dc68819971edde6de9e267",
+      "annotations": [
+        "Param",
+        "Query",
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/controller/PedidoController.java",
+      "module": "pedidos",
+      "sha256": "2a0fd81d92e5d9feb3b4b38cb5a34e10efeb3de3340342f4d754bda8a6d232e7",
+      "annotations": [
+        "DeleteMapping",
+        "GetMapping",
+        "PatchMapping",
+        "PathVariable",
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Transactional",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/pedidos\""
+        ],
+        [
+          "PostMapping",
+          "\"/empresa/{empresaId}\""
+        ],
+        [
+          "GetMapping",
+          "\"/empresa/{empresaId}\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/empresa/{empresaId}/historico\""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}\""
+        ],
+        [
+          "PatchMapping",
+          "\"/{id}/status\""
+        ],
+        [
+          "PostMapping",
+          "\"/{id}/cancelar\""
+        ],
+        [
+          "PatchMapping",
+          "\"/{id}/observacao\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/{id}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "PedidoServiceInterface"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/dto/ItemPedido.java",
+      "module": "pedidos",
+      "sha256": "1e9fdd85cec9e7aaa38e6dd7edf31242b7102e982398a2b14537f0b7ac12a13d",
+      "annotations": [
+        "Column",
+        "Entity",
+        "EqualsAndHashCode",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "Setter",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "item_pedido"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/dto/PedidoResponseDTO.java",
+      "module": "pedidos",
+      "sha256": "663637cd2acc3dd5628d82cb7e073e792bb786350555844cabf9f3371087ac01",
+      "annotations": [
+        "Getter"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "Long",
+        "Long",
+        "String",
+        "String",
+        "List<ItemPedidoResponseDTO>",
+        "BigDecimal",
+        "BigDecimal",
+        "BigDecimal",
+        "BigDecimal",
+        "String",
+        "String",
+        "String",
+        "String",
+        "String",
+        "LocalDateTime",
+        "LocalDateTime",
+        "String",
+        "String",
+        "Long",
+        "String",
+        "Integer",
+        "BigDecimal",
+        "BigDecimal"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/dto/RegistrarPedidoDTO.java",
+      "module": "pedidos",
+      "sha256": "174d5c7170919e8ca83628d437b59d4723786d79ebbf46fc3bee369e4c5ad344",
+      "annotations": [
+        "Data",
+        "Min",
+        "NotEmpty",
+        "NotNull",
+        "PositiveOrZero",
+        "Size",
+        "Valid"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/dto/StatusPedido.java",
+      "module": "pedidos",
+      "sha256": "166f53048183299961662bff6d4a7bca0565d6f68401c30f0b889a1b81742e7e",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/model/Pedido.java",
+      "module": "pedidos",
+      "sha256": "440435866d2a5f47a3ab64cbd8b488ff15f864774f68a30db8c8ace82c7ba9c9",
+      "annotations": [
+        "Column",
+        "Entity",
+        "Enumerated",
+        "EqualsAndHashCode",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "OneToMany",
+        "PrePersist",
+        "PreUpdate",
+        "Setter",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "pedido"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/service/PedidoServiceImpl.java",
+      "module": "pedidos",
+      "sha256": "6e008bea6eb481fdf95eb4b31f44758c7031ebc8e6c2a28d83cb69e8691f3fad",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "PedidoRepository",
+        "ProdutoRepository",
+        "UsuarioRepository",
+        "EmpresaRepository",
+        "ClienteRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/pedidos/service/PedidoServiceInterface.java",
+      "module": "pedidos",
+      "sha256": "53cea415f8279613975301d05d5871538bed75df1f5931257eec7891a91f9057",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/StatusAcesso.java",
+      "module": "plano",
+      "sha256": "60dacd82d0827a620ce536eb449a52fecf8304ec33677b8a02ce7b4890cfaaf6",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/TipoPlano.java",
+      "module": "plano",
+      "sha256": "4a308dff795233581e1f73602cf3f2be0b4e2e79628e3bf76cb062b38689108b",
+      "annotations": [
+        "Getter"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "int",
+        "int",
+        "int",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoClient.java",
+      "module": "plano",
+      "sha256": "6a08ba79b8cd1e47dabb729d771286d75e5f19da7b505cf8d76478685fbae49f",
+      "annotations": [
+        "Component",
+        "ConditionalOnProperty",
+        "PreDestroy",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "String",
+        "ObjectMapper"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoController.java",
+      "module": "plano",
+      "sha256": "18864943691fd715cd3df6a1c5f3a32059d6335d182794a32dc51fdfd7771578",
+      "annotations": [
+        "ConditionalOnProperty",
+        "ExceptionHandler",
+        "GetMapping",
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/payments\""
+        ],
+        [
+          "PostMapping",
+          "\"/create-checkout-session\""
+        ],
+        [
+          "GetMapping",
+          "\"/session-info\""
+        ],
+        [
+          "GetMapping",
+          "\"/subscription\""
+        ],
+        [
+          "PostMapping",
+          "\"/cancel\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "MercadoPagoService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoService.java",
+      "module": "plano",
+      "sha256": "1f534b04c15c9294a946cabfdd99d1552fd38ff432fbab25ea2c2eef1609a9ff",
+      "annotations": [
+        "ConditionalOnProperty",
+        "Service",
+        "Transactional",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "MercadoPagoClient",
+        "MercadoPagoSubscriptionRepository",
+        "AssinaturaRepository",
+        "UsuarioRepository",
+        "String",
+        "TransactionTemplate"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoSubscription.java",
+      "module": "plano",
+      "sha256": "0a419d51211e26ec4114597e2064b8ab03b085a0b5a2e9c6a9ccf5ff1e5df731",
+      "annotations": [
+        "Column",
+        "Data",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Id",
+        "JoinColumn",
+        "OneToOne",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "mercado_pago_subscriptions"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoSubscriptionController.java",
+      "module": "plano",
+      "sha256": "d5857e63e17cbea444505785589b1e9295de113807a3e2a21d7914d49802407e",
+      "annotations": [
+        "ConditionalOnProperty",
+        "ExceptionHandler",
+        "GetMapping",
+        "PathVariable",
+        "PostMapping",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/subscriptions\""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}\""
+        ],
+        [
+          "PostMapping",
+          "\"/{id}/lifecycle\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "MercadoPagoService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoSubscriptionRepository.java",
+      "module": "plano",
+      "sha256": "4dea940662534fcc4449ff7dccc7acbdc04aa7baae6c5a7bb5a4df77d03d0750",
+      "annotations": [
+        "org"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoWebhookController.java",
+      "module": "plano",
+      "sha256": "5c7444a34e1f93da89cd549347f2fdbdbbb572c829e7f8170a6314a16ba5e046",
+      "annotations": [
+        "ConditionalOnProperty",
+        "PostMapping",
+        "RequiredArgsConstructor",
+        "RestController"
+      ],
+      "httpMappings": [
+        [
+          "PostMapping",
+          "value = \"/api/payments/webhook\", consumes = \"application/json\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "MercadoPagoWebhookSignature",
+        "MercadoPagoWebhookInbox"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoWebhookDelivery.java",
+      "module": "plano",
+      "sha256": "9298b75b63a009270d8942a7e1437396ec0d510495c23552de84a6301ed80d23",
+      "annotations": [
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Index",
+        "Setter",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "mercado_pago_webhook_deliveries"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoWebhookDeliveryRepository.java",
+      "module": "plano",
+      "sha256": "6df65152634a2df08c0b2b7c4249ccfd3e1584e509c215d8f1c3a55b32aa6ec3",
+      "annotations": [
+        "Lock",
+        "Param",
+        "Query"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoWebhookInbox.java",
+      "module": "plano",
+      "sha256": "0f78b8a445e6dacd61597dc8270c470d0512fdc84f62a9c5a00c5ededa8dac6d",
+      "annotations": [
+        "ConditionalOnProperty",
+        "RequiredArgsConstructor",
+        "Service"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "MercadoPagoWebhookDeliveryRepository",
+        "PlatformTransactionManager"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoWebhookProcessor.java",
+      "module": "plano",
+      "sha256": "1f7c1cde589a1829bdbb1c76cc6dec0cdcdaa80a820802e4a142348f45f84183",
+      "annotations": [
+        "ConditionalOnProperty",
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "MercadoPagoWebhookDeliveryRepository",
+        "MercadoPagoService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoWebhookSignature.java",
+      "module": "plano",
+      "sha256": "8177ff7fcdb70086054226dc07f57911603973e7fd94ba56eca94d44cad0578e",
+      "annotations": [
+        "Component",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/mercadopago/MercadoPagoWebhookWorker.java",
+      "module": "plano",
+      "sha256": "f5db7e0b1c604c21a615b49466e6f26c35084244f5c083c330e8e868a4e6545d",
+      "annotations": [
+        "Autowired",
+        "Component",
+        "ConditionalOnExpression",
+        "Override",
+        "Slf4j",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "MercadoPagoWebhookDeliveryRepository",
+        "MercadoPagoWebhookProcessor",
+        "long"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/service/AtualizarPlanoOperation.java",
+      "module": "plano",
+      "sha256": "7ae94c1103ded3cb7fbb5a9be5a176d81a4f932f27afb51d8dbde196485b8212",
+      "annotations": [
+        "Component",
+        "ConditionalOnProperty",
+        "RequiredArgsConstructor",
+        "Slf4j",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "AssinaturaRepository",
+        "StripePriceProperties"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/service/VerificarPlanoOperation.java",
+      "module": "plano",
+      "sha256": "566065a04a38d510dae454244b200825be702e28772bdaf4526359d7d28ff0eb",
+      "annotations": [
+        "Component",
+        "RequiredArgsConstructor",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "UsuarioRepository",
+        "AssinaturaRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/stripe/PlanoTipo.java",
+      "module": "plano",
+      "sha256": "57a7ca3edabad71b67daf89ea0765b7cb499dda965f54a11268f5ae931494a55",
+      "annotations": [
+        "Getter"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "int",
+        "int",
+        "int",
+        "int"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/stripe/controller/CheckoutController.java",
+      "module": "plano",
+      "sha256": "2f43ee8850e8991b616bc131ecd21e0797b91eaf5a46099d3bc852e3a7840ce2",
+      "annotations": [
+        "ConditionalOnProperty",
+        "GetMapping",
+        "PostMapping",
+        "RequestBody",
+        "RequestHeader",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Slf4j",
+        "Valid",
+        "Value"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/payments\""
+        ],
+        [
+          "PostMapping",
+          "\"/create-checkout-session\""
+        ],
+        [
+          "PostMapping",
+          "\"/portal\""
+        ],
+        [
+          "GetMapping",
+          "\"/session-info\""
+        ],
+        [
+          "PostMapping",
+          "\"/webhook\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "PaymentService",
+        "AtualizarPlanoOperation",
+        "AssinaturaRepository",
+        "UsuarioRepository",
+        "StripePriceProperties",
+        "StripeWebhookEventRepository",
+        "PlatformTransactionManager"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/stripe/dto/CheckoutRequest.java",
+      "module": "plano",
+      "sha256": "8a7e326d815b01009ea0109f62dc0381c812af723936fc377e4754a838ccf056",
+      "annotations": [
+        "NotNull"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/stripe/model/Assinatura.java",
+      "module": "plano",
+      "sha256": "c6279b9052d32ab7dc8445d080e032d7e88708d0a8c9a78571f5402d5bd7e1b0",
+      "annotations": [
+        "Column",
+        "Data",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Id",
+        "JoinColumn",
+        "JsonFormat",
+        "OneToOne",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "assinaturas"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/stripe/model/StripeWebhookEvent.java",
+      "module": "plano",
+      "sha256": "d36e7161704303e8c79d6eec9e61fcd8bd9064db4cfddd29ade908c7538112a4",
+      "annotations": [
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "NoArgsConstructor",
+        "Setter",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "stripe_webhook_events"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/stripe/repository/AssinaturaRepository.java",
+      "module": "plano",
+      "sha256": "291c970b98c3721c8259e3fa76b7aea1dd7257f65cbed71e3f51f47ab1dfe8f1",
+      "annotations": [
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/stripe/repository/StripeWebhookEventRepository.java",
+      "module": "plano",
+      "sha256": "996bb9dd4e88ba70884632940c2e1c93d607d4f4c33e6dbcaa8a3b2605c8bc4b",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/stripe/service/PaymentService.java",
+      "module": "plano",
+      "sha256": "2576e6f7387775be3a3ed960e1991e110baf14e20c00495e76fc8555ef67140e",
+      "annotations": [
+        "ConditionalOnProperty",
+        "PostConstruct",
+        "Service",
+        "Value"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "StripePriceProperties",
+        "String",
+        "String"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/plano/stripe/service/StripePriceProperties.java",
+      "module": "plano",
+      "sha256": "dcd7af5f61702d2b4a39a138c701fbd2bf7fa6b73db9207ed515f37cc758ca3c",
+      "annotations": [
+        "Component",
+        "ConditionalOnProperty",
+        "ConfigurationProperties",
+        "PostConstruct"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/CodigoBarras.java",
+      "module": "produto",
+      "sha256": "2b1bf8e4735f03a423419f17072270e38e46695fa0837bf8a9573c8d135dccd2",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/controller/ProdutoController.java",
+      "module": "produto",
+      "sha256": "d9fd8df9dc4faf9042874b62736f6b3fbca965660bd45d288d787d972840af3a",
+      "annotations": [
+        "DeleteMapping",
+        "GetMapping",
+        "PathVariable",
+        "PostMapping",
+        "PutMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequestParam",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/produtos\""
+        ],
+        [
+          "PostMapping",
+          ""
+        ],
+        [
+          "GetMapping",
+          ""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}\""
+        ],
+        [
+          "GetMapping",
+          "\"/por-codigo-barras\""
+        ],
+        [
+          "PutMapping",
+          "\"/{id}\""
+        ],
+        [
+          "DeleteMapping",
+          "\"/{id}\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "ProdutoServiceInterface"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/controller/ProdutoFiscalController.java",
+      "module": "produto",
+      "sha256": "59567689f5fa44afbaf6d6bfac0ad88695bff98fea7dba5a884cd6024ca82064",
+      "annotations": [
+        "GetMapping",
+        "PathVariable",
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequestParam",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/produtos/{produtoId}/fiscal\""
+        ],
+        [
+          "PostMapping",
+          ""
+        ],
+        [
+          "GetMapping",
+          ""
+        ],
+        [
+          "GetMapping",
+          "\"/historico\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "ProdutoFiscalService",
+        "DistributedRateLimitService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/dto/CriarProdutoDTO.java",
+      "module": "produto",
+      "sha256": "c8c5227f3ce4c33d557876d82b4e75c861cea06ca18bb4f163e130f7fab6e654",
+      "annotations": [
+        "Data",
+        "DecimalMin",
+        "Min",
+        "NotBlank",
+        "NotNull",
+        "Size"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/dto/ProdutoFiscalRequest.java",
+      "module": "produto",
+      "sha256": "70b1f32ec79dd4ef820cd044fa33426d2b3da7a675ccb62ec7d9d393dd4f9951",
+      "annotations": [
+        "AssertTrue",
+        "Data",
+        "NotBlank",
+        "NotNull",
+        "Pattern"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/dto/ProdutoFiscalResponse.java",
+      "module": "produto",
+      "sha256": "c5f286604500800d3e5c12e3c12cbe404535489829e2239e9eac7080e220f856",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/dto/ProdutoResponseDTO.java",
+      "module": "produto",
+      "sha256": "7ba22be43822279c64d848f5242d78b21e9a82675d7f8ca7f7b9697b4d96efce",
+      "annotations": [
+        "Data"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/model/Produto.java",
+      "module": "produto",
+      "sha256": "df94f58a02f8a2fa189100d1013e031d944d814dcaa4abb6b5aca4976bc2c3ca",
+      "annotations": [
+        "AllArgsConstructor",
+        "Column",
+        "Entity",
+        "EqualsAndHashCode",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "PrePersist",
+        "Setter",
+        "Table",
+        "Transient"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "produto"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/model/ProdutoConfiguracaoFiscal.java",
+      "module": "produto",
+      "sha256": "d2bd6b40acbd5b5ec811e76e61c696e8c066eb2641af1f20dd215b99510be911",
+      "annotations": [
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "Index",
+        "NoArgsConstructor",
+        "Table",
+        "UniqueConstraint"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "produto_configuracoes_fiscais"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/repository/ProdutoConfiguracaoFiscalRepository.java",
+      "module": "produto",
+      "sha256": "327e5949e72519ad14dca99d8ee31ca3c1341f42dc9aab011c38555e9de90ae2",
+      "annotations": [
+        "Param",
+        "Query"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/repository/ProdutoRepository.java",
+      "module": "produto",
+      "sha256": "230de6739b223f13420e99f77b4291c6ea5a056c0b7f6ff1f4f9dffed4b1dca5",
+      "annotations": [
+        "Lock",
+        "Param",
+        "Query",
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/service/ProdutoFiscalService.java",
+      "module": "produto",
+      "sha256": "90be6fc8622dbbc3946998ae2274fc7b45a4c786af280de0fcb863858d42c788",
+      "annotations": [
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "ProdutoRepository",
+        "ProdutoConfiguracaoFiscalRepository",
+        "FiscalAuditService"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/service/ProdutoServiceImpl.java",
+      "module": "produto",
+      "sha256": "5911e7ad768bfa998050fbb4ac679e1d8282b3cb35f53c02d2c877e081067801",
+      "annotations": [
+        "Override",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "ProdutoRepository",
+        "UsuarioRepository",
+        "EmpresaRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/produto/service/ProdutoServiceInterface.java",
+      "module": "produto",
+      "sha256": "9c97bfa86c31bca6d2cea81ef72d172b406efa9487a4cc211b63b1d839c05a54",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/controller/VendaController.java",
+      "module": "venda",
+      "sha256": "25c504b01e56fa28bf90cac5a546b510f1040a6539fa6c07a60b7d2dee784923",
+      "annotations": [
+        "GetMapping",
+        "PatchMapping",
+        "PathVariable",
+        "PostMapping",
+        "RequestBody",
+        "RequestMapping",
+        "RequiredArgsConstructor",
+        "RestController",
+        "Transactional",
+        "Valid"
+      ],
+      "httpMappings": [
+        [
+          "RequestMapping",
+          "\"/api/v1/vendas\""
+        ],
+        [
+          "PostMapping",
+          "\"/registrar\""
+        ],
+        [
+          "GetMapping",
+          "\"/caixa/{idCaixa}\""
+        ],
+        [
+          "GetMapping",
+          "\"/{id}\""
+        ],
+        [
+          "PostMapping",
+          "\"/{id}/cancelar\""
+        ],
+        [
+          "PatchMapping",
+          "\"/{id}/observacao\""
+        ]
+      ],
+      "tables": [],
+      "dependencies": [
+        "VendaServiceInterface"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/dto/ItemVendaDTO.java",
+      "module": "venda",
+      "sha256": "9001d0d9500324f0c93f69c6b4bbad5b2cf78b57dadbec7e3d68f60787f63ada",
+      "annotations": [
+        "AllArgsConstructor",
+        "Getter",
+        "NoArgsConstructor"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/dto/ProdutoVendasProjecao.java",
+      "module": "venda",
+      "sha256": "12d69607ae754c5d435b38c6cc4f0d2aebb819637c44383e4936c742a931c23c",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/dto/RegistrarVendaDTO.java",
+      "module": "venda",
+      "sha256": "f5aec4770623142231d759d70acad683ea2f0d9a3fd99991948d8c31593efd74",
+      "annotations": [
+        "AllArgsConstructor",
+        "Data",
+        "Min",
+        "NoArgsConstructor",
+        "NotEmpty",
+        "NotNull",
+        "PositiveOrZero",
+        "Size",
+        "Valid"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/dto/VendaResponseDTO.java",
+      "module": "venda",
+      "sha256": "c07e45f579a2dadefb7ff0692ba5e17c3b7ad7c9291a8a76998d9cc8fda1765b",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/model/ItemVenda.java",
+      "module": "venda",
+      "sha256": "02fa3da48a1dd813acc170f648d236f135fb6c17d97213b3a0f3cdf80ed9a5c7",
+      "annotations": [
+        "AllArgsConstructor",
+        "Column",
+        "Entity",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "JsonBackReference",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "PrePersist",
+        "PreUpdate",
+        "Setter",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "item_venda"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/model/Venda.java",
+      "module": "venda",
+      "sha256": "d154577599ab7ab2b074147f902311b42868ea9fe1e9ef99f7c3728002824125",
+      "annotations": [
+        "AllArgsConstructor",
+        "Column",
+        "CreationTimestamp",
+        "Entity",
+        "Enumerated",
+        "GeneratedValue",
+        "Getter",
+        "Id",
+        "JoinColumn",
+        "ManyToOne",
+        "NoArgsConstructor",
+        "OneToMany",
+        "Setter",
+        "Table"
+      ],
+      "httpMappings": [],
+      "tables": [
+        "venda"
+      ],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/repository/VendaRepository.java",
+      "module": "venda",
+      "sha256": "2c863e7a8d9c8d8088f592ef866b3f87c14c8807b0924eff80fd6eefd2892599",
+      "annotations": [
+        "Lock",
+        "Param",
+        "QUERY",
+        "Query",
+        "Repository"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/service/VendaServiceImpl.java",
+      "module": "venda",
+      "sha256": "d5552b14beced0af8ccc54508e8893234edcbff331783c6b6c1fc3b6a0ebb7e4",
+      "annotations": [
+        "Override",
+        "RequiredArgsConstructor",
+        "Service",
+        "Transactional"
+      ],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": [
+        "VendaRepository",
+        "ProdutoRepository",
+        "UsuarioRepository",
+        "CaixaRepository",
+        "ClienteRepository"
+      ]
+    },
+    {
+      "path": "Backend/src/main/java/br/com/gestpro/venda/service/VendaServiceInterface.java",
+      "module": "venda",
+      "sha256": "972064f1406a23e2df0f597233bc36a391e5c91dee0f0b6edb3d72d067c410de",
+      "annotations": [],
+      "httpMappings": [],
+      "tables": [],
+      "dependencies": []
+    }
+  ],
+  "frontend": [
+    {
+      "path": "FrontEnd/app/auth/cadastro/layout.tsx",
+      "sha256": "4f522c4cce3c57bc3bcba1d25a2f183dc954d43e3ab4b47ab3ec77f6a9b219b5"
+    },
+    {
+      "path": "FrontEnd/app/auth/cadastro/page.tsx",
+      "sha256": "cbbfd7eacbddebb0d8f79bf41d477c737f04f08b406dab0cde8962431fcb4ff3"
+    },
+    {
+      "path": "FrontEnd/app/auth/layout.tsx",
+      "sha256": "eeeaf66fbd74baa06174353f9d34a0cbee89eb1387bedfd9eaeee665d428925d"
+    },
+    {
+      "path": "FrontEnd/app/auth/login/layout.tsx",
+      "sha256": "13398fd16946ca87255c13d7fed08e2a793ef5c74d6988238fd52a88806e8e77"
+    },
+    {
+      "path": "FrontEnd/app/auth/login/page.tsx",
+      "sha256": "0c23d2a1cb8a1033b05c7b17b456d4819157244a21a26259eac18fed04ccde0d"
+    },
+    {
+      "path": "FrontEnd/app/cancelamento-reembolsos/page.tsx",
+      "sha256": "d646f48d45e80009befad77907172c8150c42751107f47b839cc6e288b39031c"
+    },
+    {
+      "path": "FrontEnd/app/como-usar/layout.tsx",
+      "sha256": "954df6170c3646a8f107d1031fc41910fff082d159c267c6179ba87476702d41"
+    },
+    {
+      "path": "FrontEnd/app/como-usar/page.tsx",
+      "sha256": "38ae99d782e2b4cb29ad62dc3a9021edfe482221de23b7a79738a2baa44e36c1"
+    },
+    {
+      "path": "FrontEnd/app/confirmar-email/layout.tsx",
+      "sha256": "bf32959b219f0d826617d49c4112bc54ec6d695e9af882e8cec5ae545bf9e7b0"
+    },
+    {
+      "path": "FrontEnd/app/confirmar-email/page.tsx",
+      "sha256": "14f8612bd0deb37d7d81d3bec39300a8047bd9b6fd18d3943c302f6a95e42da1"
+    },
+    {
+      "path": "FrontEnd/app/contato/page.tsx",
+      "sha256": "f1c67e49af0ed96cc4db775f3ae46587a908bd959efe4f533176a283538c4275"
+    },
+    {
+      "path": "FrontEnd/app/cookies/page.tsx",
+      "sha256": "8c982f24beb79dfb31fd1ee4d6ca737fbcb95f478511b96a4be94e1c8ef39f4a"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/Layout.tsx",
+      "sha256": "840c5f974767cbaa4f0402d8dcfc5d4e84beb5408d21d344a092f3249c203770"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/acoesRapidas/AbrirCaixa.tsx",
+      "sha256": "4593b4e36457ea3f265e89262b2a1c8b391b6a6996b1edcdd368105f146f286b"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/acoesRapidas/ModalRelatorioRapido.tsx",
+      "sha256": "4a684a9b120d2d24741eadfc4025273809933f97cc84578284c0c14e5fa3b3df"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/acoesRapidas/NovaVenda.tsx",
+      "sha256": "215c844e5f7b56b9aaac498729d623e19477ce19ba8ef823706f27e280e556e7"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/acoesRapidas/NovoCliente.tsx",
+      "sha256": "d9749983dc852d7ec51833e6be37dcf5d1ad3e019ebda62eab28104e72374dc3"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/acoesRapidas/NovoProduto.tsx",
+      "sha256": "6e7ac081710c2f321ea516087d3cbfe435c9e05926f157bbb59a989df52289af"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/acoesRapidas/PaginaAcaoRapida.tsx",
+      "sha256": "e440211b498107f95f4137c14be943b8e224a26b3ebf11476962d9edf1e29713"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/acoesRapidas/Pedido.tsx",
+      "sha256": "a8f584244ab25ba828cc3bbb44ed8d9a8dad3e490f0d95735b5041d01000d3df"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Clientes.tsx",
+      "sha256": "627e39f3b6c8aae6a239c73225a7bac87dd301ca16ab85c291f107e7088757db"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Configuracoes.tsx",
+      "sha256": "632d701776205959e172cdade22e06e090c6f75c4050b6612c7825c3400d9e75"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/DashboardHome.tsx",
+      "sha256": "c904ce6e97d8437704de19febd4620d8c6e6edc381445e17d609022bf8532e63"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/GerenciarEmpresas.tsx",
+      "sha256": "7a48777c2afb398e46b132a51a9e443a3af81bf8268a60a240ba5228df0a4142"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/MobileNav.tsx",
+      "sha256": "b5d37e6957febaf33c6118095a841160224d21649396e757baaad0d5b354e0ed"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Modalcaixa.tsx",
+      "sha256": "7e3a0f547ad7f040620fedf599e065a29f88f54f1df4c27f2fbe5e486233644e"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Modalprodutorapido.tsx",
+      "sha256": "731f199c05ee91fc3daace5eebdab558029a8ca5a6c05d07d882e7982b0a136b"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/NotaFiscal.tsx",
+      "sha256": "94413bac25bbd9d0490b1e614e868d31388d00e88d59b349275bd2f75171ed08"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Pedidos.tsx",
+      "sha256": "bc7168e7041bc64607ed4f1caa601b2309e6742b0e4f35c07b9730b8d748a935"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Plano.tsx",
+      "sha256": "e1f6fda0ae9954105820e166223b23ec27054eeaa15fbd2d099e65d145046d36"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Produtos.tsx",
+      "sha256": "75dbf11be8e6cc48b42bac53a0a809c224fe288b1fa72721dce75687ed7d1e4a"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Relatorios.tsx",
+      "sha256": "06ce1f10a7757f9eae7ae9c46d560c0b5155401b46acbd2d6799cd53249fd249"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Seletorempresa.tsx",
+      "sha256": "15922b6757a6e6a4dd01eb816ff8d55b1fce07265c639d086fb5a78f8b081550"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/Vendas.tsx",
+      "sha256": "050dc610f384575802a9c4eab3faf0e0f55076923cdd98291fcc966cd9d1933f"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/complementos/FormularioProduto.tsx",
+      "sha256": "033410ded00380d2cdf344de4fa26ee841060fcc23fbc6b4fa2ad6c4e5057974"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/graphs/AreaTrendChart.tsx",
+      "sha256": "a63c666e8c73f1cccfc407b2097486a55b2b2e4dc67aa30834088b6a84d64bda"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/graphs/BarChart.tsx",
+      "sha256": "56e78acda51eb441780505b7532279feb39c063d4629de27735bc9f144a2348a"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/graphs/Linechart.tsx",
+      "sha256": "7ae3452bab170c8ca73bbe98560b933cc97764f2b639c24700c685f057faf679"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/components/graphs/PieChart.tsx",
+      "sha256": "8e96e832c5da046110097cf9591a7c7f8a2904350dba2ecf57752d116ddad5f5"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/context/Empresacontext.tsx",
+      "sha256": "205d17f6dc6f707e415a5adda4a623702a35efe63645a5e14014b8e3c9b4112a"
+    },
+    {
+      "path": "FrontEnd/app/dashboard/page.tsx",
+      "sha256": "e97cb76297bebe2a795f02554c536df728abed465197af9ae8da0f61ee08ad1d"
+    },
+    {
+      "path": "FrontEnd/app/esqueceu-senha/layout.tsx",
+      "sha256": "d45b8432b3b77c4d8248b5521d8b62e6cd17bbb01f6903dd1d567e28bb1e3701"
+    },
+    {
+      "path": "FrontEnd/app/esqueceu-senha/page.tsx",
+      "sha256": "5add32f6a6c2f4ead4261e3af5231c9e9ef051569ac91f052acf081d8711b56a"
+    },
+    {
+      "path": "FrontEnd/app/globals.css",
+      "sha256": "f68010679f67a4751aff82f587a34f3d652f1fa5a6f914878aed4a2e4580d4b2"
+    },
+    {
+      "path": "FrontEnd/app/layout.tsx",
+      "sha256": "9cdcd720e4d90fff154df553ca87971fe495d5a371c77de5da3018decc14229d"
+    },
+    {
+      "path": "FrontEnd/app/manifest.ts",
+      "sha256": "1a9685a1e71a76acf23db210d58c122f92509a3ffbefbd10a71dc3e766af07e5"
+    },
+    {
+      "path": "FrontEnd/app/not-found.tsx",
+      "sha256": "22115ec19d533528bf74c483d258c96fdab11e6844bc836657ffa4934a4b9813"
+    },
+    {
+      "path": "FrontEnd/app/pagamento/assinatura/page.tsx",
+      "sha256": "95b5caae6de63698b8eeed91987d9a1c33828265c53c7edb9c3c0115d0068e3b"
+    },
+    {
+      "path": "FrontEnd/app/pagamento/layout.tsx",
+      "sha256": "0a83e02598766ce9a884fba2b11fce9bb523657cd8a2c9bf248ea2f697da05c4"
+    },
+    {
+      "path": "FrontEnd/app/pagamento/page.tsx",
+      "sha256": "722f4b14754a737c8efd0f10f82ff5a0f55d9567b5914f7d452ebceb811b5cd2"
+    },
+    {
+      "path": "FrontEnd/app/page.tsx",
+      "sha256": "79e6c9874e8c57fe63ec3175108ed132877625e9a5e90da0a7db9f6ae2d8b686"
+    },
+    {
+      "path": "FrontEnd/app/payment/layout.tsx",
+      "sha256": "06b8b53ba5ab4b3a610354729d68cf2330c0f5a68f8b16de0eb2ecc768bbd21d"
+    },
+    {
+      "path": "FrontEnd/app/payment/sucesso/page.tsx",
+      "sha256": "dacd70e8045bfe3743c179cb0319c39e3ca188c5282817cc91dbe28da334351b"
+    },
+    {
+      "path": "FrontEnd/app/privacidade/page.tsx",
+      "sha256": "08e3a14811b4845fc09fe54f900b25c30fbbdb2a0746393c0e7e8812b17a1041"
+    },
+    {
+      "path": "FrontEnd/app/robots.ts",
+      "sha256": "fe7e1c15636e968af3439b4eacff007c3bd658aaab2fe0ee4c4d55de07492d21"
+    },
+    {
+      "path": "FrontEnd/app/seguranca/page.tsx",
+      "sha256": "8abe5522d8029e3f7efb81a190eaf1d74b8ad6aa41dacbc2274e62a340424c55"
+    },
+    {
+      "path": "FrontEnd/app/sitemap.ts",
+      "sha256": "a306767c2ce6cd2b00775bf7a3ad9559898c277059123f9fbf6ce73e6d77c7d0"
+    },
+    {
+      "path": "FrontEnd/app/styles/auth.module.css",
+      "sha256": "1a919211d99917f6e3b3963d77df32287ca0531f1e96ed3449dfc57bcfd17e4e"
+    },
+    {
+      "path": "FrontEnd/app/styles/dashboard.module.css",
+      "sha256": "8f768806067b1c1dc49ca28cc29d0879154e55b22f882398130f3727d3e30c8b"
+    },
+    {
+      "path": "FrontEnd/app/styles/landing.module.css",
+      "sha256": "d56e087185f673a43a74a9613669b13d83ebb80c829950c8d4fc27032811b710"
+    },
+    {
+      "path": "FrontEnd/app/termos/page.tsx",
+      "sha256": "1cbc381b7a41c52be50a2a740fff19fc516aac8e77260a6d75019a5ab3c8e922"
+    },
+    {
+      "path": "FrontEnd/components/auth/AuthLayout.tsx",
+      "sha256": "2ead466b687b4e5128b1b706bd1cef47d6d4a6edf223a9c0d99d3cb758c25a2d"
+    },
+    {
+      "path": "FrontEnd/components/auth/FormInput.tsx",
+      "sha256": "e08c1744e6dd3dad20e83ae69e343919e1786e419ecfd9e1080e56032fb2780f"
+    },
+    {
+      "path": "FrontEnd/components/auth/PhotoUpload.tsx",
+      "sha256": "b4680a574837b30d106c0cafc0eab4b65fb7f044f24aa99c01403ac77d4920af"
+    },
+    {
+      "path": "FrontEnd/components/auth-session-sync.tsx",
+      "sha256": "77fd3baffa9132ae5eb042c64f6c128ab9522ce037c021c3cdd19bfac56e0a71"
+    },
+    {
+      "path": "FrontEnd/components/cookie-consent.tsx",
+      "sha256": "391d344a4318c5060ea7f6c74ad7100ec56f9295a927d6f4fefbfff430940fb3"
+    },
+    {
+      "path": "FrontEnd/components/cookie-preferences-button.tsx",
+      "sha256": "b7e08c3a475e7bb02135bc1a6a1cd1986ccdf054b065ddf49f356779510fa15c"
+    },
+    {
+      "path": "FrontEnd/components/dashboard/EmptyState.tsx",
+      "sha256": "5da95a5ebaa311a6820ea652e4fb2c4339682a10c58e8ef40a57c8d8b4e80efb"
+    },
+    {
+      "path": "FrontEnd/components/dashboard/Header.tsx",
+      "sha256": "5bf2db3b1471f114e9ec839af6dbe7c86a0cf093d193cad084783adf2ce4f607"
+    },
+    {
+      "path": "FrontEnd/components/dashboard/Sidebar.tsx",
+      "sha256": "8dcc7bdbbe148fda3cfd9abb5f8fc493b1043ab785d6225441680f6364859252"
+    },
+    {
+      "path": "FrontEnd/components/dashboard/StatsCard.tsx",
+      "sha256": "69b91cac7e1724d430b6135d46d24e348a61b4538d32bc01c86ece4e90017de2"
+    },
+    {
+      "path": "FrontEnd/components/language-provider.tsx",
+      "sha256": "635c9c88d191a21918471e257a13b31c300592bd0e0bd62d95d5ce1cd8834409"
+    },
+    {
+      "path": "FrontEnd/components/language-selector.tsx",
+      "sha256": "e776650df55d0a600c2488629cea9020d578b4cb1a9a1c2b4cb8d99027cacc76"
+    },
+    {
+      "path": "FrontEnd/components/legal/legal-shell.tsx",
+      "sha256": "a72a7773e1f35682c746fbd2c579222c06c77d43105928c55353980ec73d26f0"
+    },
+    {
+      "path": "FrontEnd/components/pwa-install-prompt.tsx",
+      "sha256": "df8fea2356398946325b35b52a5347fc78cac91ca625244dad45f4a4bf852717"
+    },
+    {
+      "path": "FrontEnd/components/theme-provider.tsx",
+      "sha256": "7c1edcfa7a0614bfc279aeb8ce3e60e0642b1c24a6ff3d4d03d3e256efc95b20"
+    },
+    {
+      "path": "FrontEnd/components/theme-toggle.tsx",
+      "sha256": "a691705294dbc9f019dfabc2799cad60f1ebd26d118d4ea3c62c6eced32de1a1"
+    },
+    {
+      "path": "FrontEnd/components/ui/accordion.tsx",
+      "sha256": "789b258bfc80b22f9634539e5b7b8d06acb68eb2842347326fdfb5b9eed79d93"
+    },
+    {
+      "path": "FrontEnd/components/ui/alert-dialog.tsx",
+      "sha256": "8181c7be76533bb5e1d721274cf16bcc07dbe25c521aa6f15e01fe8a302eb481"
+    },
+    {
+      "path": "FrontEnd/components/ui/alert.tsx",
+      "sha256": "dce4f80f612a79389688cc8f765cccde46d5af4881ea899cc694187ac386757a"
+    },
+    {
+      "path": "FrontEnd/components/ui/aspect-ratio.tsx",
+      "sha256": "09035a9c5b8211fffd34f06a6ec44e053b0d753390e40aea970cb59773176714"
+    },
+    {
+      "path": "FrontEnd/components/ui/avatar.tsx",
+      "sha256": "9effa6f9decfeb6230e20958c815cdfef8bd84f6ec6aafc8e2e87c5e4c64b4b2"
+    },
+    {
+      "path": "FrontEnd/components/ui/badge.tsx",
+      "sha256": "92dfe1cb7278ffac5c23656e33d0827da93b067724f377923f618c248204fa67"
+    },
+    {
+      "path": "FrontEnd/components/ui/breadcrumb.tsx",
+      "sha256": "801c5fac01248e8e4692b58a6ee5c6a50a3cddb9b095e0bb2e04aff201313b6c"
+    },
+    {
+      "path": "FrontEnd/components/ui/button-group.tsx",
+      "sha256": "07203100cedafa78bd03b8ffe71559d29c35bfe7ea034449ed21d1008907cc0e"
+    },
+    {
+      "path": "FrontEnd/components/ui/button.tsx",
+      "sha256": "7cb96ee534dedef7eb138952dc02fda0cb2caf2e02f2d3c08afab7f978d58dc3"
+    },
+    {
+      "path": "FrontEnd/components/ui/calendar.tsx",
+      "sha256": "11b817aaa791d8ebd39a882f80827a7d4a99c6d451c8b836a81b186fcb2de87a"
+    },
+    {
+      "path": "FrontEnd/components/ui/card.tsx",
+      "sha256": "541ffffc9e6533063116770ae651e359b41de8546c52a29a3b560074878a37db"
+    },
+    {
+      "path": "FrontEnd/components/ui/carousel.tsx",
+      "sha256": "67237a35be1473c2436d9438a17330e183bf720e84391dd8d0a00a73f289a371"
+    },
+    {
+      "path": "FrontEnd/components/ui/chart.tsx",
+      "sha256": "0d1015da32cad5bcf8b19ecb4464bfada1faf005ead1db5107410f33a4b1ac77"
+    },
+    {
+      "path": "FrontEnd/components/ui/checkbox.tsx",
+      "sha256": "f4629326151cdb4fefbb8d49ff20bcc3ffab3f791fb31b795937650877eae212"
+    },
+    {
+      "path": "FrontEnd/components/ui/collapsible.tsx",
+      "sha256": "89d052508dd671fdc6c823cc299a53537edd00c7067ae9508a2af0a8eeb4348b"
+    },
+    {
+      "path": "FrontEnd/components/ui/command.tsx",
+      "sha256": "803aa420db4170238043ca1b9f1fd88f285f1b83f3ff2c0c5abff217df316896"
+    },
+    {
+      "path": "FrontEnd/components/ui/context-menu.tsx",
+      "sha256": "ef3f8b668e7abee8ea18ea66317d067a5f3590a3bdfb7be937df5838e69602e8"
+    },
+    {
+      "path": "FrontEnd/components/ui/dialog.tsx",
+      "sha256": "2341f5d3379758c9659806e518299f9a3dc394128571e379ed83941deae83403"
+    },
+    {
+      "path": "FrontEnd/components/ui/drawer.tsx",
+      "sha256": "e62592bd1cea50ad95ebeba32a165f9cfdf5a5c6431067ec74e024b83a866f01"
+    },
+    {
+      "path": "FrontEnd/components/ui/dropdown-menu.tsx",
+      "sha256": "3124a8b0edfe90400cf4d14d438dfe6ac3af9ec9a6181feee10f48390aeb1815"
+    },
+    {
+      "path": "FrontEnd/components/ui/empty.tsx",
+      "sha256": "c9828acce9044690059524bee2e67dec68710baed7bfa1f6c787ca86413112d6"
+    },
+    {
+      "path": "FrontEnd/components/ui/field.tsx",
+      "sha256": "c80fb0dc554855fd84ac91ad30f724127a066ad2156b1846dc46ee5811ee9135"
+    },
+    {
+      "path": "FrontEnd/components/ui/form.tsx",
+      "sha256": "e308b9b592b4c89895a14077bd3254811cab67bb580286b1bd7428cb476b6df3"
+    },
+    {
+      "path": "FrontEnd/components/ui/hover-card.tsx",
+      "sha256": "3a05918eaf7436596e09562f4d5371384e15f2f27c9ef0788354035282d96064"
+    },
+    {
+      "path": "FrontEnd/components/ui/input-group.tsx",
+      "sha256": "9214c077d8d253331da82bffdb36edb778abc73d27b34dff0eb544e6d7b9d386"
+    },
+    {
+      "path": "FrontEnd/components/ui/input-otp.tsx",
+      "sha256": "6a046b50c82c554699c148a9f4922c785b200fb87f067772f166e80c59e813ca"
+    },
+    {
+      "path": "FrontEnd/components/ui/input.tsx",
+      "sha256": "b67dea8a8d35c004c6d94c22aacbbf2340b0e536c614e4c87a69d8814a7b4502"
+    },
+    {
+      "path": "FrontEnd/components/ui/item.tsx",
+      "sha256": "c4f50ecab61ee02224a432f2e5e7cafc1941913640134abade00e3db82512baf"
+    },
+    {
+      "path": "FrontEnd/components/ui/kbd.tsx",
+      "sha256": "3e346d9b84a0e2cbafb6311589d4dfcf0df6c1c8f94fca26ff4c34dfa4170823"
+    },
+    {
+      "path": "FrontEnd/components/ui/label.tsx",
+      "sha256": "dfd466a53a86f0bd002050d33e96b5385ac4e102e93485ff8d9943fdc2fbeb12"
+    },
+    {
+      "path": "FrontEnd/components/ui/menubar.tsx",
+      "sha256": "da0313c01c8aedd722c4bb1cbd4723acef6187cda4de0ea230cff90d6aebcf2e"
+    },
+    {
+      "path": "FrontEnd/components/ui/navigation-menu.tsx",
+      "sha256": "39bd2c3d7086a76e2b2b9a7a3968ebe1d2932604e99a7484b9a1c9579fd64146"
+    },
+    {
+      "path": "FrontEnd/components/ui/pagination.tsx",
+      "sha256": "c0306e3325a10c7377794b1b75fffb57179be1f19a3b3b3b0e0d79dde53b4ecf"
+    },
+    {
+      "path": "FrontEnd/components/ui/popover.tsx",
+      "sha256": "50b93b8af040517d766f9ee6d0dffeacf40b5082469bba7e5d49a7f9eb5aaa37"
+    },
+    {
+      "path": "FrontEnd/components/ui/progress.tsx",
+      "sha256": "d48446fe6380e0fb272988c37992a4633b7002dd7e8faa639993f38e010953aa"
+    },
+    {
+      "path": "FrontEnd/components/ui/radio-group.tsx",
+      "sha256": "9a91313aaed0e8358c69fad89d12a1f5d148bd7fa5ffbed925e6f8b368617ba9"
+    },
+    {
+      "path": "FrontEnd/components/ui/resizable.tsx",
+      "sha256": "8f96f309d60fb87c09afbfba79c43326324379859e2bc27e1d26594a886ec908"
+    },
+    {
+      "path": "FrontEnd/components/ui/scroll-area.tsx",
+      "sha256": "4d19b093a16635687d128e2157c8f5bac50b2391cbe031e07ec1e2d53f4d73a3"
+    },
+    {
+      "path": "FrontEnd/components/ui/select.tsx",
+      "sha256": "e2b4198bbf3968eae76d71fd04074b43f802357d997dbd01a1721a96e5895383"
+    },
+    {
+      "path": "FrontEnd/components/ui/separator.tsx",
+      "sha256": "96ef29b5aa9a169fd23a813ebbd4a721ba693c9ba73b9bdd9b4ece6788e9279c"
+    },
+    {
+      "path": "FrontEnd/components/ui/sheet.tsx",
+      "sha256": "647b61de5cb1f53e7265022c6f60bf25a43b75ff71bde690adf9ec5f74a22688"
+    },
+    {
+      "path": "FrontEnd/components/ui/sidebar.tsx",
+      "sha256": "1bdf187549f043a81a5b1a97da1422c4bf2bc5b2cce0415f074e017dcf1e8f71"
+    },
+    {
+      "path": "FrontEnd/components/ui/skeleton.tsx",
+      "sha256": "c3005a6a39bd1aaecf3c0c9c61860db480ec5cbd16381556e381bdc3a59b6ac6"
+    },
+    {
+      "path": "FrontEnd/components/ui/slider.tsx",
+      "sha256": "0d000a7ec98386e515f6e484e4545cc4d34bcf201fd52ce5a53a5fea0bfdd9b5"
+    },
+    {
+      "path": "FrontEnd/components/ui/sonner.tsx",
+      "sha256": "5f2418e3437ab5fcf922fefa408f3b0257431ac9353a10c5c3d18fd3e68b30f7"
+    },
+    {
+      "path": "FrontEnd/components/ui/spinner.tsx",
+      "sha256": "006b673fb9c6922aae885173748176c0daec31d8b396a04335143808a5ec89c4"
+    },
+    {
+      "path": "FrontEnd/components/ui/switch.tsx",
+      "sha256": "6d89650a8b9474244627b2ead855995f9923b9ad8576db96c1841b084f44c76a"
+    },
+    {
+      "path": "FrontEnd/components/ui/table.tsx",
+      "sha256": "7e4ec95a993de8b29a144facf8c5e99271239ee40ca158a93cbc8b6853e7ca54"
+    },
+    {
+      "path": "FrontEnd/components/ui/tabs.tsx",
+      "sha256": "23cc67b5360458decab2e93b3827aebbe142fd2d9f76ec418f96cb3269f1820a"
+    },
+    {
+      "path": "FrontEnd/components/ui/textarea.tsx",
+      "sha256": "cf31ce99f03ac69f9821b4463a366c66698ae8e7eba5c06d2ede63d5cf7309bd"
+    },
+    {
+      "path": "FrontEnd/components/ui/toast.tsx",
+      "sha256": "37ee2f94a1c5df7a0194cd1740414722e58de5a94fd46e82329b4c217f5fbf36"
+    },
+    {
+      "path": "FrontEnd/components/ui/toaster.tsx",
+      "sha256": "2dfd19d81413d2eda50679dd8caa1cad25ebb34194b37fa1ddfb7dd647939f6d"
+    },
+    {
+      "path": "FrontEnd/components/ui/toggle-group.tsx",
+      "sha256": "4e725b44cc99b17211ca80c9306271c7dd1a9c9af0d0aba3faddad63d33992e2"
+    },
+    {
+      "path": "FrontEnd/components/ui/toggle.tsx",
+      "sha256": "80a93a384850d9fd7b4d5c2d1f8409874d198467648e000c310695caedaf807b"
+    },
+    {
+      "path": "FrontEnd/components/ui/tooltip.tsx",
+      "sha256": "b620f27ccc82ec7748e2039143cd3c36c029e48b083025f88e621e6dda91222a"
+    },
+    {
+      "path": "FrontEnd/components/ui/use-mobile.tsx",
+      "sha256": "1b43441b273aa21c1e74fefa774d5a7cb50068e5d4c192a8f63b9c95c5580431"
+    },
+    {
+      "path": "FrontEnd/components/ui/use-toast.ts",
+      "sha256": "3b5f8c9c5257f1cf36a94eeffed2588037e9cc7931d90b752604c2baed30cf81"
+    },
+    {
+      "path": "FrontEnd/components/ui-dashboard/Card.tsx",
+      "sha256": "054314104cce0e1d57d0eb4869fca82e66f436468e44af945e58f036971bb4ea"
+    },
+    {
+      "path": "FrontEnd/components/whatsapp-float.tsx",
+      "sha256": "8e77040e940c913d84ec5902ec19bfeff3784909bb10b2110ad40c6662a9b6a4"
+    },
+    {
+      "path": "FrontEnd/lib/api-v2.ts",
+      "sha256": "9a813a3f978d256f0cbee4def5bed065eeebfa52e9448012d7fb078ed881cb86"
+    },
+    {
+      "path": "FrontEnd/lib/auth-v2.ts",
+      "sha256": "63e4566706cdb16816d88208a0fa7304f0ac591cf9b19f9135df5d879b96b8b7"
+    },
+    {
+      "path": "FrontEnd/lib/billing.ts",
+      "sha256": "048889b883ce1c174c017774b40c8769d8970eadd378a8bea4913c315472bff7"
+    },
+    {
+      "path": "FrontEnd/lib/config.ts",
+      "sha256": "a806536f4a37046dafb9d808582ff6b9bb9fb320fd365760c2fc14431d4221bb"
+    },
+    {
+      "path": "FrontEnd/lib/http-client.ts",
+      "sha256": "ee3f2d5d7f9cf05b30e1d4b778624852497b268915d3f412e4b6febc66d7cf3e"
+    },
+    {
+      "path": "FrontEnd/lib/legal.ts",
+      "sha256": "65e7b596daf66b44c878db34f3390f2cde7d9247dde75a64b0f44d6fcd65a562"
+    },
+    {
+      "path": "FrontEnd/lib/produtos.ts",
+      "sha256": "8dab182ed62a526a077b592e71f9a789dc07a2d2ee53f9ed95d6d325ba5007ac"
+    },
+    {
+      "path": "FrontEnd/lib/seo.ts",
+      "sha256": "b95243de64f7d288c42e3a8d0b0df2c8dd5c01831f9ff0711107164dc81bf9dc"
+    },
+    {
+      "path": "FrontEnd/lib/services/clientes.ts",
+      "sha256": "8e5ba4c1f5d6796c2ef2cc917b90be017065e43527021eeb699c73eb3bc095f1"
+    },
+    {
+      "path": "FrontEnd/lib/services/dashboard.ts",
+      "sha256": "f8b0aa5e7d8811d4985f7fa837a53f0e6f0025c3913edc9ca4f38cc8df4f1a92"
+    },
+    {
+      "path": "FrontEnd/lib/services/estoque.ts",
+      "sha256": "ad7fd76ea9acf717927bd13198a204ae421be959db6f8aee082442631859f616"
+    },
+    {
+      "path": "FrontEnd/lib/services/index.ts",
+      "sha256": "3eafa73c5bfa32dc73357d74ef83601c18a535382f3a7c33accf003225ba8951"
+    },
+    {
+      "path": "FrontEnd/lib/services/produtos.ts",
+      "sha256": "fa3cf5ca553e3c4c464594f75d1f2000e876e167e9d8d29b4653370c5ff8e701"
+    },
+    {
+      "path": "FrontEnd/lib/services/vendas.ts",
+      "sha256": "63cd6f9a9ea743bb32fedb83a9ab3b370ea4cdf707d2e2487768e91d28fca4cf"
+    },
+    {
+      "path": "FrontEnd/lib/som-venda.ts",
+      "sha256": "26b1c29080cc1852b1ec39136b780482e1e4c39b3859139a542fd3334a3dc91e"
+    },
+    {
+      "path": "FrontEnd/lib/types.ts",
+      "sha256": "1cd850d513a639e942bb655eb2b24b3dd723937654e67014657ef10e4c22413f"
+    },
+    {
+      "path": "FrontEnd/lib/useBarcodeScanner.ts",
+      "sha256": "92e081be8e3b7a2069b704bc0c4482735ed6fa072f4da6f906dbacaba88eb7a5"
+    },
+    {
+      "path": "FrontEnd/lib/utils.ts",
+      "sha256": "d1f1e0d62cb8d8d1e04c26e14de842d8a151f75812d81b046c65b5d1fe8e4b27"
+    },
+    {
+      "path": "FrontEnd/hooks/use-action-cooldown.ts",
+      "sha256": "d8d6da4620aaf98e732e6ece17923bb9d2666d8bc6fdab5abc5ebac68652455a"
+    },
+    {
+      "path": "FrontEnd/hooks/use-mobile.ts",
+      "sha256": "1b43441b273aa21c1e74fefa774d5a7cb50068e5d4c192a8f63b9c95c5580431"
+    },
+    {
+      "path": "FrontEnd/hooks/use-toast.ts",
+      "sha256": "3b5f8c9c5257f1cf36a94eeffed2588037e9cc7931d90b752604c2baed30cf81"
+    },
+    {
+      "path": "FrontEnd/public/sw.js",
+      "sha256": "2473e4e86ac3572541441f02c1a40e00018a1ff2907a0b88e4ab386aa39a9652"
+    }
+  ],
+  "mysqlMigrations": [
+    "Backend/src/main/resources/db/migration/V10__fiscal_feature_flags.sql",
+    "Backend/src/main/resources/db/migration/V11__fiscal_document_environment.sql",
+    "Backend/src/main/resources/db/migration/V12__fiscal_role_access.sql",
+    "Backend/src/main/resources/db/migration/V13__fiscal_issuer_data.sql",
+    "Backend/src/main/resources/db/migration/V14__data_inicio_contingencia.sql",
+    "Backend/src/main/resources/db/migration/V15__fiscal_delivery_outbox.sql",
+    "Backend/src/main/resources/db/migration/V16__fiscal_webhook_config.sql",
+    "Backend/src/main/resources/db/migration/V17__rename_fiscal_access_role.sql",
+    "Backend/src/main/resources/db/migration/V18__mercado_pago_subscriptions.sql",
+    "Backend/src/main/resources/db/migration/V19__mercado_pago_webhook_deliveries.sql",
+    "Backend/src/main/resources/db/migration/V1__fiscal_foundation.sql",
+    "Backend/src/main/resources/db/migration/V20__mercado_pago_existing_schema.sql",
+    "Backend/src/main/resources/db/migration/V21__product_barcode_lookup.sql",
+    "Backend/src/main/resources/db/migration/V22__barcode_migration_consistency.sql",
+    "Backend/src/main/resources/db/migration/V2__fiscal_company_configuration.sql",
+    "Backend/src/main/resources/db/migration/V3__fiscal_jobs.sql",
+    "Backend/src/main/resources/db/migration/V4__fiscal_xml_storage.sql",
+    "Backend/src/main/resources/db/migration/V5__fiscal_events.sql",
+    "Backend/src/main/resources/db/migration/V6__product_fiscal_profiles.sql",
+    "Backend/src/main/resources/db/migration/V7__link_sales_to_fiscal_documents.sql",
+    "Backend/src/main/resources/db/migration/V8__fiscal_split_payments.sql",
+    "Backend/src/main/resources/db/migration/V9__nfse_national_fields.sql"
+  ],
+  "originalComparison": {
+    "source": "/home/matheus-martins/Documentos/GestPro/Gest-Pro",
+    "available": true,
+    "equal": 465,
+    "different": [
+      "FrontEnd/app/styles/auth.module.css"
+    ],
+    "missing": []
+  }
+}

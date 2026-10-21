@@ -1,262 +1,61 @@
-<div align="center">
+# Gevyro Next
 
-<img src="Img/gevyro-fav-br.png" alt="Gevyro" width="110" />
+Migração incremental da Gevyro de Spring Boot/MySQL para TypeScript/Supabase PostgreSQL, preservando o frontend existente.
 
-# Gevyro
+Projeto independente, com repositório próprio: [MartnsDev/Gevyro-Next](https://github.com/MartnsDev/Gevyro-Next). A Gevyro original serve como referência funcional; alterações, configurações e futuras publicações pertencem exclusivamente ao Gevyro Next. Não reutilizar bancos, credenciais ou ambientes de produção da Gevyro original.
 
-### Gestão em evolução.
+**Ainda em migração. Não utilizar como backend substituto em produção.** Consulte [MIGRATION_STATUS.md](MIGRATION_STATUS.md) para o estado real de cada módulo.
 
-Plataforma de gestão empresarial criada para centralizar vendas, estoque, caixa, clientes e informações importantes da operação em um único ambiente.
+## Estrutura
 
-<br />
+- `Backend/`: Java original mantido como referência; não modificado nesta etapa.
+- `FrontEnd/`: interface existente, ainda conectada à API Java.
+- `src/server/services/`: primeiros serviços TypeScript independentes de React.
+- `supabase/migrations/`: migrations PostgreSQL novas; schema ainda parcial.
+- `tests/`: regras financeiras e isolamento RLS da fundação.
+- `docs/`: inventário, equivalência, decisões e resultados de validação.
 
-[Conheça a Gevyro](https://www.gevyro.com.br) · [Produto](#uma-visão-mais-clara-do-negócio) · [Tecnologia](#tecnologia) · [Segurança](#segurança)
+## Desenvolvimento e verificação
 
-<br />
+Requer Node 20.9+ para o frontend atual, npm e Python 3. Para testes PostgreSQL locais, PostgreSQL 16 e usuário de sistema não root.
 
-[![Java](https://img.shields.io/badge/Java-17%2B-ED8B00?style=flat-square&logo=openjdk&logoColor=white)](https://openjdk.org/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?style=flat-square&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
-[![Next.js](https://img.shields.io/badge/Next.js-14%2B-000000?style=flat-square&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5%2B-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![MySQL](https://img.shields.io/badge/MySQL-8%2B-4479A1?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
-
-</div>
-
-<br />
-
-## Administrar uma empresa não deveria significar procurar informações em vários lugares
-
-Uma venda acontece.
-
-O estoque muda.
-
-O caixa recebe uma movimentação.
-
-Um cliente compra.
-
-Novos dados são gerados.
-
-Quando cada uma dessas informações está em um lugar diferente, entender o que realmente está acontecendo com a empresa se torna mais difícil do que deveria.
-
-A Gevyro nasceu para reunir essa operação.
-
-Vendas, estoque, produtos, clientes, caixa e indicadores passam a fazer parte de um mesmo ambiente.
-
-Não para adicionar mais uma ferramenta à rotina.
-
-Para tornar a gestão mais clara.
-
-<br />
-
-<div align="center">
-
-### Sua operação em um só lugar.
-
-Vendas · Estoque · Caixa · Clientes · Empresas · Relatórios
-
-</div>
-
-<br />
-
-## Uma visão mais clara do negócio
-
-A Gevyro organiza diferentes partes da operação para que elas funcionem de maneira conectada.
-
-Uma venda registrada no PDV não termina na tela de vendas.
-
-Ela movimenta o estoque, pertence a um caixa, pode estar relacionada a um cliente e passa a fazer parte dos indicadores utilizados para acompanhar a empresa.
-
-É essa conexão que transforma registros isolados em informação útil.
-
-<br />
-
-<div align="center">
-
-<img src="Img/gevyro-explicação_3.png" alt="Recursos da plataforma Gevyro" width="900" />
-
-</div>
-
-<br />
-
-## A Gevyro por dentro
-
-<table>
-<tr>
-<td align="center" width="50%">
-<img src="Img/gevyro-1.png" alt="Página inicial da Gevyro" width="100%" />
-<br />
-<sub><b>Experiência de entrada da plataforma</b></sub>
-</td>
-<td align="center" width="50%">
-<img src="Img/gevyro-3.png" alt="Dashboard da Gevyro" width="100%" />
-<br />
-<sub><b>Visão geral da operação</b></sub>
-</td>
-</tr>
-<tr>
-<td align="center" width="50%">
-<img src="Img/gevyro5.png" alt="Área de vendas da Gevyro" width="100%" />
-<br />
-<sub><b>Vendas e frente de caixa</b></sub>
-</td>
-<td align="center" width="50%">
-<img src="Img/gevyro-4.png" alt="Relatórios da Gevyro" width="100%" />
-<br />
-<sub><b>Indicadores e análise da operação</b></sub>
-</td>
-</tr>
-</table>
-
-<br />
-
-## Da operação para a informação
-
-A arquitetura do produto acompanha o fluxo da operação empresarial.
-
-<br />
-
-<div align="center">
-
-<img src="Img/gevyro-explicação_1.png" alt="Fluxo de dados da plataforma Gevyro" width="750" />
-
-</div>
-
-<br />
-
-Cada módulo possui sua responsabilidade, mas os dados trabalham em conjunto.
-
-Isso permite que a plataforma evolua sem transformar cada nova funcionalidade em uma ferramenta isolada.
-
-<br />
-
-## Tecnologia
-
-A Gevyro também é um projeto de engenharia de software.
-
-A interface é construída com Next.js, React e TypeScript.
-
-A API utiliza Java e Spring Boot, com Spring Security para autenticação e autorização e Spring Data JPA para persistência.
-
-O MySQL mantém os dados relacionais da aplicação.
-
-<br />
-
-<div align="center">
-
-<img src="Img/gevyro-explicação_2.png" alt="Arquitetura tecnológica da Gevyro" width="800" />
-
-</div>
-
-<br />
-
-A aplicação também utiliza JWT, OAuth2, Hibernate, Jakarta Validation, Maven, Tailwind CSS e ferramentas complementares do ecossistema utilizado pelo projeto.
-
-A documentação técnica detalhada do backend fica disponível em:
-
-```text
-Backend/README.md
+```sh
+npm ci
+npm run audit
+npm run typecheck
+npm test
+npm run test:postgres
 ```
 
-<br />
+O teste PostgreSQL cria um cluster sintético exclusivo em `/tmp`, escuta apenas em socket Unix, aplica a migration e desliga ao terminar. Não acessa bancos existentes. A interface mínima `auth.uid()` do teste não substitui validação em Supabase real. Se os binários estiverem em outro caminho, configure `GEVYRO_PG_BIN`.
 
-## Segurança
+Para executar a interface legada:
 
-Recursos protegidos passam pelas camadas de autenticação e autorização da aplicação.
+```sh
+npm ci --prefix FrontEnd
+# Criar FrontEnd/.env.local manualmente com valores LOCAIS do .env.example.
+npm run dev
+npm --prefix FrontEnd run typecheck
+npm run build
+```
 
-A Gevyro utiliza Spring Security, BCrypt para senhas, autenticação baseada em JWT e suporte a OAuth2.
+Em desenvolvimento, `NEXT_PUBLIC_API_URL` usa `http://localhost:8080` por padrão. Para outro endereço, configure `FrontEnd/.env.local`. Em produção e no build, a variável é obrigatória. O script de build da raiz utiliza Webpack; a tentativa com Turbopack não terminou neste ambiente. A execução funcional ainda requer o backend Java e suas integrações. Não reutilizar credenciais de produção. Não apontar testes para a API pública original.
 
-Sessões podem utilizar cookies HttpOnly para impedir que o token seja acessado diretamente pelo JavaScript executado no navegador.
+Não existem ainda scripts de deploy ou migrations contra ambiente remoto: serão adicionados com a integração efetiva e sua validação. Nenhum serviço pago foi contratado.
 
-O acesso aos dados empresariais considera a relação entre o usuário autenticado e a empresa responsável pelo recurso solicitado.
+## Documentação
 
-Segredos, credenciais e chaves utilizadas pelos ambientes da aplicação não devem fazer parte do código fonte versionado.
+- [Matriz funcional](docs/FUNCTIONAL_MATRIX.md) e [inventário técnico](docs/inventory.json).
+- [Arquitetura, segurança e comportamento financeiro](docs/ARCHITECTURE.md).
+- [Avaliação de hospedagem](docs/HOSTING.md).
+- [Validação deste incremento](docs/VALIDATION.md).
 
-<br />
+## Supabase e migração
 
-## Construída para evoluir
+Provisionar somente um projeto separado de desenvolvimento ao iniciar a integração. A migration atual depende de `auth.users`/`auth.uid()` fornecidos pelo Supabase e contém apenas empresas. Não aplicar no MySQL original nem tratá-la como conversão completa do modelo JPA. Chave publicável vai no cliente; chaves secretas somente no servidor, se realmente necessárias. A integração SSR ainda está pendente.
 
-Gevyro não foi escolhida apenas como um novo nome para um sistema.
+Contas legadas exigirão correspondência entre IDs Java e Supabase e uma estratégia validada de importação ou redefinição de senha. A migração de dados deve usar exportação autorizada, execução de ensaio, contagem por empresa, chaves estrangeiras, saldos financeiros/estoque e reconciliação antes do corte.
 
-O nome representa a direção do produto.
+## Backup e recuperação
 
-**GE** parte de Gestão Empresarial.
-
-**VYRO** é uma construção própria inspirada na ideia de virada, transformação e mudança de direção.
-
-Uma empresa muda todos os dias.
-
-Novos clientes chegam.
-
-Produtos mudam.
-
-Vendas acontecem.
-
-Decisões precisam ser tomadas.
-
-A tecnologia que acompanha essa operação também precisa evoluir.
-
-É daí que nasce a assinatura da marca.
-
-<div align="center">
-
-## Gestão em evolução.
-
-</div>
-
-<br />
-
-## Desenvolvimento
-
-A Gevyro está em desenvolvimento contínuo.
-
-Novos recursos, melhorias de experiência, alterações de arquitetura e evolução das regras de negócio fazem parte do desenvolvimento do produto.
-
-Este repositório representa a implementação técnica da plataforma.
-
-Informações sobre endpoints, configuração do ambiente, arquitetura do backend e execução local ficam concentradas na documentação técnica do projeto.
-
-<br />
-
-## Informações institucionais
-
-**Marca:** Gevyro
-
-**Segmento:** Software de gestão empresarial
-
-**CNPJ:** 68.259.534/0001-70
-
-**Website:** [www.gevyro.com.br](https://www.gevyro.com.br)
-
-<br />
-
-## Desenvolvimento e autoria
-
-Desenvolvido por **Matheus Martins · MartnsDev**
-
-[GitHub](https://github.com/MartnsDev) · [LinkedIn](https://www.linkedin.com/in/matheusmartnsdev/)
-
-<br />
-
-## Direitos
-
-Copyright © 2026 Matheus Martins.
-
-Todos os direitos reservados.
-
-O código fonte e os demais componentes deste repositório permanecem sujeitos aos termos definidos pelo titular dos direitos.
-
-Consulte o arquivo `LICENSE` para informações aplicáveis ao uso do código.
-
-<br />
-
-<div align="center">
-
-<img src="Img/gevyro-fav-br.png" alt="Gevyro" width="70" />
-
-### GEVYRO
-
-**Gestão em evolução.**
-
-[www.gevyro.com.br](https://www.gevyro.com.br)
-
-</div>
+O diretório `Backup/` é legado e não foi convertido para PostgreSQL. Antes de operar clientes: definir RPO/RTO, backups criptografados do banco e Storage, retenção, acesso restrito e restauração testada em projeto isolado. Não considerar recursos de backup do plano Supabase disponíveis sem conferência. Não há backup ou restauração de produção validado nesta etapa.

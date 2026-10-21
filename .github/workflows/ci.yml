@@ -34,7 +34,27 @@ jobs:
       - name: Verificar tipos
         run: npm run typecheck
       - name: Gerar build
-        run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:8080
+        run: npm run build -- --webpack
+
+  typescript:
+    name: Gevyro Next - servicos TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci --ignore-scripts
+      - name: Verificar tipos
+        run: npm run typecheck
+      - name: Testar regras financeiras
+        run: npm test
 
   backend:
     name: Backend - testes
